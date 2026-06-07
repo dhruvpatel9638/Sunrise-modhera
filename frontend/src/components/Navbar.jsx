@@ -1,0 +1,147 @@
+import React, { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
+import logoGreen from '../assets/logo_green.png';
+import logoWhite from '../assets/logo_white.png';
+
+export default function Navbar({ isAdminMode = false, activeTab = 'bookings', setActiveTab }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
+  return (
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+      <div className="container">
+        <a href="#hero" className="nav-logo" onClick={closeMobileMenu}>
+          <img src={logoWhite} alt="Modhera Sunrise Logo" className="logo-img" />
+        </a>
+
+        {/* Desktop Menu */}
+        <div className="nav-links">
+          {isAdminMode ? (
+            <>
+              <button 
+                onClick={() => setActiveTab('bookings')} 
+                className={`nav-link-btn ${activeTab === 'bookings' ? 'active' : ''}`}
+              >
+                Bookings
+              </button>
+              <button 
+                onClick={() => setActiveTab('inquiries')} 
+                className={`nav-link-btn ${activeTab === 'inquiries' ? 'active' : ''}`}
+              >
+                Inquiries
+              </button>
+              <button 
+                onClick={() => setActiveTab('reviews')} 
+                className={`nav-link-btn ${activeTab === 'reviews' ? 'active' : ''}`}
+              >
+                Reviews
+              </button>
+            </>
+          ) : (
+            <>
+              <a href="#hero" className="nav-link">Home</a>
+              <a href="#accommodations" className="nav-link">Accommodations</a>
+              <a href="#amenities" className="nav-link">Amenities</a>
+              <a href="#dining" className="nav-link">Dining</a>
+              <a href="#gallery" className="nav-link">Gallery</a>
+              <a href="#reviews" className="nav-link">Reviews</a>
+              <a href="#inquiry" className="nav-link">Contact</a>
+              <a href="#booking" className="btn btn-primary">
+                Plan Your Outing
+              </a>
+            </>
+          )}
+        </div>
+
+        {/* Mobile Hamburger Button */}
+        <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: '70px',
+            left: 0,
+            width: '100%',
+            background: 'var(--natural-forest-dark)',
+            padding: '24px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            boxShadow: 'var(--shadow-lg)',
+            borderBottom: '2px solid var(--primary-sunrise)',
+            zIndex: 999,
+          }}
+        >
+          {isAdminMode ? (
+            <>
+              <button 
+                onClick={() => { setActiveTab('bookings'); closeMobileMenu(); }} 
+                className={`nav-link-btn ${activeTab === 'bookings' ? 'active' : ''}`}
+                style={{ color: 'var(--white)', textAlign: 'left' }}
+              >
+                Bookings
+              </button>
+              <button 
+                onClick={() => { setActiveTab('inquiries'); closeMobileMenu(); }} 
+                className={`nav-link-btn ${activeTab === 'inquiries' ? 'active' : ''}`}
+                style={{ color: 'var(--white)', textAlign: 'left' }}
+              >
+                Inquiries
+              </button>
+              <button 
+                onClick={() => { setActiveTab('reviews'); closeMobileMenu(); }} 
+                className={`nav-link-btn ${activeTab === 'reviews' ? 'active' : ''}`}
+                style={{ color: 'var(--white)', textAlign: 'left' }}
+              >
+                Reviews
+              </button>
+            </>
+          ) : (
+            <>
+              <a href="#hero" className="nav-link" onClick={closeMobileMenu}>Home</a>
+              <a href="#accommodations" className="nav-link" onClick={closeMobileMenu}>Accommodations</a>
+              <a href="#amenities" className="nav-link" onClick={closeMobileMenu}>Amenities</a>
+              <a href="#dining" className="nav-link" onClick={closeMobileMenu}>Dining</a>
+              <a href="#gallery" className="nav-link" onClick={closeMobileMenu}>Gallery</a>
+              <a href="#reviews" className="nav-link" onClick={closeMobileMenu}>Reviews</a>
+              <a href="#inquiry" className="nav-link" onClick={closeMobileMenu}>Contact</a>
+              <a 
+                href="#booking"
+                className="btn btn-primary" 
+                onClick={closeMobileMenu}
+                style={{ width: '100%', justifyContent: 'center', textAlign: 'center' }}
+              >
+                Plan Your Outing
+              </a>
+            </>
+          )}
+        </div>
+      )}
+    </nav>
+  );
+}
