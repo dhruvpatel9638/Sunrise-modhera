@@ -16,6 +16,9 @@ export default function ScrollBackground() {
     let animationFrameId = null;
     let initialized = false;
 
+    let lastSeekTime = 0;
+    const seekThrottleMs = 50; // Throttle to maximum ~20 seeking operations per second to allow decoder to keep up
+
     const getScrollProgress = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -25,6 +28,11 @@ export default function ScrollBackground() {
 
     const updateLoop = () => {
       if (video && !isNaN(video.duration) && video.duration > 0) {
+        // Ensure the video remains paused so playback doesn't conflict with scrubbing
+        if (!video.paused) {
+          video.pause();
+        }
+
         const progress = getScrollProgress();
         targetTime = progress * video.duration;
 
@@ -36,16 +44,23 @@ export default function ScrollBackground() {
         }
 
         const diff = targetTime - currentTime;
+        const now = performance.now();
         
         // Use a smooth linear interpolation (lerp) to glide the video currentTime.
-        // This is significantly smoother than raw seeking because seeks happen in close steps,
-        // which helps the browser hardware decoder process frames efficiently.
-        if (Math.abs(diff) > 0.02) {
-          currentTime += diff * 0.12; // Smoothness factor (0.12 feels like premium inertial scroll)
-          video.currentTime = currentTime;
-        } else if (currentTime !== targetTime) {
+        // We only push currentTime updates to the video element if it's not currently seeking 
+        // and we have throttled seeks to prevent decoder overload.
+        if (Math.abs(diff) > 0.01) {
+          currentTime += diff * 0.1; // Smoothness factor
+          if (!video.seeking && (now - lastSeekTime > seekThrottleMs)) {
+            video.currentTime = currentTime;
+            lastSeekTime = now;
+          }
+        } else if (Math.abs(video.currentTime - targetTime) > 0.01) {
           currentTime = targetTime;
-          video.currentTime = currentTime;
+          if (!video.seeking && (now - lastSeekTime > seekThrottleMs)) {
+            video.currentTime = currentTime;
+            lastSeekTime = now;
+          }
         }
       }
       animationFrameId = requestAnimationFrame(updateLoop);
@@ -97,7 +112,10 @@ export default function ScrollBackground() {
           zIndex: 2,
           opacity: 0.5,
           objectFit: 'cover',
-          pointerEvents: 'none'
+          pointerEvents: 'none',
+          willChange: 'transform',
+          transform: 'translate3d(0, 0, 0)',
+          WebkitTransform: 'translate3d(0, 0, 0)'
         }}
       />
     </div>

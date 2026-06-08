@@ -1612,6 +1612,9 @@ textarea {
   opacity: 0.5;
   object-fit: cover;
   pointer-events: none;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .scroll-bg-loader {
