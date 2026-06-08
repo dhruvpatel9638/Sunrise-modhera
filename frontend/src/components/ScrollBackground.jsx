@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import bgVideo from '../assets/Mud_huts_with_thatched_roofs_202606040528.mp4';
+import bgVideo from '../assets/Generate_FPV_drone_shot_video_202606081808.mp4';
 
 export default function ScrollBackground() {
   const videoRef = useRef(null);
