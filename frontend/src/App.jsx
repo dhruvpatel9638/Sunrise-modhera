@@ -118,18 +118,22 @@ export default function App() {
   useEffect(() => {
     fetchRooms();
     fetchReviews();
+  }, []);
 
+  useEffect(() => {
     const handleHash = () => {
       const newHash = window.location.hash;
-      setHash(newHash);
-      // Only scroll to top when transitioning to/from the admin panel
-      if (newHash === '#admin' || newHash === '' || newHash === '#') {
+      // Only update state and scroll to top when entering or leaving the admin dashboard.
+      // This prevents the page from re-rendering and aborting native browser scrolls
+      // when clicking local section anchor tags (e.g. #accommodations).
+      if (newHash === '#admin' || hash === '#admin') {
+        setHash(newHash);
         window.scrollTo({ top: 0 });
       }
     };
     window.addEventListener('hashchange', handleHash);
     return () => window.removeEventListener('hashchange', handleHash);
-  }, []);
+  }, [hash]);
 
   const handleNewReview = (newReview) => {
     setReviews((prev) => [newReview, ...prev]);
