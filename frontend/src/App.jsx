@@ -120,8 +120,12 @@ export default function App() {
     fetchReviews();
 
     const handleHash = () => {
-      setHash(window.location.hash);
-      window.scrollTo({ top: 0 });
+      const newHash = window.location.hash;
+      setHash(newHash);
+      // Only scroll to top when transitioning to/from the admin panel
+      if (newHash === '#admin' || newHash === '' || newHash === '#') {
+        window.scrollTo({ top: 0 });
+      }
     };
     window.addEventListener('hashchange', handleHash);
     return () => window.removeEventListener('hashchange', handleHash);
