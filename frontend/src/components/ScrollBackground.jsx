@@ -11,13 +11,7 @@ export default function ScrollBackground() {
     // Force video to load
     video.load();
 
-    let targetTime = 0;
-    let currentTime = 0;
     let animationFrameId = null;
-    let initialized = false;
-
-    let lastSeekTime = 0;
-    const seekThrottleMs = 50; // Throttle to maximum ~20 seeking operations per second to allow decoder to keep up
 
     const getScrollProgress = () => {
       const scrollTop = window.scrollY;
@@ -34,33 +28,12 @@ export default function ScrollBackground() {
         }
 
         const progress = getScrollProgress();
-        targetTime = progress * video.duration;
+        const targetTime = progress * video.duration;
 
-        // Initialize to current scroll position immediately on first load
-        if (!initialized) {
-          currentTime = targetTime;
-          video.currentTime = currentTime;
-          initialized = true;
-        }
-
-        const diff = targetTime - currentTime;
-        const now = performance.now();
-        
-        // Use a smooth linear interpolation (lerp) to glide the video currentTime.
-        // We only push currentTime updates to the video element if it's not currently seeking 
-        // and we have throttled seeks to prevent decoder overload.
-        if (Math.abs(diff) > 0.01) {
-          currentTime += diff * 0.1; // Smoothness factor
-          if (!video.seeking && (now - lastSeekTime > seekThrottleMs)) {
-            video.currentTime = currentTime;
-            lastSeekTime = now;
-          }
-        } else if (Math.abs(video.currentTime - targetTime) > 0.01) {
-          currentTime = targetTime;
-          if (!video.seeking && (now - lastSeekTime > seekThrottleMs)) {
-            video.currentTime = currentTime;
-            lastSeekTime = now;
-          }
+        // Directly update currentTime to match scroll position exactly (millisecond by millisecond)
+        // playing forward when scrolling down, and backward (reverse) when scrolling up.
+        if (Math.abs(video.currentTime - targetTime) > 0.001) {
+          video.currentTime = targetTime;
         }
       }
       animationFrameId = requestAnimationFrame(updateLoop);
@@ -68,9 +41,7 @@ export default function ScrollBackground() {
 
     const handleMetadata = () => {
       if (video && !isNaN(video.duration)) {
-        currentTime = getScrollProgress() * video.duration;
-        video.currentTime = currentTime;
-        initialized = true;
+        video.currentTime = getScrollProgress() * video.duration;
       }
     };
 
