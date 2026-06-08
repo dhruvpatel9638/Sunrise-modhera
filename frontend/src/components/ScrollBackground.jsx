@@ -1,23 +1,21 @@
 import React, { useEffect, useRef } from 'react';
-import bgVideo from '../assets/Generate_FPV_drone_shot_video_202606081808.mp4';
 
 export default function ScrollBackground() {
-  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
-    // Force video to load
-    video.load();
+    const frameCount = 240;
+    const images = [];
+    let loadedCount = 0;
+    let imagesPreloaded = false;
 
-    let targetTime = 0;
-    let currentTime = 0;
-    let initialized = false;
+    let currentFrameIndex = 0;
+    let targetFrameIndex = 0;
     let animationFrameId = null;
-
-    let lastSeekTime = 0;
-    const seekThrottleMs = 30; // Maximum seek operations throttled to ~33 per second to prevent GPU decoder lockups
 
     const getScrollProgress = () => {
       const scrollTop = window.scrollY;
@@ -26,67 +24,81 @@ export default function ScrollBackground() {
       return Math.min(Math.max(scrollTop / docHeight, 0), 1);
     };
 
-    const updateLoop = () => {
-      if (video && !isNaN(video.duration) && video.duration > 0) {
-        // Ensure the video remains paused so playback doesn't conflict with scrubbing
-        if (!video.paused) {
-          video.pause();
-        }
+    const drawImageProp = (img) => {
+      if (!ctx || !canvas) return;
+      const w = canvas.width;
+      const h = canvas.height;
+      const iw = img.width;
+      const ih = img.height;
+      
+      // Calculate aspect ratio fit (object-fit: cover)
+      const r = Math.max(w / iw, h / ih);
+      const nw = iw * r;
+      const nh = ih * r;
+      const cx = (w - nw) / 2;
+      const cy = (h - nh) / 2;
+      
+      ctx.clearRect(0, 0, w, h);
+      ctx.drawImage(img, cx, cy, nw, nh);
+    };
 
-        // 1. Calculate target progress (0% -> 100%)
-        const progress = getScrollProgress();
-        // 2. Store target value
-        targetTime = progress * video.duration;
-
-        // Initialize to current scroll position immediately on first load
-        if (!initialized) {
-          currentTime = targetTime;
-          video.currentTime = currentTime;
-          initialized = true;
-        }
-
-        // 3. Animation engine slowly moves current value toward target value
-        const diff = targetTime - currentTime;
-        const now = performance.now();
-
-        if (Math.abs(diff) > 0.01) {
-          currentTime += diff * 0.06; // Slow and smooth animation gliding toward target progress
-          
-          // 4. Video follows smoothly, avoiding seek congestion
-          if (!video.seeking && (now - lastSeekTime > seekThrottleMs)) {
-            video.currentTime = currentTime;
-            lastSeekTime = now;
-          }
-        } else if (currentTime !== targetTime) {
-          currentTime = targetTime;
-          if (!video.seeking) {
-            video.currentTime = currentTime;
-          }
-        }
+    const renderFrame = (index) => {
+      const imgIndex = Math.min(frameCount - 1, Math.max(0, Math.round(index)));
+      const img = images[imgIndex];
+      if (img && img.complete) {
+        drawImageProp(img);
       }
+    };
+
+    // Preload all 240 frame images
+    for (let i = 1; i <= frameCount; i++) {
+      const img = new Image();
+      const frameName = `ezgif-frame-${String(i).padStart(3, '0')}.png`;
+      img.src = new URL(`../assets/ezgif-2fe938cd99012e6a-png-split/${frameName}`, import.meta.url).href;
+      
+      img.onload = () => {
+        loadedCount++;
+        // Render first frame immediately once loaded to avoid blank screen
+        if (i === 1) {
+          renderFrame(0);
+        }
+        if (loadedCount === frameCount) {
+          imagesPreloaded = true;
+        }
+      };
+      images.push(img);
+    }
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      renderFrame(currentFrameIndex);
+    };
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const updateLoop = () => {
+      const progress = getScrollProgress();
+      targetFrameIndex = progress * (frameCount - 1);
+
+      // Animation engine: slowly move current value toward target value (lerp)
+      const diff = targetFrameIndex - currentFrameIndex;
+      if (Math.abs(diff) > 0.05) {
+        currentFrameIndex += diff * 0.08; // Glides smoothly toward target progress
+        renderFrame(currentFrameIndex);
+      } else if (currentFrameIndex !== targetFrameIndex) {
+        currentFrameIndex = targetFrameIndex;
+        renderFrame(currentFrameIndex);
+      }
+
       animationFrameId = requestAnimationFrame(updateLoop);
     };
 
-    const handleMetadata = () => {
-      if (video && !isNaN(video.duration)) {
-        currentTime = getScrollProgress() * video.duration;
-        video.currentTime = currentTime;
-        initialized = true;
-      }
-    };
-
-    video.addEventListener('loadedmetadata', handleMetadata);
     animationFrameId = requestAnimationFrame(updateLoop);
 
-    // Initial check in case video state is already loaded from cache
-    if (video.readyState >= 1) {
-      handleMetadata();
-    }
-
     return () => {
-      if (video) {
-        video.removeEventListener('loadedmetadata', handleMetadata);
-      }
+      window.removeEventListener('resize', resizeCanvas);
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
@@ -96,13 +108,9 @@ export default function ScrollBackground() {
   return (
     <div className="scroll-bg-container">
       <div className="scroll-bg-overlay" />
-      <video
-        ref={videoRef}
-        src={bgVideo}
-        preload="auto"
-        muted
-        playsInline
-        className="scroll-bg-video"
+      <canvas
+        ref={canvasRef}
+        className="scroll-bg-canvas"
         style={{
           width: '100%',
           height: '100%',
@@ -112,7 +120,6 @@ export default function ScrollBackground() {
           left: 0,
           zIndex: 2,
           opacity: 0.5,
-          objectFit: 'cover',
           pointerEvents: 'none',
           willChange: 'transform',
           transform: 'translate3d(0, 0, 0)',
