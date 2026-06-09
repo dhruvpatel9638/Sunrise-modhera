@@ -27,10 +27,21 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
     setMobileMenuOpen(false);
   };
 
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault();
+    closeMobileMenu();
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      // Update URL hash quietly without triggering window hashchange event re-renders
+      window.history.pushState(null, null, `#${targetId}`);
+    }
+  };
+
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container">
-        <a href="#hero" className="nav-logo" onClick={closeMobileMenu}>
+        <a href="#hero" className="nav-logo" onClick={(e) => handleNavClick(e, 'hero')}>
           <img src={logoWhite} alt="Modhera Sunrise Logo" className="logo-img" />
         </a>
 
@@ -59,14 +70,14 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
             </>
           ) : (
             <>
-              <a href="#hero" className="nav-link">Home</a>
-              <a href="#accommodations" className="nav-link">Accommodations</a>
-              <a href="#amenities" className="nav-link">Amenities</a>
-              <a href="#dining" className="nav-link">Dining</a>
-              <a href="#gallery" className="nav-link">Gallery</a>
-              <a href="#reviews" className="nav-link">Reviews</a>
-              <a href="#inquiry" className="nav-link">Contact</a>
-              <a href="#booking" className="btn btn-primary">
+              <a href="#hero" className="nav-link" onClick={(e) => handleNavClick(e, 'hero')}>Home</a>
+              <a href="#accommodations" className="nav-link" onClick={(e) => handleNavClick(e, 'accommodations')}>Accommodations</a>
+              <a href="#amenities" className="nav-link" onClick={(e) => handleNavClick(e, 'amenities')}>Amenities</a>
+              <a href="#dining" className="nav-link" onClick={(e) => handleNavClick(e, 'dining')}>Dining</a>
+              <a href="#gallery" className="nav-link" onClick={(e) => handleNavClick(e, 'gallery')}>Gallery</a>
+              <a href="#reviews" className="nav-link" onClick={(e) => handleNavClick(e, 'reviews')}>Reviews</a>
+              <a href="#inquiry" className="nav-link" onClick={(e) => handleNavClick(e, 'inquiry')}>Contact</a>
+              <a href="#booking" className="btn btn-primary" onClick={(e) => handleNavClick(e, 'booking')}>
                 Plan Your Outing
               </a>
             </>
@@ -123,17 +134,17 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
             </>
           ) : (
             <>
-              <a href="#hero" className="nav-link" onClick={closeMobileMenu}>Home</a>
-              <a href="#accommodations" className="nav-link" onClick={closeMobileMenu}>Accommodations</a>
-              <a href="#amenities" className="nav-link" onClick={closeMobileMenu}>Amenities</a>
-              <a href="#dining" className="nav-link" onClick={closeMobileMenu}>Dining</a>
-              <a href="#gallery" className="nav-link" onClick={closeMobileMenu}>Gallery</a>
-              <a href="#reviews" className="nav-link" onClick={closeMobileMenu}>Reviews</a>
-              <a href="#inquiry" className="nav-link" onClick={closeMobileMenu}>Contact</a>
+              <a href="#hero" className="nav-link" onClick={(e) => handleNavClick(e, 'hero')}>Home</a>
+              <a href="#accommodations" className="nav-link" onClick={(e) => handleNavClick(e, 'accommodations')}>Accommodations</a>
+              <a href="#amenities" className="nav-link" onClick={(e) => handleNavClick(e, 'amenities')}>Amenities</a>
+              <a href="#dining" className="nav-link" onClick={(e) => handleNavClick(e, 'dining')}>Dining</a>
+              <a href="#gallery" className="nav-link" onClick={(e) => handleNavClick(e, 'gallery')}>Gallery</a>
+              <a href="#reviews" className="nav-link" onClick={(e) => handleNavClick(e, 'reviews')}>Reviews</a>
+              <a href="#inquiry" className="nav-link" onClick={(e) => handleNavClick(e, 'inquiry')}>Contact</a>
               <a 
                 href="#booking"
                 className="btn btn-primary" 
-                onClick={closeMobileMenu}
+                onClick={(e) => handleNavClick(e, 'booking')}
                 style={{ width: '100%', justifyContent: 'center', textAlign: 'center' }}
               >
                 Plan Your Outing
