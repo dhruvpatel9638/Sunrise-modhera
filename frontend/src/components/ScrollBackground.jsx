@@ -99,9 +99,7 @@ export default function ScrollBackground({ onProgress }) {
         // Animation engine: slowly move current value toward target value (lerp)
         const diff = targetFrameIndex - currentFrameIndex;
         if (Math.abs(diff) > 0.01) {
-          // Changed lerp factor from 0.08 to 0.03 for a more pronounced "inertia" effect
-          // so frames slowly slow down when scrolling stops
-          currentFrameIndex += diff * 0.03; 
+          currentFrameIndex += diff * 0.025; // Slower, smoother inertia so frame change stops slowly
           renderFrame(currentFrameIndex);
         } else if (currentFrameIndex !== targetFrameIndex) {
           currentFrameIndex = targetFrameIndex;
