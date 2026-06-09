@@ -44,7 +44,7 @@ export default function SunPreloader({ percent, isReady }) {
   if (!visible) return null;
 
   return (
-    <div 
+    <div
       className={`sun-preloader-overlay ${fadeStarted ? 'fade-out' : ''}`}
       style={{
         position: 'fixed',
@@ -67,17 +67,17 @@ export default function SunPreloader({ percent, isReady }) {
         <div className="sun-svg-wrapper" style={{ position: 'relative', width: '120px', height: '120px', margin: '0 auto 28px' }}>
           {/* Animated Glow behind the sun */}
           <div className="sun-glow" />
-          
-          <svg 
-            viewBox="0 0 100 100" 
+
+          <svg
+            viewBox="0 0 100 100"
             style={{ width: '100%', height: '100%', display: 'block', overflow: 'visible' }}
           >
             {/* Pulsating Sun Core */}
-            <circle 
-              cx="50" 
-              cy="50" 
-              r="18" 
-              fill="var(--primary-sunrise)" 
+            <circle
+              cx="50"
+              cy="50"
+              r="18"
+              fill="var(--primary-sunrise)"
               className="sun-core-pulse"
             />
             {/* Outer Rotating Rays */}
@@ -85,9 +85,9 @@ export default function SunPreloader({ percent, isReady }) {
               {[...Array(12)].map((_, i) => {
                 const angle = (i * 360) / 12;
                 return (
-                  <path 
+                  <path
                     key={i}
-                    d="M 50 16 L 53 28 L 47 28 Z" 
+                    d="M 50 16 L 53 28 L 47 28 Z"
                     fill="var(--primary-sunrise-dark)"
                     transform={`rotate(${angle} 50 50)`}
                     style={{ opacity: 0.9 }}
@@ -98,9 +98,9 @@ export default function SunPreloader({ percent, isReady }) {
               {[...Array(12)].map((_, i) => {
                 const angle = (i * 360) / 12 + 15;
                 return (
-                  <path 
+                  <path
                     key={i}
-                    d="M 50 22 L 52 30 L 48 30 Z" 
+                    d="M 50 22 L 52 30 L 48 30 Z"
                     fill="var(--primary-sunrise)"
                     transform={`rotate(${angle} 50 50)`}
                     style={{ opacity: 0.7 }}
@@ -112,11 +112,11 @@ export default function SunPreloader({ percent, isReady }) {
         </div>
 
         {/* Dynamic Typography */}
-        <h2 
-          style={{ 
-            fontFamily: 'var(--font-headings)', 
-            fontSize: '1.8rem', 
-            color: 'var(--natural-forest-dark)', 
+        <h2
+          style={{
+            fontFamily: 'var(--font-headings)',
+            fontSize: '1.8rem',
+            color: 'var(--natural-forest-dark)',
             fontWeight: '400',
             fontStyle: 'italic',
             marginBottom: '8px'
@@ -124,12 +124,12 @@ export default function SunPreloader({ percent, isReady }) {
         >
           Modhera Sunrise
         </h2>
-        
-        <p 
-          style={{ 
-            fontFamily: 'var(--font-body)', 
-            fontSize: '0.85rem', 
-            color: 'var(--text-muted)', 
+
+        <p
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.85rem',
+            color: 'var(--text-muted)',
             letterSpacing: '0.05em',
             minHeight: '20px',
             marginBottom: '20px',
@@ -141,7 +141,7 @@ export default function SunPreloader({ percent, isReady }) {
 
         {/* Progress Bar & Percentage */}
         <div style={{ width: '100%', height: '3px', backgroundColor: 'rgba(30, 91, 58, 0.1)', borderRadius: '3px', overflow: 'hidden', position: 'relative', marginBottom: '8px' }}>
-          <div 
+          <div
             style={{
               height: '100%',
               width: `${percent}%`,
@@ -151,14 +151,14 @@ export default function SunPreloader({ percent, isReady }) {
             }}
           />
         </div>
-        
-        <div 
-          style={{ 
-            fontFamily: 'var(--font-body)', 
-            fontSize: '0.75rem', 
+
+        <div
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.75rem',
             fontWeight: '600',
-            color: 'var(--primary-sunrise-dark)', 
-            letterSpacing: '0.1em' 
+            color: 'var(--primary-sunrise-dark)',
+            letterSpacing: '0.1em'
           }}
         >
           {percent}%
