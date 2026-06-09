@@ -160,7 +160,7 @@ export default function App() {
 
   if (hash === '#admin') {
     return (
-      <div style={{ backgroundColor: 'var(--bg-cream)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ backgroundColor: 'var(--color-bg-light)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Navbar 
           isAdminMode={isAuthenticated} 
           activeTab={adminTab} 

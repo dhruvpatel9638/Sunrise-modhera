@@ -188,7 +188,7 @@ export default function BookingModal({ rooms, initialDetails, onClose, onBooking
                 </select>
               </div>
 
-              <h4 style={{ fontSize: '0.9rem', borderTop: '1px solid var(--border-color)', paddingTop: '20px', marginTop: '20px', color: 'var(--natural-forest-dark)' }}>
+              <h4 style={{ fontSize: '0.9rem', borderTop: '1px solid var(--color-border-light)', paddingTop: '20px', marginTop: '20px', color: 'var(--color-primary-dark)' }}>
                 Primary Guest Contact Details
               </h4>
               
@@ -282,10 +282,10 @@ export default function BookingModal({ rooms, initialDetails, onClose, onBooking
 
               <div className="payment-box">
                 <div className="payment-title">
-                  <CreditCard size={18} style={{ color: 'var(--primary-sunrise-dark)' }} />
+                  <CreditCard size={18} style={{ color: 'var(--color-gold-light)' }} />
                   <span>Card Checkout Simulation</span>
                 </div>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '16px' }}>
+                <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted-light)', marginBottom: '16px' }}>
                   This is a mock sandbox environment. You can enter any mock card details to test.
                 </p>
 
@@ -350,7 +350,7 @@ export default function BookingModal({ rooms, initialDetails, onClose, onBooking
                 </button>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '0.75rem', color: 'var(--color-text-muted-light)', marginTop: '16px' }}>
                 <ShieldCheck size={14} style={{ color: '#3B7A57' }} />
                 <span>SSL Encrypted transaction. No real funds will be charged.</span>
               </div>
@@ -368,7 +368,7 @@ export default function BookingModal({ rooms, initialDetails, onClose, onBooking
               <div className="price-summary-box" style={{ textAlign: 'left' }}>
                 <div className="price-summary-row">
                   <span>Booking Reference ID</span>
-                  <strong style={{ color: 'var(--natural-forest)' }}>{createdBooking._id}</strong>
+                  <strong style={{ color: 'var(--color-primary)' }}>{createdBooking._id}</strong>
                 </div>
                 <div className="price-summary-row">
                   <span>Guest Name</span>

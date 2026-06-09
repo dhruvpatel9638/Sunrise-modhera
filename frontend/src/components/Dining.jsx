@@ -45,7 +45,7 @@ export default function Dining() {
               Experience the romance of rustic candlelight dining under the stars. Our signature theme restaurant blends rural heritage ambiance with premium culinary standards, sourcing fresh organic ingredients locally from the Pushpavati river basin.
             </p>
 
-            <h3 style={{ fontSize: '1.2rem', marginBottom: '16px', color: 'var(--natural-forest)' }}>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '16px', color: 'var(--color-primary)' }}>
               Our Cuisine Profile
             </h3>
             
@@ -59,7 +59,7 @@ export default function Dining() {
             </div>
 
             <div className="jain-alert">
-              <span style={{ fontWeight: '700', color: 'var(--primary-sunrise-dark)', display: 'block', marginBottom: '4px' }}>
+              <span style={{ fontWeight: '700', color: 'var(--color-gold)', display: 'block', marginBottom: '4px' }}>
                 🌾 Jain Food Options Accommodated
               </span>
               We understand and respect your religious food preferences. Separate Jain cooking facilities are utilized to prepare strictly onion-and-garlic-free meals. Please mention your requirements in the reservation inquiry.

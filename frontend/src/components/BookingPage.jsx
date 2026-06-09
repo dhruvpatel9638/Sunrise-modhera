@@ -121,7 +121,7 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
               gap: '8px', 
               background: 'none', 
               border: 'none', 
-              color: 'var(--natural-forest)', 
+              color: 'var(--color-primary)', 
               fontWeight: 600, 
               cursor: 'pointer', 
               marginBottom: '30px',
@@ -137,12 +137,12 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
         )}
 
         <div className="text-center" style={{ marginBottom: '40px' }}>
-          <h1 style={{ fontSize: '3rem', fontFamily: 'var(--font-headings)', color: 'var(--natural-forest-dark)' }}>
+          <h1 style={{ fontSize: '3rem', fontFamily: 'var(--font-headings)', color: 'var(--color-primary-dark)' }}>
             {step === 1 && 'Book Your Stay'}
             {step === 2 && 'Complete Checkout'}
             {step === 3 && 'Reservation Confirmed!'}
           </h1>
-          <p style={{ color: 'var(--text-muted)', fontStyle: 'italic', marginTop: '8px' }}>
+          <p style={{ color: 'var(--color-text-muted-light)', fontStyle: 'italic', marginTop: '8px' }}>
             {step === 1 && "Experience rural luxury on the banks of Pushpavati River"}
             {step === 2 && "Secure sandbox environment simulation"}
             {step === 3 && "We look forward to welcoming you to Modhera"}
@@ -161,9 +161,9 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
             {/* Left Side: Forms */}
             <div>
               {step === 1 && (
-                <div className="review-form-card" style={{ background: 'var(--white)', padding: '32px' }}>
+                <div className="review-form-card" style={{ background: '#FFFFFF', padding: '32px' }}>
                   <form onSubmit={handleNextStep}>
-                    <h3 style={{ fontSize: '1.2rem', color: 'var(--natural-forest-dark)', marginBottom: '20px', borderBottom: '1px solid var(--border-color)', paddingBottom: '10px' }}>
+                    <h3 style={{ fontSize: '1.2rem', color: 'var(--color-primary-dark)', marginBottom: '20px', borderBottom: '1px solid var(--color-border-light)', paddingBottom: '10px' }}>
                       1. Dates & Stay Details
                     </h3>
 
@@ -222,7 +222,7 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
                       </select>
                     </div>
 
-                    <h3 style={{ fontSize: '1.2rem', color: 'var(--natural-forest-dark)', marginBottom: '20px', borderBottom: '1px solid var(--border-color)', paddingBottom: '10px', marginTop: '30px' }}>
+                    <h3 style={{ fontSize: '1.2rem', color: 'var(--color-primary-dark)', marginBottom: '20px', borderBottom: '1px solid var(--color-border-light)', paddingBottom: '10px', marginTop: '30px' }}>
                       2. Guest Information
                     </h3>
 
@@ -275,12 +275,12 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
               )}
 
               {step === 2 && (
-                <div className="review-form-card" style={{ background: 'var(--white)', padding: '32px' }}>
+                <div className="review-form-card" style={{ background: '#FFFFFF', padding: '32px' }}>
                   <form onSubmit={handlePaymentSubmit}>
-                    <h3 style={{ fontSize: '1.2rem', color: 'var(--natural-forest-dark)', marginBottom: '20px', borderBottom: '1px solid var(--border-color)', paddingBottom: '10px' }}>
+                    <h3 style={{ fontSize: '1.2rem', color: 'var(--color-primary-dark)', marginBottom: '20px', borderBottom: '1px solid var(--color-border-light)', paddingBottom: '10px' }}>
                       Secure Card Details
                     </h3>
-                    <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '24px' }}>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted-light)', marginBottom: '24px' }}>
                       Enter any mock credit card numbers to complete the checkout verification.
                     </p>
 
@@ -349,7 +349,7 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
                       </button>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '0.75rem', color: 'var(--color-text-muted-light)', marginTop: '20px' }}>
                       <ShieldCheck size={14} style={{ color: '#3B7A57' }} />
                       <span>SSL 256-Bit Encrypted sandbox simulation.</span>
                     </div>
@@ -363,15 +363,15 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
               <div 
                 className="review-form-card" 
                 style={{ 
-                  background: 'var(--white)', 
+                  background: '#FFFFFF', 
                   padding: '24px', 
                   position: 'sticky', 
                   top: '100px',
                   boxShadow: 'var(--shadow-md)',
-                  border: '1px solid var(--border-color)'
+                  border: '1px solid var(--color-border-light)'
                 }}
               >
-                <h3 style={{ fontSize: '1.25rem', color: 'var(--natural-forest-dark)', marginBottom: '16px' }}>
+                <h3 style={{ fontSize: '1.25rem', color: 'var(--color-primary-dark)', marginBottom: '16px' }}>
                   Booking Summary
                 </h3>
 
@@ -386,14 +386,14 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
                         />
                       </div>
                     )}
-                    <h4 style={{ fontSize: '1.1rem', color: 'var(--text-charcoal)', marginBottom: '6px' }}>
+                    <h4 style={{ fontSize: '1.1rem', color: 'var(--color-primary-dark)', marginBottom: '6px' }}>
                       {selectedRoom.title}
                     </h4>
-                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '16px' }}>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted-light)', marginBottom: '16px' }}>
                       {selectedRoom.description?.substring(0, 100)}...
                     </p>
 
-                    <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '16px' }}>
+                    <div style={{ borderTop: '1px solid var(--color-border-light)', paddingTop: '16px' }}>
                       <div className="price-summary-row" style={{ fontSize: '0.85rem', marginBottom: '8px' }}>
                         <span>Room Cost / Night</span>
                         <span>₹{selectedRoom.price}</span>
@@ -416,34 +416,34 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
                             <span>Taxes & GST (18%)</span>
                             <span>₹{Math.round(selectedRoom.price * nights * 0.18)}</span>
                           </div>
-                          <div className="price-summary-row total" style={{ fontSize: '1.2rem', fontWeight: '700', borderTop: '1px solid var(--border-color)', paddingTop: '12px', marginTop: '12px' }}>
+                          <div className="price-summary-row total" style={{ fontSize: '1.2rem', fontWeight: '700', borderTop: '1px solid var(--color-border-light)', paddingTop: '12px', marginTop: '12px' }}>
                             <span>Amount Due</span>
-                            <span style={{ color: 'var(--primary-sunrise-dark)' }}>₹{Math.round(totalAmount * 1.18)}</span>
+                            <span style={{ color: 'var(--color-gold-light)' }}>₹{Math.round(totalAmount * 1.18)}</span>
                           </div>
                         </>
                       ) : (
-                        <div style={{ background: 'var(--bg-cream)', padding: '12px', borderRadius: '4px', textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '10px' }}>
+                        <div style={{ background: 'var(--color-bg-light)', padding: '12px', borderRadius: '4px', textAlign: 'center', fontSize: '0.8rem', color: 'var(--color-text-muted-light)', marginTop: '10px' }}>
                           Select check-in/out dates to compute totals
                         </div>
                       )}
                     </div>
                   </div>
                 ) : (
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Loading stay summary...</p>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted-light)' }}>Loading stay summary...</p>
                 )}
               </div>
             </div>
           </div>
         ) : (
           /* Confirmation Receipt Page */
-          <div className="review-form-card" style={{ background: 'var(--white)', maxWidth: '640px', margin: '0 auto', padding: '40px', textAlign: 'center' }}>
+          <div className="review-form-card" style={{ background: '#FFFFFF', maxWidth: '640px', margin: '0 auto', padding: '40px', textAlign: 'center' }}>
             <div className="success-icon-wrapper" style={{ marginBottom: '24px' }}>
               <CheckCircle2 size={40} />
             </div>
-            <h2 style={{ fontSize: '1.8rem', color: 'var(--natural-forest-dark)', marginBottom: '12px' }}>
+            <h2 style={{ fontSize: '1.8rem', color: 'var(--color-primary-dark)', marginBottom: '12px' }}>
               Reservation Confirmed!
             </h2>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '30px' }}>
+            <p style={{ color: 'var(--color-text-muted-light)', marginBottom: '30px' }}>
               We have processed your booking. Your receipt details are listed below:
             </p>
 
@@ -451,7 +451,7 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
               <div className="price-summary-box" style={{ textAlign: 'left', margin: '0 auto 30px auto' }}>
                 <div className="price-summary-row">
                   <span>Reference ID</span>
-                  <strong style={{ color: 'var(--natural-forest)' }}>{createdBooking._id}</strong>
+                  <strong style={{ color: 'var(--color-primary)' }}>{createdBooking._id}</strong>
                 </div>
                 <div className="price-summary-row">
                   <span>Guest Name</span>
@@ -469,7 +469,7 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
                   <span>Total Occupants</span>
                   <span>{createdBooking.guestsCount} Person(s)</span>
                 </div>
-                <div className="price-summary-row total" style={{ borderTop: '1px solid var(--border-color)', paddingTop: '12px', marginTop: '12px' }}>
+                <div className="price-summary-row total" style={{ borderTop: '1px solid var(--color-border-light)', paddingTop: '12px', marginTop: '12px' }}>
                   <span>Total Amount Paid</span>
                   <span>₹{Math.round(createdBooking.totalAmount * 1.18)}</span>
                 </div>

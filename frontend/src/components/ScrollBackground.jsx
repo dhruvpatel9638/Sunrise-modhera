@@ -133,7 +133,7 @@ export default function ScrollBackground({ onProgress }) {
           top: 0,
           left: 0,
           zIndex: 2,
-          opacity: 0.5,
+          opacity: 0.85,
           pointerEvents: 'none',
           willChange: 'transform',
           transform: 'translate3d(0, 0, 0)',

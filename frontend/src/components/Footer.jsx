@@ -11,14 +11,14 @@ export default function Footer() {
           <div className="footer-col footer-about">
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
               <img src={logo} alt="Modhera Sunrise Logo" style={{ height: '40px', width: 'auto', borderRadius: '4px' }} />
-              <h3 style={{ fontFamily: 'var(--font-headings)', color: 'var(--white)', fontSize: '1.4rem' }}>
+              <h3 style={{ fontFamily: 'var(--font-headings)', color: '#FFFFFF', fontSize: '1.4rem' }}>
                 Modhera Sunrise
               </h3>
             </div>
             <p>
               A rustic-yet-modern eco-resort blending heritage rural life with leisure comfort. Nestled directly on the banks of the Pushpavati River behind the world-famous UNESCO Modhera Sun Temple.
             </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--primary-sunrise)', fontSize: '0.85rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-gold)', fontSize: '0.85rem' }}>
               <ShieldCheck size={16} />
               <span>100% Pure Vegetarian & Eco-Safe</span>
             </div>
@@ -32,7 +32,7 @@ export default function Footer() {
               <li><a href="#amenities">Resort Amenities</a></li>
               <li><a href="#dining">Jungle Restaurant</a></li>
               <li><a href="#gallery">Media Gallery</a></li>
-              <li><a href="#admin" style={{ fontWeight: '600', color: 'var(--primary-sunrise)' }}>Admin Portal</a></li>
+              <li><a href="#admin" style={{ fontWeight: '600', color: 'var(--color-gold)' }}>Admin Portal</a></li>
             </ul>
           </div>
 

@@ -77,7 +77,7 @@ export default function SunPreloader({ percent, isReady }) {
               cx="50"
               cy="50"
               r="18"
-              fill="var(--primary-sunrise)"
+              fill="var(--color-gold)"
               className="sun-core-pulse"
             />
             {/* Outer Rotating Rays */}
@@ -88,7 +88,7 @@ export default function SunPreloader({ percent, isReady }) {
                   <path
                     key={i}
                     d="M 50 16 L 53 28 L 47 28 Z"
-                    fill="var(--primary-sunrise-dark)"
+                    fill="var(--color-gold-light)"
                     transform={`rotate(${angle} 50 50)`}
                     style={{ opacity: 0.9 }}
                   />
@@ -101,7 +101,7 @@ export default function SunPreloader({ percent, isReady }) {
                   <path
                     key={i}
                     d="M 50 22 L 52 30 L 48 30 Z"
-                    fill="var(--primary-sunrise)"
+                    fill="var(--color-gold)"
                     transform={`rotate(${angle} 50 50)`}
                     style={{ opacity: 0.7 }}
                   />
@@ -116,7 +116,7 @@ export default function SunPreloader({ percent, isReady }) {
           style={{
             fontFamily: 'var(--font-headings)',
             fontSize: '1.8rem',
-            color: 'var(--natural-forest-dark)',
+            color: 'var(--color-primary-dark)',
             fontWeight: '400',
             fontStyle: 'italic',
             marginBottom: '8px'
@@ -129,7 +129,7 @@ export default function SunPreloader({ percent, isReady }) {
           style={{
             fontFamily: 'var(--font-body)',
             fontSize: '0.85rem',
-            color: 'var(--text-muted)',
+            color: 'var(--color-text-muted-light)',
             letterSpacing: '0.05em',
             minHeight: '20px',
             marginBottom: '20px',
@@ -145,8 +145,8 @@ export default function SunPreloader({ percent, isReady }) {
             style={{
               height: '100%',
               width: `${percent}%`,
-              backgroundColor: 'var(--primary-sunrise)',
-              boxShadow: '0 0 8px var(--primary-sunrise)',
+              backgroundColor: 'var(--color-gold)',
+              boxShadow: '0 0 8px var(--color-gold)',
               transition: 'width 0.2s ease-out'
             }}
           />
@@ -157,7 +157,7 @@ export default function SunPreloader({ percent, isReady }) {
             fontFamily: 'var(--font-body)',
             fontSize: '0.75rem',
             fontWeight: '600',
-            color: 'var(--primary-sunrise-dark)',
+            color: 'var(--color-gold-light)',
             letterSpacing: '0.1em'
           }}
         >

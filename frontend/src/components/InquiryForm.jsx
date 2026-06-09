@@ -30,7 +30,7 @@ export default function InquiryForm() {
   };
 
   return (
-    <section id="inquiry" className="section-padding" style={{ background: 'transparent', borderTop: '1px solid var(--border-color)' }}>
+    <section id="inquiry" className="section-padding" style={{ background: 'var(--color-bg-dark-mid)', borderTop: '1px solid var(--color-border-dark)' }}>
       <div className="container">
         <div className="inquiry-split">
           {/* Details Pane */}
@@ -74,21 +74,21 @@ export default function InquiryForm() {
           </div>
 
           {/* Form Pane */}
-          <div className="review-form-card" style={{ background: 'var(--white)' }}>
-            <h4 style={{ fontSize: '1.4rem', color: 'var(--natural-forest-dark)', marginBottom: '8px' }}>
+          <div className="review-form-card" style={{ background: 'var(--color-bg-dark-mid)', border: '1px solid var(--color-border-dark)' }}>
+            <h4 style={{ fontSize: '1.4rem', color: '#FFFFFF', marginBottom: '8px' }}>
               Outing & Inquiry Form
             </h4>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '24px' }}>
+            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted-light)', marginBottom: '24px' }}>
               Fill in your details and our hospitality manager will get back to you with custom quotes.
             </p>
 
             {success ? (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 0' }}>
-                <CheckCircle2 size={48} style={{ color: 'var(--natural-forest)', marginBottom: '16px' }} />
-                <h5 style={{ fontWeight: 700, color: 'var(--natural-forest-dark)', fontSize: '1.1rem', marginBottom: '8px' }}>
+                <CheckCircle2 size={48} style={{ color: 'var(--color-gold)', marginBottom: '16px' }} />
+                <h5 style={{ fontWeight: 700, color: '#FFFFFF', fontSize: '1.1rem', marginBottom: '8px' }}>
                   Inquiry Submitted!
                 </h5>
-                <p style={{ color: 'var(--text-muted)', textAlign: 'center', fontSize: '0.9rem' }}>
+                <p style={{ color: 'rgba(255,255,255,0.65)', textAlign: 'center', fontSize: '0.9rem' }}>
                   Our reservation desk will call you back within 2-4 hours. Thank you!
                 </p>
               </div>
@@ -164,7 +164,7 @@ export default function InquiryForm() {
 
                 <button 
                   type="submit" 
-                  className="btn btn-secondary" 
+                  className="btn btn-primary" 
                   style={{ width: '100%', justifyContent: 'center' }}
                   disabled={submitting}
                 >

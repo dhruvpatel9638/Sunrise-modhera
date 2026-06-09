@@ -98,13 +98,13 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
             top: '70px',
             left: 0,
             width: '100%',
-            background: 'var(--natural-forest-dark)',
+            background: 'var(--color-primary-dark)',
             padding: '24px',
             display: 'flex',
             flexDirection: 'column',
             gap: '20px',
             boxShadow: 'var(--shadow-lg)',
-            borderBottom: '2px solid var(--primary-sunrise)',
+            borderBottom: '2px solid var(--color-gold)',
             zIndex: 999,
           }}
         >
@@ -113,21 +113,21 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
               <button 
                 onClick={() => { setActiveTab('bookings'); closeMobileMenu(); }} 
                 className={`nav-link-btn ${activeTab === 'bookings' ? 'active' : ''}`}
-                style={{ color: 'var(--white)', textAlign: 'left' }}
+                style={{ color: '#FFFFFF', textAlign: 'left' }}
               >
                 Bookings
               </button>
               <button 
                 onClick={() => { setActiveTab('inquiries'); closeMobileMenu(); }} 
                 className={`nav-link-btn ${activeTab === 'inquiries' ? 'active' : ''}`}
-                style={{ color: 'var(--white)', textAlign: 'left' }}
+                style={{ color: '#FFFFFF', textAlign: 'left' }}
               >
                 Inquiries
               </button>
               <button 
                 onClick={() => { setActiveTab('reviews'); closeMobileMenu(); }} 
                 className={`nav-link-btn ${activeTab === 'reviews' ? 'active' : ''}`}
-                style={{ color: 'var(--white)', textAlign: 'left' }}
+                style={{ color: '#FFFFFF', textAlign: 'left' }}
               >
                 Reviews
               </button>

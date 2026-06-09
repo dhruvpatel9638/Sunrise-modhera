@@ -215,13 +215,13 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
         padding: '120px 24px 80px',
         background: 'transparent'
       }}>
-        <div className="review-form-card" style={{ width: '100%', maxWidth: '400px', background: 'var(--white)' }}>
+        <div className="review-form-card" style={{ width: '100%', maxWidth: '400px', background: '#FFFFFF' }}>
           <div className="text-center" style={{ marginBottom: '24px' }}>
-            <Landmark size={40} style={{ color: 'var(--primary-sunrise)', marginBottom: '12px' }} />
-            <h2 style={{ fontSize: '2rem', fontFamily: 'var(--font-headings)', color: 'var(--natural-forest-dark)', marginBottom: '8px' }}>
+            <Landmark size={40} style={{ color: 'var(--color-gold)', marginBottom: '12px' }} />
+            <h2 style={{ fontSize: '2rem', fontFamily: 'var(--font-headings)', color: 'var(--color-primary-dark)', marginBottom: '8px' }}>
               Staff Login
             </h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+            <p style={{ color: 'var(--color-text-muted-light)', fontSize: '0.85rem' }}>
               Access the Modhera Sunrise management portal
             </p>
           </div>
@@ -280,7 +280,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
               type="button"
               onClick={onBackToHome}
               className="btn btn-outline" 
-              style={{ width: '100%', justifyContent: 'center', marginTop: '12px', height: '48px', border: 'none', background: 'none', color: 'var(--text-muted)' }}
+              style={{ width: '100%', justifyContent: 'center', marginTop: '12px', height: '48px', border: 'none', background: 'none', color: 'var(--color-text-muted-light)' }}
             >
               Cancel
             </button>
@@ -297,10 +297,10 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
 
 
         <div className="text-center" style={{ marginBottom: '40px' }}>
-          <h1 style={{ fontSize: '3rem', fontFamily: 'var(--font-headings)', color: 'var(--natural-forest-dark)' }}>
+          <h1 style={{ fontSize: '3rem', fontFamily: 'var(--font-headings)', color: 'var(--color-primary-dark)' }}>
             Admin Management Portal
           </h1>
-          <p style={{ color: 'var(--text-muted)', fontStyle: 'italic', marginTop: '8px' }}>
+          <p style={{ color: 'var(--color-text-muted-light)', fontStyle: 'italic', marginTop: '8px' }}>
             Resort Overview, Reservation Invoices, Outing Inquiries, and Testimonials
           </p>
         </div>
@@ -308,8 +308,8 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
         {actionMessage && (
           <div style={{ 
             background: 'rgba(30, 91, 58, 0.1)', 
-            color: 'var(--natural-forest-dark)', 
-            borderLeft: '4px solid var(--natural-forest)', 
+            color: 'var(--color-primary-dark)', 
+            borderLeft: '4px solid var(--color-primary)', 
             padding: '16px 20px', 
             borderRadius: '0 var(--radius-md) var(--radius-md) 0', 
             marginBottom: '24px', 
@@ -333,21 +333,21 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
           gap: '20px', 
           marginBottom: '40px' 
         }}>
-          <div className="review-form-card" style={{ background: 'var(--white)', padding: '24px', textAlign: 'center' }}>
-            <span style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-muted)' }}>Total Bookings</span>
-            <h2 style={{ fontSize: '2.5rem', color: 'var(--natural-forest-dark)', margin: '8px 0 0 0' }}>{bookings.length}</h2>
+          <div className="review-form-card" style={{ background: '#FFFFFF', padding: '24px', textAlign: 'center' }}>
+            <span style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-text-muted-light)' }}>Total Bookings</span>
+            <h2 style={{ fontSize: '2.5rem', color: 'var(--color-primary-dark)', margin: '8px 0 0 0' }}>{bookings.length}</h2>
           </div>
-          <div className="review-form-card" style={{ background: 'var(--white)', padding: '24px', textAlign: 'center' }}>
-            <span style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-muted)' }}>Estimated Revenue</span>
-            <h2 style={{ fontSize: '2.5rem', color: 'var(--primary-sunrise-dark)', margin: '8px 0 0 0' }}>₹{totalRevenue.toLocaleString('en-IN')}</h2>
+          <div className="review-form-card" style={{ background: '#FFFFFF', padding: '24px', textAlign: 'center' }}>
+            <span style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-text-muted-light)' }}>Estimated Revenue</span>
+            <h2 style={{ fontSize: '2.5rem', color: 'var(--color-gold-light)', margin: '8px 0 0 0' }}>₹{totalRevenue.toLocaleString('en-IN')}</h2>
           </div>
-          <div className="review-form-card" style={{ background: 'var(--white)', padding: '24px', textAlign: 'center' }}>
-            <span style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-muted)' }}>Pending Inquiries</span>
-            <h2 style={{ fontSize: '2.5rem', color: 'var(--natural-forest-dark)', margin: '8px 0 0 0' }}>{inquiries.length}</h2>
+          <div className="review-form-card" style={{ background: '#FFFFFF', padding: '24px', textAlign: 'center' }}>
+            <span style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-text-muted-light)' }}>Pending Inquiries</span>
+            <h2 style={{ fontSize: '2.5rem', color: 'var(--color-primary-dark)', margin: '8px 0 0 0' }}>{inquiries.length}</h2>
           </div>
-          <div className="review-form-card" style={{ background: 'var(--white)', padding: '24px', textAlign: 'center' }}>
-            <span style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--text-muted)' }}>Testimonials Moderated</span>
-            <h2 style={{ fontSize: '2.5rem', color: 'var(--natural-forest-dark)', margin: '8px 0 0 0' }}>{reviews.length}</h2>
+          <div className="review-form-card" style={{ background: '#FFFFFF', padding: '24px', textAlign: 'center' }}>
+            <span style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--color-text-muted-light)' }}>Testimonials Moderated</span>
+            <h2 style={{ fontSize: '2.5rem', color: 'var(--color-primary-dark)', margin: '8px 0 0 0' }}>{reviews.length}</h2>
           </div>
         </div>
 
@@ -375,12 +375,12 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
 
         {/* Tab Contents Panel */}
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-muted)' }}>
+          <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--color-text-muted-light)' }}>
             <div className="loader-spinner" style={{ margin: '0 auto 20px auto' }}></div>
             <p>Loading records...</p>
           </div>
         ) : (
-          <div className="review-form-card" style={{ background: 'var(--white)', padding: '32px', overflowX: 'auto' }}>
+          <div className="review-form-card" style={{ background: '#FFFFFF', padding: '32px', overflowX: 'auto' }}>
             
             {/* 1. BOOKINGS TAB */}
             {activeTab === 'bookings' && (
@@ -394,13 +394,13 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                   justifyContent: 'space-between',
                   marginBottom: '20px',
                   padding: '12px 16px',
-                  background: 'var(--bg-cream)',
+                  background: 'var(--color-bg-light)',
                   borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--border-color)'
+                  border: '1px solid var(--color-border-light)'
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--natural-forest-dark)' }}>Filter Date:</label>
+                      <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-primary-dark)' }}>Filter Date:</label>
                       <input 
                         type="date" 
                         value={bookingFilterDate}
@@ -408,7 +408,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                         style={{
                           padding: '6px 12px',
                           borderRadius: 'var(--radius-sm)',
-                          border: '1px solid var(--border-color)',
+                          border: '1px solid var(--color-border-light)',
                           outline: 'none',
                           fontSize: '0.9rem'
                         }}
@@ -432,17 +432,17 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                   </div>
                   
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--natural-forest-dark)' }}>Sort by Date:</label>
+                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-primary-dark)' }}>Sort by Date:</label>
                     <select
                       value={bookingSortOrder}
                       onChange={(e) => setBookingSortOrder(e.target.value)}
                       style={{
                         padding: '6px 12px',
                         borderRadius: 'var(--radius-sm)',
-                        border: '1px solid var(--border-color)',
+                        border: '1px solid var(--color-border-light)',
                         outline: 'none',
                         fontSize: '0.9rem',
-                        background: 'var(--white)'
+                        background: '#FFFFFF'
                       }}
                     >
                       <option value="newest">Newest First</option>
@@ -452,11 +452,11 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                 </div>
 
                 {filteredAndSortedBookings.length === 0 ? (
-                  <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>No bookings match the filter criteria.</p>
+                  <p style={{ textAlign: 'center', color: 'var(--color-text-muted-light)' }}>No bookings match the filter criteria.</p>
                 ) : (
                   <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
                     <thead>
-                      <tr style={{ borderBottom: '2px solid var(--border-color)', color: 'var(--natural-forest)' }}>
+                      <tr style={{ borderBottom: '2px solid var(--color-border-light)', color: 'var(--color-primary)' }}>
                         <th style={{ padding: '12px' }}>Guest Details</th>
                         <th style={{ padding: '12px' }}>Accommodation</th>
                         <th style={{ padding: '12px' }}>Check-In / Out</th>
@@ -466,7 +466,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                     </thead>
                     <tbody>
                       {filteredAndSortedBookings.map(b => (
-                        <tr key={b._id} style={{ borderBottom: '1px solid var(--border-color)' }}>
+                        <tr key={b._id} style={{ borderBottom: '1px solid var(--color-border-light)' }}>
                           {editingBookingId === b._id ? (
                             <>
                               <td style={{ padding: '16px 12px' }}>
@@ -475,21 +475,21 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                     type="text" 
                                     value={editingBookingData.guestName || ''}
                                     onChange={(e) => setEditingBookingData({ ...editingBookingData, guestName: e.target.value })}
-                                    style={{ padding: '4px 8px', fontSize: '0.9rem', border: '1px solid var(--border-color)', borderRadius: '4px' }}
+                                    style={{ padding: '4px 8px', fontSize: '0.9rem', border: '1px solid var(--color-border-light)', borderRadius: '4px' }}
                                     placeholder="Name"
                                   />
                                   <input 
                                     type="email" 
                                     value={editingBookingData.guestEmail || ''}
                                     onChange={(e) => setEditingBookingData({ ...editingBookingData, guestEmail: e.target.value })}
-                                    style={{ padding: '4px 8px', fontSize: '0.85rem', border: '1px solid var(--border-color)', borderRadius: '4px' }}
+                                    style={{ padding: '4px 8px', fontSize: '0.85rem', border: '1px solid var(--color-border-light)', borderRadius: '4px' }}
                                     placeholder="Email"
                                   />
                                   <input 
                                     type="text" 
                                     value={editingBookingData.guestPhone || ''}
                                     onChange={(e) => setEditingBookingData({ ...editingBookingData, guestPhone: e.target.value })}
-                                    style={{ padding: '4px 8px', fontSize: '0.85rem', border: '1px solid var(--border-color)', borderRadius: '4px' }}
+                                    style={{ padding: '4px 8px', fontSize: '0.85rem', border: '1px solid var(--color-border-light)', borderRadius: '4px' }}
                                     placeholder="Phone"
                                   />
                                 </div>
@@ -500,7 +500,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                     type="text" 
                                     value={editingBookingData.roomTitle || ''}
                                     onChange={(e) => setEditingBookingData({ ...editingBookingData, roomTitle: e.target.value })}
-                                    style={{ padding: '4px 8px', fontSize: '0.9rem', border: '1px solid var(--border-color)', borderRadius: '4px' }}
+                                    style={{ padding: '4px 8px', fontSize: '0.9rem', border: '1px solid var(--color-border-light)', borderRadius: '4px' }}
                                     placeholder="Room Title"
                                   />
                                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -508,10 +508,10 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                       type="number" 
                                       value={editingBookingData.guestsCount || 1}
                                       onChange={(e) => setEditingBookingData({ ...editingBookingData, guestsCount: Number(e.target.value) })}
-                                      style={{ width: '60px', padding: '4px 8px', fontSize: '0.85rem', border: '1px solid var(--border-color)', borderRadius: '4px' }}
+                                      style={{ width: '60px', padding: '4px 8px', fontSize: '0.85rem', border: '1px solid var(--color-border-light)', borderRadius: '4px' }}
                                       min={1}
                                     />
-                                    <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Guest(s)</span>
+                                    <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted-light)' }}>Guest(s)</span>
                                   </div>
                                 </div>
                               </td>
@@ -523,7 +523,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                       type="date" 
                                       value={editingBookingData.checkInDate || ''}
                                       onChange={(e) => setEditingBookingData({ ...editingBookingData, checkInDate: e.target.value })}
-                                      style={{ padding: '4px 8px', fontSize: '0.85rem', border: '1px solid var(--border-color)', borderRadius: '4px' }}
+                                      style={{ padding: '4px 8px', fontSize: '0.85rem', border: '1px solid var(--color-border-light)', borderRadius: '4px' }}
                                     />
                                   </div>
                                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -532,7 +532,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                       type="date" 
                                       value={editingBookingData.checkOutDate || ''}
                                       onChange={(e) => setEditingBookingData({ ...editingBookingData, checkOutDate: e.target.value })}
-                                      style={{ padding: '4px 8px', fontSize: '0.85rem', border: '1px solid var(--border-color)', borderRadius: '4px' }}
+                                      style={{ padding: '4px 8px', fontSize: '0.85rem', border: '1px solid var(--color-border-light)', borderRadius: '4px' }}
                                     />
                                   </div>
                                 </div>
@@ -545,7 +545,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                       type="number" 
                                       value={editingBookingData.totalAmount || 0}
                                       onChange={(e) => setEditingBookingData({ ...editingBookingData, totalAmount: Number(e.target.value) })}
-                                      style={{ width: '100px', padding: '4px 8px', fontSize: '0.9rem', border: '1px solid var(--border-color)', borderRadius: '4px' }}
+                                      style={{ width: '100px', padding: '4px 8px', fontSize: '0.9rem', border: '1px solid var(--color-border-light)', borderRadius: '4px' }}
                                       min={0}
                                     />
                                   </div>
@@ -594,29 +594,29 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                           ) : (
                             <>
                               <td style={{ padding: '16px 12px' }}>
-                                <div style={{ fontWeight: 600, color: 'var(--text-charcoal)' }}>{b.guestName}</div>
-                                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '4px' }}>
+                                <div style={{ fontWeight: 600, color: 'var(--color-primary-dark)' }}>{b.guestName}</div>
+                                <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted-light)', display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '4px' }}>
                                   <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Mail size={12} /> {b.guestEmail}</span>
                                   <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Phone size={12} /> {b.guestPhone}</span>
                                 </div>
                               </td>
                               <td style={{ padding: '16px 12px' }}>
-                                <div style={{ fontWeight: 500, color: 'var(--text-charcoal)' }}>{b.roomTitle}</div>
+                                <div style={{ fontWeight: 500, color: 'var(--color-primary-dark)' }}>{b.roomTitle}</div>
                                 <span className="amenity-tag" style={{ fontSize: '0.7rem', display: 'inline-block', marginTop: '4px' }}>
                                   {b.guestsCount} Guest(s)
                                 </span>
                               </td>
                               <td style={{ padding: '16px 12px' }}>
-                                <div style={{ fontSize: '0.9rem', color: 'var(--text-charcoal)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                  <Calendar size={14} style={{ color: 'var(--primary-sunrise)' }} />
+                                <div style={{ fontSize: '0.9rem', color: 'var(--color-primary-dark)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                  <Calendar size={14} style={{ color: 'var(--color-gold)' }} />
                                   <span>{b.checkInDate} to {b.checkOutDate}</span>
                                 </div>
-                                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginTop: '4px' }}>
+                                <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted-light)', display: 'block', marginTop: '4px' }}>
                                   Reference: {b._id}
                                 </span>
                               </td>
                               <td style={{ padding: '16px 12px' }}>
-                                <strong style={{ color: 'var(--primary-sunrise-dark)' }}>₹{b.totalAmount ? b.totalAmount.toLocaleString('en-IN') : 'N/A'}</strong>
+                                <strong style={{ color: 'var(--color-gold-light)' }}>₹{b.totalAmount ? b.totalAmount.toLocaleString('en-IN') : 'N/A'}</strong>
                                 <span style={{ fontSize: '0.75rem', color: '#3B7A57', display: 'block', fontWeight: 600, marginTop: '2px' }}>
                                   ✓ Paid via Mock Sandbox
                                 </span>
@@ -628,13 +628,13 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                     style={{ 
                                       background: 'none', 
                                       border: 'none', 
-                                      color: 'var(--primary-sunrise-dark)', 
+                                      color: 'var(--color-gold-light)', 
                                       cursor: 'pointer',
                                       padding: '8px',
                                       borderRadius: '4px',
                                       transition: 'background 0.2s'
                                     }}
-                                    onMouseOver={(e) => e.currentTarget.style.background = 'var(--primary-sunrise-light)'}
+                                    onMouseOver={(e) => e.currentTarget.style.background = 'var(--color-gold-light)'}
                                     onMouseOut={(e) => e.currentTarget.style.background = 'none'}
                                     title="Edit booking"
                                   >
@@ -673,11 +673,11 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
             {activeTab === 'inquiries' && (
               <>
                 {inquiries.length === 0 ? (
-                  <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>No event or general inquiries found.</p>
+                  <p style={{ textAlign: 'center', color: 'var(--color-text-muted-light)' }}>No event or general inquiries found.</p>
                 ) : (
                   <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
                     <thead>
-                      <tr style={{ borderBottom: '2px solid var(--border-color)', color: 'var(--natural-forest)' }}>
+                      <tr style={{ borderBottom: '2px solid var(--color-border-light)', color: 'var(--color-primary)' }}>
                         <th style={{ padding: '12px' }}>Contact Person</th>
                         <th style={{ padding: '12px' }}>Inquiry Category</th>
                         <th style={{ padding: '12px' }}>Requirements & message</th>
@@ -687,25 +687,25 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                     </thead>
                     <tbody>
                       {inquiries.map(inq => (
-                        <tr key={inq._id} style={{ borderBottom: '1px solid var(--border-color)' }}>
+                        <tr key={inq._id} style={{ borderBottom: '1px solid var(--color-border-light)' }}>
                           <td style={{ padding: '16px 12px' }}>
-                            <div style={{ fontWeight: 600, color: 'var(--text-charcoal)' }}>{inq.name}</div>
-                            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '4px' }}>
+                            <div style={{ fontWeight: 600, color: 'var(--color-primary-dark)' }}>{inq.name}</div>
+                            <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted-light)', display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '4px' }}>
                               <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Mail size={12} /> {inq.email}</span>
                               <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Phone size={12} /> {inq.phone}</span>
                             </div>
                           </td>
                           <td style={{ padding: '16px 12px' }}>
-                            <span className="amenity-tag" style={{ background: 'var(--primary-sunrise-light)', color: 'var(--primary-sunrise-dark)', fontWeight: 600 }}>
+                            <span className="amenity-tag" style={{ background: 'var(--color-gold-light)', color: 'var(--color-gold-light)', fontWeight: 600 }}>
                               {inq.inquiryType}
                             </span>
                           </td>
                           <td style={{ padding: '16px 12px', maxWidth: '350px' }}>
-                            <p style={{ fontSize: '0.9rem', color: 'var(--text-charcoal)', margin: 0, whiteSpace: 'pre-wrap' }}>
+                            <p style={{ fontSize: '0.9rem', color: 'var(--color-primary-dark)', margin: 0, whiteSpace: 'pre-wrap' }}>
                               "{inq.message}"
                             </p>
                           </td>
-                          <td style={{ padding: '16px 12px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                          <td style={{ padding: '16px 12px', fontSize: '0.85rem', color: 'var(--color-text-muted-light)' }}>
                             {inq.date || inq.createdAt?.split('T')[0] || 'N/A'}
                           </td>
                           <td style={{ padding: '16px 12px', textAlign: 'center' }}>
@@ -747,13 +747,13 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                   justifyContent: 'space-between',
                   marginBottom: '20px',
                   padding: '12px 16px',
-                  background: 'var(--bg-cream)',
+                  background: 'var(--color-bg-light)',
                   borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--border-color)'
+                  border: '1px solid var(--color-border-light)'
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--natural-forest-dark)' }}>Filter Date:</label>
+                      <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-primary-dark)' }}>Filter Date:</label>
                       <input 
                         type="date" 
                         value={reviewFilterDate}
@@ -761,7 +761,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                         style={{
                           padding: '6px 12px',
                           borderRadius: 'var(--radius-sm)',
-                          border: '1px solid var(--border-color)',
+                          border: '1px solid var(--color-border-light)',
                           outline: 'none',
                           fontSize: '0.9rem'
                         }}
@@ -785,17 +785,17 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                   </div>
                   
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--natural-forest-dark)' }}>Sort by Date:</label>
+                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-primary-dark)' }}>Sort by Date:</label>
                     <select
                       value={reviewSortOrder}
                       onChange={(e) => setReviewSortOrder(e.target.value)}
                       style={{
                         padding: '6px 12px',
                         borderRadius: 'var(--radius-sm)',
-                        border: '1px solid var(--border-color)',
+                        border: '1px solid var(--color-border-light)',
                         outline: 'none',
                         fontSize: '0.9rem',
-                        background: 'var(--white)'
+                        background: '#FFFFFF'
                       }}
                     >
                       <option value="newest">Newest First</option>
@@ -805,11 +805,11 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                 </div>
 
                 {filteredAndSortedReviews.length === 0 ? (
-                  <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>No reviews match the filter criteria.</p>
+                  <p style={{ textAlign: 'center', color: 'var(--color-text-muted-light)' }}>No reviews match the filter criteria.</p>
                 ) : (
                   <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
                     <thead>
-                      <tr style={{ borderBottom: '2px solid var(--border-color)', color: 'var(--natural-forest)' }}>
+                      <tr style={{ borderBottom: '2px solid var(--color-border-light)', color: 'var(--color-primary)' }}>
                         <th style={{ padding: '12px' }}>Author</th>
                         <th style={{ padding: '12px' }}>Rating</th>
                         <th style={{ padding: '12px' }}>Review Comment</th>
@@ -819,7 +819,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                     </thead>
                     <tbody>
                       {filteredAndSortedReviews.map(rev => (
-                        <tr key={rev._id} style={{ borderBottom: '1px solid var(--border-color)' }}>
+                        <tr key={rev._id} style={{ borderBottom: '1px solid var(--color-border-light)' }}>
                           {editingReviewId === rev._id ? (
                             <>
                               <td style={{ padding: '16px 12px' }}>
@@ -827,7 +827,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                   type="text" 
                                   value={editingReviewData.guestName || ''}
                                   onChange={(e) => setEditingReviewData({ ...editingReviewData, guestName: e.target.value })}
-                                  style={{ padding: '4px 8px', fontSize: '0.9rem', border: '1px solid var(--border-color)', borderRadius: '4px', width: '120px' }}
+                                  style={{ padding: '4px 8px', fontSize: '0.9rem', border: '1px solid var(--color-border-light)', borderRadius: '4px', width: '120px' }}
                                   placeholder="Name"
                                 />
                               </td>
@@ -835,7 +835,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                 <select 
                                   value={editingReviewData.rating || 5}
                                   onChange={(e) => setEditingReviewData({ ...editingReviewData, rating: Number(e.target.value) })}
-                                  style={{ padding: '4px 8px', fontSize: '0.9rem', border: '1px solid var(--border-color)', borderRadius: '4px', background: 'var(--white)' }}
+                                  style={{ padding: '4px 8px', fontSize: '0.9rem', border: '1px solid var(--color-border-light)', borderRadius: '4px', background: '#FFFFFF' }}
                                 >
                                   <option value="5">5 Stars</option>
                                   <option value="4">4 Stars</option>
@@ -848,7 +848,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                 <textarea 
                                   value={editingReviewData.comment || ''}
                                   onChange={(e) => setEditingReviewData({ ...editingReviewData, comment: e.target.value })}
-                                  style={{ padding: '6px 8px', fontSize: '0.85rem', border: '1px solid var(--border-color)', borderRadius: '4px', width: '100%', minHeight: '60px', resize: 'vertical' }}
+                                  style={{ padding: '6px 8px', fontSize: '0.85rem', border: '1px solid var(--color-border-light)', borderRadius: '4px', width: '100%', minHeight: '60px', resize: 'vertical' }}
                                   placeholder="Comment"
                                 />
                               </td>
@@ -857,7 +857,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                   type="text" 
                                   value={editingReviewData.date || ''}
                                   onChange={(e) => setEditingReviewData({ ...editingReviewData, date: e.target.value })}
-                                  style={{ padding: '4px 8px', fontSize: '0.85rem', border: '1px solid var(--border-color)', borderRadius: '4px', width: '110px' }}
+                                  style={{ padding: '4px 8px', fontSize: '0.85rem', border: '1px solid var(--color-border-light)', borderRadius: '4px', width: '110px' }}
                                   placeholder="Date"
                                 />
                               </td>
@@ -902,13 +902,13 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                             </>
                           ) : (
                             <>
-                              <td style={{ padding: '16px 12px', fontWeight: 600, color: 'var(--text-charcoal)' }}>
+                              <td style={{ padding: '16px 12px', fontWeight: 600, color: 'var(--color-primary-dark)' }}>
                                 {rev.guestName}
                               </td>
                               <td style={{ padding: '16px 12px' }}>
-                                <div style={{ display: 'flex', color: 'var(--primary-sunrise)' }}>
+                                <div style={{ display: 'flex', color: 'var(--color-gold)' }}>
                                   {[...Array(rev.rating)].map((_, i) => (
-                                    <Star key={i} size={14} fill="var(--primary-sunrise)" stroke="var(--primary-sunrise)" />
+                                    <Star key={i} size={14} fill="var(--color-gold)" stroke="var(--color-gold)" />
                                   ))}
                                   {[...Array(5 - rev.rating)].map((_, i) => (
                                     <Star key={i} size={14} fill="none" stroke="#CCC" />
@@ -916,11 +916,11 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                 </div>
                               </td>
                               <td style={{ padding: '16px 12px', maxWidth: '300px' }}>
-                                <p style={{ fontSize: '0.85rem', color: 'var(--text-charcoal)', fontStyle: 'italic', margin: 0 }}>
+                                <p style={{ fontSize: '0.85rem', color: 'var(--color-primary-dark)', fontStyle: 'italic', margin: 0 }}>
                                   "{rev.comment}"
                                 </p>
                               </td>
-                              <td style={{ padding: '16px 12px', fontSize: '0.85rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
+                              <td style={{ padding: '16px 12px', fontSize: '0.85rem', color: 'var(--color-text-muted-light)', whiteSpace: 'nowrap' }}>
                                 {rev.date || 'N/A'}
                               </td>
                               <td style={{ padding: '16px 12px', textAlign: 'center' }}>
@@ -950,13 +950,13 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                     style={{ 
                                       background: 'none', 
                                       border: 'none', 
-                                      color: 'var(--primary-sunrise-dark)', 
+                                      color: 'var(--color-gold-light)', 
                                       cursor: 'pointer',
                                       padding: '8px',
                                       borderRadius: '4px',
                                       transition: 'background 0.2s'
                                     }}
-                                    onMouseOver={(e) => e.currentTarget.style.background = 'var(--primary-sunrise-light)'}
+                                    onMouseOver={(e) => e.currentTarget.style.background = 'var(--color-gold-light)'}
                                     onMouseOut={(e) => e.currentTarget.style.background = 'none'}
                                     title="Edit review"
                                   >

@@ -3,7 +3,7 @@ import { Users, Maximize2 } from 'lucide-react';
 
 export default function Accommodations({ rooms }) {
   return (
-    <section id="accommodations" className="section-padding">
+    <section id="accommodations" className="section-padding" style={{ background: 'var(--color-bg-light)' }}>
       <div className="container">
         <div className="text-center">
           <h2 className="section-title">Immersive Guest Stays</h2>
@@ -33,11 +33,11 @@ export default function Accommodations({ rooms }) {
 
                 <div className="room-meta">
                   <div className="room-meta-item">
-                    <Users size={16} style={{ color: 'var(--natural-forest)' }} />
+                    <Users size={16} style={{ color: 'var(--color-primary)' }} />
                     <span>Up to {room.maxGuests} Guests</span>
                   </div>
                   <div className="room-meta-item">
-                    <Maximize2 size={16} style={{ color: 'var(--natural-forest)' }} />
+                    <Maximize2 size={16} style={{ color: 'var(--color-primary)' }} />
                     <span>{room.size} sq. ft.</span>
                   </div>
                 </div>
@@ -49,7 +49,7 @@ export default function Accommodations({ rooms }) {
                     </span>
                   ))}
                   {room.amenities?.length > 5 && (
-                    <span className="amenity-tag" style={{ background: 'var(--primary-sunrise-light)', color: 'var(--primary-sunrise-dark)' }}>
+                    <span className="amenity-tag" style={{ background: 'var(--color-gold-light)', color: 'var(--color-primary-dark)' }}>
                       +{room.amenities.length - 5} more
                     </span>
                   )}
