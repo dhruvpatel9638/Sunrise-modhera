@@ -1541,6 +1541,19 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .transit-card {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    gap: 16px;
+    padding: 30px 24px;
+  }
+
+  .transit-distance {
+    margin-left: 0;
+    margin-top: 4px;
+  }
+
   .reviews-layout {
     grid-template-columns: 1fr;
   }
