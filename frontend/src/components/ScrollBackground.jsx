@@ -1,10 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
-export default function ScrollBackground() {
+export default function ScrollBackground({ onProgress }) {
   const canvasRef = useRef(null);
-  const [loadPercent, setLoadPercent] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [fadeProgress, setFadeProgress] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -62,7 +59,7 @@ export default function ScrollBackground() {
       img.onload = () => {
         loadedCount++;
         const percent = Math.round((loadedCount / frameCount) * 100);
-        setLoadPercent(percent);
+        if (onProgress) onProgress(percent);
 
         // Render first frame immediately once loaded to avoid blank screen
         if (i === 1) {
@@ -70,23 +67,15 @@ export default function ScrollBackground() {
         }
         if (loadedCount === frameCount) {
           imagesPreloaded = true;
-          setFadeProgress(true);
-          setTimeout(() => {
-            setIsLoading(false);
-          }, 800);
         }
       };
 
       img.onerror = () => {
         loadedCount++;
         const percent = Math.round((loadedCount / frameCount) * 100);
-        setLoadPercent(percent);
+        if (onProgress) onProgress(percent);
         if (loadedCount === frameCount) {
           imagesPreloaded = true;
-          setFadeProgress(true);
-          setTimeout(() => {
-            setIsLoading(false);
-          }, 800);
         }
       };
 
@@ -151,45 +140,6 @@ export default function ScrollBackground() {
           WebkitTransform: 'translate3d(0, 0, 0)'
         }}
       />
-      {isLoading && (
-        <div 
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            backgroundColor: '#F8F4ED',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            zIndex: 9999,
-            opacity: fadeProgress ? 0 : 1,
-            transition: 'opacity 0.8s ease-in-out',
-            pointerEvents: 'none'
-          }}
-        >
-          <div style={{ textAlign: 'center', fontFamily: 'var(--font-headings)', color: 'var(--natural-forest-dark)' }}>
-            <h2 style={{ fontSize: '2rem', marginBottom: '16px', fontWeight: '400', fontStyle: 'italic' }}>
-              Awakening the Sanctuary...
-            </h2>
-            <div style={{ width: '200px', height: '2px', backgroundColor: 'rgba(30, 91, 58, 0.15)', margin: '0 auto 12px', borderRadius: '2px', overflow: 'hidden', position: 'relative' }}>
-              <div 
-                style={{
-                  height: '100%',
-                  width: `${loadPercent}%`,
-                  backgroundColor: 'var(--primary-sunrise)',
-                  transition: 'width 0.2s ease-out'
-                }}
-              />
-            </div>
-            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', color: 'var(--text-muted)', letterSpacing: '0.1em' }}>
-              PRELOADING EXPERIENCE {loadPercent}%
-            </p>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

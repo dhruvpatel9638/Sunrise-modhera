@@ -14,6 +14,7 @@ import ScrollBackground from './components/ScrollBackground';
 import BookingPage from './components/BookingPage';
 import AdminPanel from './components/AdminPanel';
 import MobileBottomNav from './components/MobileBottomNav';
+import SunPreloader from './components/SunPreloader';
 import { roomAPI, reviewAPI } from './utils/api';
 
 
@@ -84,6 +85,20 @@ export default function App() {
   const [adminTab, setAdminTab] = useState('bookings');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // Global preloader loading state tracking
+  const [roomsLoaded, setRoomsLoaded] = useState(false);
+  const [reviewsLoaded, setReviewsLoaded] = useState(false);
+  const [bgPercent, setBgPercent] = useState(0);
+
+  // Safety fallback to force load completion if API is slow or hangs
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setRoomsLoaded(true);
+      setReviewsLoaded(true);
+    }, 6000); // 6 seconds max load safety net
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
   };
@@ -101,6 +116,8 @@ export default function App() {
       }
     } catch (error) {
       console.warn('API error fetching rooms, using default local data:', error.message);
+    } finally {
+      setRoomsLoaded(true);
     }
   };
 
@@ -112,6 +129,8 @@ export default function App() {
       }
     } catch (error) {
       console.warn('API error fetching reviews, using default local data:', error.message);
+    } finally {
+      setReviewsLoaded(true);
     }
   };
 
@@ -162,7 +181,8 @@ export default function App() {
 
   return (
     <>
-      <ScrollBackground />
+      <SunPreloader percent={bgPercent} isReady={roomsLoaded && reviewsLoaded && bgPercent === 100} />
+      <ScrollBackground onProgress={setBgPercent} />
       <Navbar isAdminMode={false} />
       
       <Hero />
