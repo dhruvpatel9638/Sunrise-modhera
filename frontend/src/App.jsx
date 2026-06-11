@@ -28,7 +28,7 @@ const FALLBACK_ROOMS = [
     size: 450,
     description: "Circular, authentic Kutch-style mud houses with conical thatched roofs. Artfully decorated with traditional hand-crafted mirror-work (lipan kaam) on the interior walls. Upgraded with premium king-size bedding, writing desk, and quiet air conditioning for luxury comfort in a rustic ambiance.",
     amenities: ["Air Conditioning", "King Size Bed", "Premium Linens", "Attached Luxury Bath", "Lipan Kaam Decor", "Tea/Coffee Maker", "Mineral Water", "Free Wi-Fi"],
-    images: ["https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=800&q=80"],
+    images: ["https://images.unsplash.com/photo-1508193638397-1c4234db14d8?auto=format&fit=crop&w=800&q=80"],
     availableCount: 4
   },
   {
@@ -40,7 +40,7 @@ const FALLBACK_ROOMS = [
     size: 400,
     description: "Glamour camping (Glamping) setups giving a raw, immersive nature feel. Nestled under dense green tree canopies, each tent features premium mattress setups, fine fabrics, and a fully attached modern concrete bathroom. Includes a private wood-deck verandah for viewing free-roaming peacocks and bird watching.",
     amenities: ["Private Sit-out Verandah", "Attached Concrete Bathroom", "Hot & Cold Shower", "Air Cooler/AC", "Complimentary Breakfast", "Nature View Deck", "Tea Kettle"],
-    images: ["https://images.unsplash.com/photo-1533759413974-9e15f3b745ac?auto=format&fit=crop&w=800&q=80"],
+    images: ["https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80"],
     availableCount: 6
   },
   {
@@ -52,7 +52,7 @@ const FALLBACK_ROOMS = [
     size: 625,
     description: "Spacious standard brick-and-mortar luxury bungalows with high ceilings and wide french windows. Each cottage opens up directly to a panoramic private garden space. Equipped with premium double beds, a cozy seating lounge, double vanity bathrooms, and upscale contemporary furnishings.",
     amenities: ["Panoramic Garden View", "French Windows", "Double Vanity Bathroom", "Air Conditioning", "In-Room Electronic Safe", "Mini Fridge", "Flat Screen Smart TV", "Lounge Seating Area"],
-    images: ["https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80"],
+    images: ["https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"],
     availableCount: 5
   }
 ];
