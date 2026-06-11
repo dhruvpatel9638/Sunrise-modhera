@@ -59,7 +59,7 @@ export default function Dining() {
             </div>
 
             <div className="jain-alert">
-              <span style={{ fontWeight: '700', color: 'var(--color-gold)', display: 'block', marginBottom: '4px' }}>
+              <span style={{ fontWeight: '700', color: '#FFFFFF', display: 'block', marginBottom: '4px' }}>
                 🌾 Jain Food Options Accommodated
               </span>
               We understand and respect your religious food preferences. Separate Jain cooking facilities are utilized to prepare strictly onion-and-garlic-free meals. Please mention your requirements in the reservation inquiry.

@@ -8,7 +8,7 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
   const [checkIn, setCheckIn] = useState(initialDetails?.checkInDate || '');
   const [checkOut, setCheckOut] = useState(initialDetails?.checkOutDate || '');
   const [guestsCount, setGuestsCount] = useState(initialDetails?.guestsCount || '2');
-  
+
   const [guestName, setGuestName] = useState('');
   const [guestEmail, setGuestEmail] = useState('');
   const [guestPhone, setGuestPhone] = useState('');
@@ -24,6 +24,9 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
   const [submitting, setSubmitting] = useState(false);
   const [createdBooking, setCreatedBooking] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
+  
+  const [isAvailable, setIsAvailable] = useState(null);
+  const [checkingAvailability, setCheckingAvailability] = useState(false);
 
   // Auto select default room if none selected
   useEffect(() => {
@@ -57,10 +60,11 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
       setNights(0);
       setTotalAmount(0);
     }
+    // Reset availability check if dates or room changes
+    setIsAvailable(null);
   }, [roomId, checkIn, checkOut, rooms]);
 
-  const handleNextStep = (e) => {
-    e.preventDefault();
+  const handleCheckAvailability = () => {
     if (!roomId) {
       setErrorMsg('Please select a room category.');
       return;
@@ -75,6 +79,27 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
     }
     if (selectedRoom && Number(guestsCount) > selectedRoom.maxGuests) {
       setErrorMsg(`This room allows maximum ${selectedRoom.maxGuests} guests.`);
+      return;
+    }
+
+    setErrorMsg('');
+    setCheckingAvailability(true);
+    
+    // Simulate API call to check availability
+    setTimeout(() => {
+      setCheckingAvailability(false);
+      if (selectedRoom && selectedRoom.availableCount > 0) {
+        setIsAvailable(true);
+      } else {
+        setIsAvailable(false);
+      }
+    }, 1200);
+  };
+
+  const handleNextStep = (e) => {
+    e.preventDefault();
+    if (isAvailable !== true) {
+      handleCheckAvailability();
       return;
     }
     setErrorMsg('');
@@ -110,20 +135,20 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
   return (
     <div id="booking" style={{ paddingTop: '100px', minHeight: '100vh', background: 'transparent' }}>
       <div className="container" style={{ paddingBottom: '80px' }}>
-        
+
         {/* Back Link */}
         {step !== 3 && (
-          <button 
+          <button
             onClick={onBackToHome}
-            style={{ 
-              display: 'inline-flex', 
-              alignItems: 'center', 
-              gap: '8px', 
-              background: 'none', 
-              border: 'none', 
-              color: 'var(--color-primary)', 
-              fontWeight: 600, 
-              cursor: 'pointer', 
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'none',
+              border: 'none',
+              color: 'var(--color-primary)',
+              fontWeight: 600,
+              cursor: 'pointer',
               marginBottom: '30px',
               fontSize: '1rem',
               transition: 'var(--transition-fast)'
@@ -138,7 +163,7 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
 
         <div className="text-center" style={{ marginBottom: '40px' }}>
           <h1 style={{ fontSize: '3rem', fontFamily: 'var(--font-headings)', color: 'var(--color-primary-dark)' }}>
-            {step === 1 && 'Book Your Stay'}
+            {step === 1 && 'Reserve Your Stay'}
             {step === 2 && 'Complete Checkout'}
             {step === 3 && 'Reservation Confirmed!'}
           </h1>
@@ -157,7 +182,7 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
 
         {step !== 3 ? (
           <div className="booking-page-grid">
-            
+
             {/* Left Side: Forms */}
             <div>
               {step === 1 && (
@@ -169,9 +194,9 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
 
                     <div className="form-group">
                       <label>Accommodation Category</label>
-                      <select 
+                      <select
                         className="form-input"
-                        value={roomId} 
+                        value={roomId}
                         onChange={(e) => setRoomId(e.target.value)}
                         required
                       >
@@ -186,8 +211,8 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
                     <div className="grid-2">
                       <div className="form-group">
                         <label><Calendar size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> Check-In Date</label>
-                        <input 
-                          type="date" 
+                        <input
+                          type="date"
                           className="form-input"
                           value={checkIn}
                           min={new Date().toISOString().split('T')[0]}
@@ -197,8 +222,8 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
                       </div>
                       <div className="form-group">
                         <label><Calendar size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> Check-Out Date</label>
-                        <input 
-                          type="date" 
+                        <input
+                          type="date"
                           className="form-input"
                           value={checkOut}
                           min={checkIn || new Date().toISOString().split('T')[0]}
@@ -210,9 +235,9 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
 
                     <div className="form-group">
                       <label><Users size={14} style={{ marginRight: '4px', verticalAlign: 'middle' }} /> Guests Count</label>
-                      <select 
+                      <select
                         className="form-input"
-                        value={guestsCount} 
+                        value={guestsCount}
                         onChange={(e) => setGuestsCount(e.target.value)}
                       >
                         <option value="1">1 Guest</option>
@@ -228,48 +253,73 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
 
                     <div className="form-group">
                       <label>Full Name</label>
-                      <input 
-                        type="text" 
-                        className="form-input" 
+                      <input
+                        type="text"
+                        className="form-input"
                         placeholder="e.g. Ramesh Patel"
                         value={guestName}
                         onChange={(e) => setGuestName(e.target.value)}
-                        required 
+                        required
                       />
                     </div>
 
                     <div className="grid-2">
                       <div className="form-group">
                         <label>Email Address</label>
-                        <input 
-                          type="email" 
-                          className="form-input" 
+                        <input
+                          type="email"
+                          className="form-input"
                           placeholder="email@example.com"
                           value={guestEmail}
                           onChange={(e) => setGuestEmail(e.target.value)}
-                          required 
+                          required
                         />
                       </div>
                       <div className="form-group">
                         <label>Phone Number</label>
-                        <input 
-                          type="tel" 
-                          className="form-input" 
+                        <input
+                          type="tel"
+                          className="form-input"
                           placeholder="e.g. 9876543210"
                           value={guestPhone}
                           onChange={(e) => setGuestPhone(e.target.value)}
-                          required 
+                          required
                         />
                       </div>
                     </div>
 
-                    <button 
-                      type="submit" 
-                      className="btn btn-primary" 
-                      style={{ width: '100%', justifyContent: 'center', marginTop: '20px', padding: '16px' }}
-                    >
-                      Proceed to Secure Payment
-                    </button>
+                    {isAvailable === false && (
+                      <div style={{ background: '#FCE8E6', color: '#A82515', padding: '16px 20px', borderRadius: 'var(--radius-md)', marginTop: '10px', fontSize: '0.95rem', fontWeight: 500, textAlign: 'center' }}>
+                        Sorry, this room is not available for the selected dates. Please try different dates or room type.
+                      </div>
+                    )}
+
+                    {isAvailable === true && (
+                      <div style={{ background: 'rgba(30, 92, 53, 0.08)', color: 'var(--color-primary-dark)', padding: '16px 20px', borderRadius: 'var(--radius-md)', marginTop: '10px', fontSize: '0.95rem', fontWeight: 600, textAlign: 'center', border: '1px solid var(--color-primary)' }}>
+                        <CheckCircle2 size={18} style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+                        Room is available! You can now proceed to payment.
+                      </div>
+                    )}
+
+                    {isAvailable === true ? (
+                      <button
+                        type="submit"
+                        className="btn btn-primary"
+                        style={{ width: '100%', justifyContent: 'center', marginTop: '20px', padding: '16px' }}
+                      >
+                        Proceed to Secure Payment
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        style={{ width: '100%', justifyContent: 'center', marginTop: '20px', padding: '16px' }}
+                        onClick={handleCheckAvailability}
+                        disabled={checkingAvailability}
+                      >
+                        {checkingAvailability ? 'Checking Availability...' : 'Check Availability'}
+                      </button>
+                    )}
                   </form>
                 </div>
               )}
@@ -291,36 +341,36 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
 
                     <div className="form-group">
                       <label>Card Number</label>
-                      <input 
-                        type="text" 
-                        className="form-input" 
+                      <input
+                        type="text"
+                        className="form-input"
                         value={cardNumber}
                         onChange={(e) => setCardNumber(e.target.value)}
-                        required 
+                        required
                       />
                     </div>
 
                     <div className="card-inputs-grid">
                       <div className="form-group">
                         <label>Expiry Date</label>
-                        <input 
-                          type="text" 
-                          className="form-input" 
-                          placeholder="MM/YY" 
+                        <input
+                          type="text"
+                          className="form-input"
+                          placeholder="MM/YY"
                           value={expiry}
                           onChange={(e) => setExpiry(e.target.value)}
-                          required 
+                          required
                         />
                       </div>
                       <div className="form-group">
                         <label>CVV</label>
-                        <input 
-                          type="password" 
-                          className="form-input" 
-                          placeholder="123" 
+                        <input
+                          type="password"
+                          className="form-input"
+                          placeholder="123"
                           value={cvv}
                           onChange={(e) => setCvv(e.target.value)}
-                          required 
+                          required
                         />
                       </div>
                       <div className="form-group">
@@ -330,18 +380,18 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
                     </div>
 
                     <div style={{ display: 'flex', gap: '16px', marginTop: '30px' }}>
-                      <button 
-                        type="button" 
-                        className="btn btn-outline" 
+                      <button
+                        type="button"
+                        className="btn btn-outline"
                         style={{ flex: 1, justifyContent: 'center' }}
                         onClick={() => setStep(1)}
                         disabled={submitting}
                       >
                         Back to Details
                       </button>
-                      <button 
-                        type="submit" 
-                        className="btn btn-primary" 
+                      <button
+                        type="submit"
+                        className="btn btn-primary"
                         style={{ flex: 2, justifyContent: 'center' }}
                         disabled={submitting}
                       >
@@ -360,12 +410,12 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
 
             {/* Right Side: Stay Summary Invoice */}
             <div>
-              <div 
-                className="review-form-card" 
-                style={{ 
-                  background: '#FFFFFF', 
-                  padding: '24px', 
-                  position: 'sticky', 
+              <div
+                className="review-form-card"
+                style={{
+                  background: '#FFFFFF',
+                  padding: '24px',
+                  position: 'sticky',
                   top: '100px',
                   boxShadow: 'var(--shadow-md)',
                   border: '1px solid var(--color-border-light)'
@@ -379,9 +429,9 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
                   <div>
                     {selectedRoom.images?.[0] && (
                       <div style={{ width: '100%', height: '140px', borderRadius: 'var(--radius-md)', overflow: 'hidden', marginBottom: '16px' }}>
-                        <img 
-                          src={selectedRoom.images[0]} 
-                          alt={selectedRoom.title} 
+                        <img
+                          src={selectedRoom.images[0]}
+                          alt={selectedRoom.title}
                           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         />
                       </div>
@@ -476,8 +526,8 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
               </div>
             )}
 
-            <button 
-              className="btn btn-secondary" 
+            <button
+              className="btn btn-secondary"
               style={{ width: '100%', justifyContent: 'center' }}
               onClick={onBackToHome}
             >

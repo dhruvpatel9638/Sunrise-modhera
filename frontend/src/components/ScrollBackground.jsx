@@ -53,8 +53,8 @@ export default function ScrollBackground({ onProgress }) {
     // Preload all 240 frame images
     for (let i = 1; i <= frameCount; i++) {
       const img = new Image();
-      const frameName = `ezgif-frame-${String(i).padStart(3, '0')}.png`;
-      img.src = new URL(`../assets/ezgif-2fe938cd99012e6a-png-split/${frameName}`, import.meta.url).href;
+      const frameName = `ezgif-frame-${String(i).padStart(3, '0')}.jpg`;
+      img.src = new URL(`../assets/ezgif-3d3a8e6e74331b41-jpg/${frameName}`, import.meta.url).href;
       
       img.onload = () => {
         loadedCount++;

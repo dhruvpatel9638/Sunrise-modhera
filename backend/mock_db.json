@@ -5,7 +5,7 @@
       "createdAt": "2026-06-03T05:15:48.583Z",
       "title": "Traditional Bhunga (Kutch Mud Hut)",
       "type": "bhunga",
-      "price": 6500,
+      "price": 650,
       "maxGuests": 3,
       "size": 450,
       "description": "Circular, authentic Kutch-style mud houses with conical thatched roofs. Artfully decorated with traditional hand-crafted mirror-work (lipan kaam) on the interior walls. Upgraded with premium king-size bedding, writing desk, and quiet air conditioning for luxury comfort in a rustic ambiance.",
@@ -116,6 +116,34 @@
       "checkOutDate": "2026-06-13",
       "guestsCount": 2,
       "totalAmount": 6500,
+      "status": "Confirmed"
+    },
+    {
+      "_id": "ztou9tv",
+      "createdAt": "2026-06-11T04:52:06.528Z",
+      "roomId": "1sox1oc",
+      "roomTitle": "Luxury Glamping Tent",
+      "guestName": "John Doe",
+      "guestEmail": "johndoe@example.com",
+      "guestPhone": "9876543210",
+      "checkInDate": "2026-06-12",
+      "checkOutDate": "2026-06-14",
+      "guestsCount": 2,
+      "totalAmount": 11000,
+      "status": "Confirmed"
+    },
+    {
+      "_id": "9lvnsxx",
+      "createdAt": "2026-06-11T11:57:54.669Z",
+      "roomId": "alzcqho",
+      "roomTitle": "Traditional Bhunga (Kutch Mud Hut)",
+      "guestName": "Dhruv Patel",
+      "guestEmail": "dhruvp9638@gmail.com",
+      "guestPhone": "4757577878",
+      "checkInDate": "2026-06-21",
+      "checkOutDate": "2026-06-23",
+      "guestsCount": 2,
+      "totalAmount": 1300,
       "status": "Confirmed"
     }
   ],

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Users, Phone, Mail, Trash2, CheckCircle2, MessageSquare, Landmark, Star, Home, Edit2, Save, X, PlusCircle } from 'lucide-react';
+import { Calendar, Users, Phone, Mail, Trash2, CheckCircle2, MessageSquare, Landmark, Star, Home, Edit2, Save, X } from 'lucide-react';
 import { bookingAPI, inquiryAPI, reviewAPI, roomAPI } from '../utils/api';
 
 export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, activeTab: propActiveTab, setActiveTab: propSetActiveTab, onBackToHome, refreshRooms }) {
@@ -30,7 +30,6 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
 
   const [editingRoomId, setEditingRoomId] = useState(null);
   const [editingRoomData, setEditingRoomData] = useState({});
-  const [isAddingRoom, setIsAddingRoom] = useState(false);
 
   const handleEditBooking = (booking) => {
     setEditingBookingId(booking._id);
@@ -177,35 +176,27 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
   };
 
   const handleEditRoom = (room) => {
-    setEditingRoomId(room._id || 'new');
-    setEditingRoomData({ ...room });
-    setIsAddingRoom(!room._id);
+    setEditingRoomId(room._id);
+    setEditingRoomData({ type: 'bhunga', ...room });
   };
 
   const handleCancelEditRoom = () => {
     setEditingRoomId(null);
     setEditingRoomData({});
-    setIsAddingRoom(false);
   };
 
   const handleSaveRoom = async (id) => {
     try {
-      if (!editingRoomData.title || !editingRoomData.type || !editingRoomData.price) {
-        alert('Room title, type, and price are required.');
+      const roomToSave = { ...editingRoomData, type: editingRoomData.type || 'bhunga' };
+      if (!roomToSave.title || !roomToSave.price) {
+        alert('Room title and price are required.');
         return;
       }
-      if (isAddingRoom) {
-        const res = await roomAPI.create(editingRoomData);
-        setRooms([...rooms, res.data]);
-        showMessage('Room added successfully.');
-      } else {
-        await roomAPI.update(id, editingRoomData);
-        setRooms(prev => prev.map(r => r._id === id ? { ...r, ...editingRoomData } : r));
-        showMessage('Room updated successfully.');
-      }
+      await roomAPI.update(id, roomToSave);
+      setRooms(prev => prev.map(r => r._id === id ? { ...r, ...roomToSave } : r));
+      showMessage('Room updated successfully.');
       setEditingRoomId(null);
       setEditingRoomData({});
-      setIsAddingRoom(false);
       if (refreshRooms) refreshRooms();
     } catch (err) {
       console.error(err);
@@ -1060,13 +1051,6 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
               <>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                   <h3 style={{ fontSize: '1.4rem', color: 'var(--color-primary-dark)' }}>Room Inventory</h3>
-                  <button 
-                    onClick={() => handleEditRoom({})}
-                    className="btn btn-primary"
-                    style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-                  >
-                    <PlusCircle size={18} /> Add New Room
-                  </button>
                 </div>
 
                 {rooms.length === 0 ? (
@@ -1162,6 +1146,31 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                     style={{ padding: '8px', fontSize: '0.85rem', width: '100%' }}
                                     rows="2"
                                   ></textarea>
+                                </div>
+                                <div className="form-group" style={{ marginBottom: '16px' }}>
+                                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-primary-dark)', marginBottom: '4px' }}>Upload Room Photo</label>
+                                  <input 
+                                    type="file" 
+                                    accept="image/*"
+                                    className="form-input" 
+                                    onChange={(e) => {
+                                      const file = e.target.files[0];
+                                      if (file) {
+                                        const reader = new FileReader();
+                                        reader.onloadend = () => {
+                                          setEditingRoomData(prev => ({ ...prev, images: [reader.result] }));
+                                        };
+                                        reader.readAsDataURL(file);
+                                      }
+                                    }}
+                                    style={{ padding: '8px', fontSize: '0.85rem', background: '#FFFFFF' }}
+                                  />
+                                  {editingRoomData.images && editingRoomData.images[0] && (
+                                    <div style={{ marginTop: '12px' }}>
+                                      <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted-light)', marginBottom: '4px' }}>Preview:</p>
+                                      <img src={editingRoomData.images[0]} alt="Room Preview" style={{ width: '120px', height: '80px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--color-border-light)' }} />
+                                    </div>
+                                  )}
                                 </div>
                                 <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
                                   <button onClick={() => handleSaveRoom(room._id)} className="btn btn-primary" style={{ padding: '6px 12px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '4px' }}><Save size={14} /> Save</button>

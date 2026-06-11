@@ -2,43 +2,43 @@
 
 :root {
   /* Primary Brand */
-  --color-primary:          #1E5C35;
-  --color-primary-dark:     #162F1E;
-  --color-primary-light:    #4A9E72;
+  --color-primary: #1E5C35;
+  --color-primary-dark: #162F1E;
+  --color-primary-light: #4A9E72;
 
   /* Luxury Accent */
-  --color-gold:             #C9A84C;
-  --color-gold-light:       #E8CA7A;
+  --color-gold: #C9A84C;
+  --color-gold-light: #E8CA7A;
 
   /* Nature Accents */
-  --color-teal:             #7DBFA3;
-  --color-terra:            #D4956A;
+  --color-teal: #7DBFA3;
+  --color-terra: #D4956A;
 
   /* Backgrounds */
-  --color-bg-dark:          #0C1F12;
-  --color-bg-dark-mid:      #1A2E1E;
-  --color-bg-light:         #F5F0E8;
-  --color-bg-white:         #FFFFFF;
+  --color-bg-dark: #0C1F12;
+  --color-bg-dark-mid: #1A2E1E;
+  --color-bg-light: #F5F0E8;
+  --color-bg-white: #FFFFFF;
 
   /* Video Overlay Scrims */
-  --color-overlay-hero:     rgba(12, 31, 18, 0.65);
-  --color-overlay-light:    rgba(12, 31, 18, 0.40);
-  --color-overlay-glass:    rgba(255, 255, 255, 0.10);
-  --color-glass-border:     rgba(255, 255, 255, 0.22);
+  --color-overlay-hero: rgba(12, 31, 18, 0.65);
+  --color-overlay-light: rgba(12, 31, 18, 0.40);
+  --color-overlay-glass: rgba(255, 255, 255, 0.10);
+  --color-glass-border: rgba(255, 255, 255, 0.22);
 
   /* Text Colors */
-  --color-text-hero:        #FFFFFF;
-  --color-text-gold:        #C9A84C;
-  --color-text-body-dark:   #162F1E;
-  --color-text-body-light:  rgba(255,255,255,0.85);
-  --color-text-muted-dark:  rgba(255,255,255,0.50);
+  --color-text-hero: #FFFFFF;
+  --color-text-gold: #C9A84C;
+  --color-text-body-dark: #162F1E;
+  --color-text-body-light: rgba(255, 255, 255, 0.85);
+  --color-text-muted-dark: rgba(255, 255, 255, 0.50);
   --color-text-muted-light: #5a7060;
-  --color-text-link:        #4A9E72;
+  --color-text-link: #4A9E72;
 
   /* Borders */
-  --color-border-dark:      rgba(255,255,255,0.15);
-  --color-border-light:     rgba(30,92,53,0.18);
-  --color-border-gold:      #C9A84C;
+  --color-border-dark: rgba(255, 255, 255, 0.15);
+  --color-border-light: rgba(30, 92, 53, 0.18);
+  --color-border-gold: #C9A84C;
 
   /* Legacy aliases for easier transition initially, if needed, though they will be removed */
 
@@ -789,9 +789,11 @@ textarea {
 .amenities-bg {
   background: var(--color-bg-dark);
 }
+
 #amenities .section-title {
   color: var(--color-text-hero);
 }
+
 #amenities .section-subtitle {
   color: var(--color-gold);
 }
@@ -820,14 +822,14 @@ textarea {
 .amenity-icon-wrapper {
   width: 64px;
   height: 64px;
-  background: rgba(125,191,163,0.15);
+  background: rgba(125, 191, 163, 0.15);
   color: var(--color-teal);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px auto;
-  border: 1px solid rgba(125,191,163,0.3);
+  border: 1px solid rgba(125, 191, 163, 0.3);
   transition: var(--transition-normal);
 }
 
@@ -843,7 +845,7 @@ textarea {
   /* 22.4px */
   font-weight: 700;
   margin-bottom: 8px;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .amenity-desc {
@@ -933,7 +935,7 @@ textarea {
 .dining-title {
   font-size: 2.6rem;
   color: #FFFFFF;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.45);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
   margin-bottom: 20px;
 }
 
@@ -973,12 +975,12 @@ textarea {
 }
 
 .jain-alert {
-  background: rgba(201, 168, 76, 0.12);
-  border-left: 3px solid #C9A84C;
+  background: rgba(30, 92, 53, 0.158);
+  border-left: 3px solid var(--color-primary);
   padding: 16px 20px;
   border-radius: 0 8px 8px 0;
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: #e0bf65;
   font-weight: 500;
 }
 
@@ -1066,7 +1068,7 @@ textarea {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(12,31,18,0.90) 0%, rgba(12,31,18,0.30) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(12, 31, 18, 0.90) 0%, rgba(12, 31, 18, 0.30) 60%, transparent 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -1106,7 +1108,7 @@ textarea {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.50);
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
   padding: 24px;
   display: flex;
   align-items: center;
@@ -1172,7 +1174,7 @@ textarea {
   padding: 48px;
   border-radius: 16px;
   box-shadow: var(--shadow-md);
-  border: 1px solid rgba(255,255,255,0.50);
+  border: 1px solid rgba(255, 255, 255, 0.50);
   min-height: 380px;
   display: flex;
   flex-direction: column;
@@ -1235,8 +1237,8 @@ textarea {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.35);
-  background: rgba(255,255,255,0.20);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.20);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1257,8 +1259,8 @@ textarea {
   -webkit-backdrop-filter: blur(16px);
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.15);
-  border: 1px solid rgba(255,255,255,0.60);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.60);
 }
 
 #reviews .form-group label {
@@ -1268,8 +1270,8 @@ textarea {
 
 #reviews .form-input,
 #reviews .form-textarea {
-  background: rgba(245,240,232,0.60);
-  border: 1px solid rgba(30,92,53,0.25);
+  background: rgba(245, 240, 232, 0.60);
+  border: 1px solid rgba(30, 92, 53, 0.25);
   border-radius: 10px;
   color: #162F1E;
 }
@@ -1289,7 +1291,7 @@ textarea {
 
 #reviews .btn-primary:hover {
   background: #E8CA7A;
-  box-shadow: 0 4px 16px rgba(201,168,76,0.35);
+  box-shadow: 0 4px 16px rgba(201, 168, 76, 0.35);
 }
 
 .form-group {
@@ -1400,20 +1402,20 @@ textarea {
 }
 
 #inquiry .form-group label {
-  color: rgba(255,255,255,0.65);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 #inquiry .form-input,
 #inquiry .form-textarea {
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.20);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.20);
   color: #FFFFFF;
 }
 
 #inquiry .form-input:focus,
 #inquiry .form-textarea:focus {
   border-color: var(--color-gold);
-  background: rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.12);
   box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
 }
 
@@ -2382,12 +2384,15 @@ textarea {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
+
 .glass-text-heading {
   color: #FFFFFF;
 }
+
 .glass-text-body {
   color: rgba(255, 255, 255, 0.75);
 }
+
 .glass-input {
   background: rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.25);
