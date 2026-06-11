@@ -1,11 +1,15 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
-export default function Hero() {
+export default function Hero({ logoStage }) {
+  const isFinished = logoStage === 'finished';
   return (
     <section id="hero" className="hero">
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-        <div className="hero-content">
+        <div 
+          className="hero-content"
+          style={isFinished ? {} : { opacity: 0, transform: 'translateY(20px)', animation: 'none', pointerEvents: 'none' }}
+        >
           
           <h1 className="hero-title">
             Come,<br />

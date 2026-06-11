@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Home, Bed, Leaf, Map } from 'lucide-react';
 
-export default function MobileBottomNav() {
+export default function MobileBottomNav({ logoStage }) {
   const [activeTab, setActiveTab] = useState('home');
 
   useEffect(() => {
@@ -46,7 +46,14 @@ export default function MobileBottomNav() {
   };
 
   return (
-    <nav className="mobile-bottom-nav">
+    <nav 
+      className="mobile-bottom-nav"
+      style={{
+        opacity: logoStage === 'finished' ? 1 : 0,
+        transition: 'opacity 0.8s ease-in-out',
+        pointerEvents: logoStage === 'finished' ? 'auto' : 'none'
+      }}
+    >
       <a
         href="#hero"
         onClick={(e) => handleNavClick(e, 'hero', 'home')}

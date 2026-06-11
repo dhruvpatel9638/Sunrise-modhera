@@ -15,7 +15,9 @@ import BookingPage from './components/BookingPage';
 import AdminPanel from './components/AdminPanel';
 import MobileBottomNav from './components/MobileBottomNav';
 import SunPreloader from './components/SunPreloader';
+import SunCursor from './components/SunCursor';
 import { roomAPI, reviewAPI } from './utils/api';
+import logoWhite from './assets/logo_white.png';
 
 
 const FALLBACK_ROOMS = [
@@ -90,6 +92,13 @@ export default function App() {
   const [reviewsLoaded, setReviewsLoaded] = useState(false);
   const [bgPercent, setBgPercent] = useState(0);
 
+  const [logoStage, setLogoStage] = useState(
+    window.location.hash === '#admin' || window.location.hash === '#booking' 
+      ? 'finished' 
+      : 'preloader'
+  );
+  const [logoStyle, setLogoStyle] = useState({});
+
   // Safety fallback to force load completion if API is slow or hangs
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -97,6 +106,20 @@ export default function App() {
       setReviewsLoaded(true);
     }, 6000); // 6 seconds max load safety net
     return () => clearTimeout(timer);
+  }, []);
+
+  // Force scroll-to-top and disable native scroll restoration on reload for homepage entrance animation
+  useEffect(() => {
+    const currentHash = window.location.hash;
+    if (currentHash !== '#admin' && currentHash !== '#booking') {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+      if (currentHash && currentHash !== '#hero') {
+        window.history.replaceState(null, null, ' ');
+      }
+    }
   }, []);
 
   const handleLoginSuccess = () => {
@@ -139,6 +162,70 @@ export default function App() {
     fetchReviews();
   }, []);
 
+  const isPreloaderReady = roomsLoaded && reviewsLoaded && bgPercent === 100;
+
+  useEffect(() => {
+    if (isPreloaderReady && logoStage === 'preloader') {
+      const startWidth = 180;
+      const startHeight = 180;
+      const startLeft = (window.innerWidth - startWidth) / 2;
+      const startTop = (window.innerHeight - startHeight) / 2;
+      
+      setLogoStyle({
+        position: 'fixed',
+        left: `${startLeft}px`,
+        top: `${startTop}px`,
+        width: `${startWidth}px`,
+        height: `${startHeight}px`,
+        zIndex: 1500,
+        transition: 'all 2.2s cubic-bezier(0.77, 0, 0.175, 1)',
+        pointerEvents: 'none',
+        objectFit: 'contain',
+        borderRadius: '4px'
+      });
+
+      const timer = setTimeout(() => {
+        setLogoStage('center');
+      }, 1400);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isPreloaderReady, logoStage]);
+
+  useEffect(() => {
+    if (logoStage === 'center') {
+      const timer = setTimeout(() => {
+        setLogoStage('animating');
+        
+        const target = document.getElementById('nav-logo-img');
+        if (target) {
+          const rect = target.getBoundingClientRect();
+          setLogoStyle(prev => ({
+            ...prev,
+            left: `${rect.left}px`,
+            top: `${rect.top}px`,
+            width: `${rect.width}px`,
+            height: `${rect.height}px`
+          }));
+        } else {
+          setLogoStage('finished');
+        }
+      }, 3000); // 3 seconds centered
+      
+      return () => clearTimeout(timer);
+    }
+  }, [logoStage]);
+
+  useEffect(() => {
+    if (logoStage === 'animating') {
+      const timer = setTimeout(() => {
+        setLogoStage('finished');
+      }, 2200);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [logoStage]);
+
   useEffect(() => {
     const handleHash = () => {
       const newHash = window.location.hash;
@@ -154,6 +241,17 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHash);
   }, [hash]);
 
+  useEffect(() => {
+    if (hash === '#admin') {
+      document.body.classList.add('admin-mode');
+    } else {
+      document.body.classList.remove('admin-mode');
+    }
+    return () => {
+      document.body.classList.remove('admin-mode');
+    };
+  }, [hash]);
+
   const handleNewReview = (newReview) => {
     setReviews((prev) => [newReview, ...prev]);
   };
@@ -165,6 +263,7 @@ export default function App() {
           isAdminMode={isAuthenticated} 
           activeTab={adminTab} 
           setActiveTab={setAdminTab} 
+          logoStage="finished"
         />
         <div style={{ flex: '1 0 auto' }}>
           <AdminPanel 
@@ -183,7 +282,8 @@ export default function App() {
   if (hash === '#booking') {
     return (
       <div style={{ backgroundColor: 'var(--color-bg-light)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <Navbar isAdminMode={false} />
+        <SunCursor />
+        <Navbar isAdminMode={false} logoStage="finished" />
         <div style={{ flex: '1 0 auto', paddingTop: '80px' }}>
           <BookingPage 
             rooms={rooms} 
@@ -202,9 +302,36 @@ export default function App() {
     <>
       <SunPreloader percent={bgPercent} isReady={roomsLoaded && reviewsLoaded && bgPercent === 100} />
       <ScrollBackground onProgress={setBgPercent} />
-      <Navbar isAdminMode={false} />
+      <SunCursor />
+
+      {logoStage !== 'finished' && logoStyle.left && (
+        <>
+          <div 
+            className={`intro-logo-overlay ${logoStage === 'animating' ? 'fade-out' : ''}`}
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '100vh',
+              backgroundColor: 'var(--color-bg-dark)',
+              zIndex: 1499,
+              transition: 'opacity 2.2s ease-in-out',
+              pointerEvents: 'none',
+              opacity: logoStage === 'animating' ? 0 : 1
+            }}
+          />
+          <img
+            src={logoWhite}
+            alt="Modhera Sunrise Logo"
+            style={logoStyle}
+          />
+        </>
+      )}
+
+      <Navbar isAdminMode={false} logoStage={logoStage} />
       
-      <Hero />
+      <Hero logoStage={logoStage} />
       <ModheraExperience />
 
       <Accommodations rooms={rooms} />
@@ -225,7 +352,7 @@ export default function App() {
       <InquiryForm />
 
       <Footer />
-      <MobileBottomNav />
+      <MobileBottomNav logoStage={logoStage} />
     </>
   );
 }

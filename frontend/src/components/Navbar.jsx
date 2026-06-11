@@ -3,7 +3,7 @@ import { Menu, X } from 'lucide-react';
 import logoGreen from '../assets/logo_green.png';
 import logoWhite from '../assets/logo_white.png';
 
-export default function Navbar({ isAdminMode = false, activeTab = 'bookings', setActiveTab }) {
+export default function Navbar({ isAdminMode = false, activeTab = 'bookings', setActiveTab, logoStage }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -49,11 +49,24 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container">
         <a href="#hero" className="nav-logo" onClick={(e) => handleNavClick(e, 'hero')}>
-          <img src={logoWhite} alt="Modhera Sunrise Logo" className="logo-img" />
+          <img 
+            id="nav-logo-img"
+            src={logoWhite} 
+            alt="Modhera Sunrise Logo" 
+            className="logo-img" 
+            style={{ visibility: logoStage === 'finished' ? 'visible' : 'hidden' }}
+          />
         </a>
 
         {/* Desktop Menu */}
-        <div className="nav-links">
+        <div 
+          className="nav-links"
+          style={{
+            opacity: logoStage === 'finished' ? 1 : 0,
+            transition: 'opacity 0.8s ease-in-out',
+            pointerEvents: logoStage === 'finished' ? 'auto' : 'none'
+          }}
+        >
           {isAdminMode ? (
             <>
               <button 
@@ -92,7 +105,15 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
         </div>
 
         {/* Mobile Hamburger Button */}
-        <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
+        <button 
+          className="mobile-menu-btn" 
+          onClick={toggleMobileMenu}
+          style={{
+            opacity: logoStage === 'finished' ? 1 : 0,
+            transition: 'opacity 0.8s ease-in-out',
+            pointerEvents: logoStage === 'finished' ? 'auto' : 'none'
+          }}
+        >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>

@@ -2398,3 +2398,37 @@ textarea {
   border: 1px solid rgba(255, 255, 255, 0.25);
   color: #FFFFFF;
 }
+
+/* Custom Sun Cursor Styles */
+@media (pointer: fine) {
+  body:not(.admin-mode),
+  body:not(.admin-mode) a,
+  body:not(.admin-mode) button,
+  body:not(.admin-mode) input[type="submit"],
+  body:not(.admin-mode) input[type="button"],
+  body:not(.admin-mode) .btn,
+  body:not(.admin-mode) .mobile-nav-item,
+  body:not(.admin-mode) .nav-link,
+  body:not(.admin-mode) .nav-link-btn,
+  body:not(.admin-mode) .clickable {
+    cursor: none !important;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-fast {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
