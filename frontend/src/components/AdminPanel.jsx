@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Users, Phone, Mail, Trash2, CheckCircle2, MessageSquare, Landmark, Star, Home, Edit2, Save, X } from 'lucide-react';
-import { bookingAPI, inquiryAPI, reviewAPI } from '../utils/api';
+import { Calendar, Users, Phone, Mail, Trash2, CheckCircle2, MessageSquare, Landmark, Star, Home, Edit2, Save, X, PlusCircle } from 'lucide-react';
+import { bookingAPI, inquiryAPI, reviewAPI, roomAPI } from '../utils/api';
 
-export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, activeTab: propActiveTab, setActiveTab: propSetActiveTab, onBackToHome }) {
+export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, activeTab: propActiveTab, setActiveTab: propSetActiveTab, onBackToHome, refreshRooms }) {
   const [bookings, setBookings] = useState([]);
   const [inquiries, setInquiries] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [rooms, setRooms] = useState([]);
   
   const [localActiveTab, setLocalActiveTab] = useState('bookings');
   const activeTab = propActiveTab || localActiveTab;
@@ -26,6 +27,10 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
   const [editingBookingData, setEditingBookingData] = useState({});
   const [editingReviewId, setEditingReviewId] = useState(null);
   const [editingReviewData, setEditingReviewData] = useState({});
+
+  const [editingRoomId, setEditingRoomId] = useState(null);
+  const [editingRoomData, setEditingRoomData] = useState({});
+  const [isAddingRoom, setIsAddingRoom] = useState(false);
 
   const handleEditBooking = (booking) => {
     setEditingBookingId(booking._id);
@@ -96,14 +101,16 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [bookingsRes, inquiriesRes, reviewsRes] = await Promise.all([
+      const [bookingsRes, inquiriesRes, reviewsRes, roomsRes] = await Promise.all([
         bookingAPI.getAll(),
         inquiryAPI.getAll(),
-        reviewAPI.getAllAdmin()
+        reviewAPI.getAllAdmin(),
+        roomAPI.getAll()
       ]);
       setBookings(bookingsRes.data || []);
       setInquiries(inquiriesRes.data || []);
       setReviews(reviewsRes.data || []);
+      setRooms(roomsRes.data || []);
     } catch (error) {
       console.error('Error fetching admin data:', error);
     } finally {
@@ -166,6 +173,56 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
     } catch (err) {
       console.error(err);
       alert('Failed to approve review.');
+    }
+  };
+
+  const handleEditRoom = (room) => {
+    setEditingRoomId(room._id || 'new');
+    setEditingRoomData({ ...room });
+    setIsAddingRoom(!room._id);
+  };
+
+  const handleCancelEditRoom = () => {
+    setEditingRoomId(null);
+    setEditingRoomData({});
+    setIsAddingRoom(false);
+  };
+
+  const handleSaveRoom = async (id) => {
+    try {
+      if (!editingRoomData.title || !editingRoomData.type || !editingRoomData.price) {
+        alert('Room title, type, and price are required.');
+        return;
+      }
+      if (isAddingRoom) {
+        const res = await roomAPI.create(editingRoomData);
+        setRooms([...rooms, res.data]);
+        showMessage('Room added successfully.');
+      } else {
+        await roomAPI.update(id, editingRoomData);
+        setRooms(prev => prev.map(r => r._id === id ? { ...r, ...editingRoomData } : r));
+        showMessage('Room updated successfully.');
+      }
+      setEditingRoomId(null);
+      setEditingRoomData({});
+      setIsAddingRoom(false);
+      if (refreshRooms) refreshRooms();
+    } catch (err) {
+      console.error(err);
+      alert('Failed to save room.');
+    }
+  };
+
+  const handleDeleteRoom = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this room? This might affect existing bookings.')) return;
+    try {
+      await roomAPI.delete(id);
+      setRooms(prev => prev.filter(r => r._id !== id));
+      showMessage('Room deleted successfully.');
+      if (refreshRooms) refreshRooms();
+    } catch (err) {
+      console.error(err);
+      alert('Failed to delete room.');
     }
   };
 
@@ -370,6 +427,12 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
             onClick={() => setActiveTab('reviews')}
           >
             Reviews & Testimonials ({reviews.length})
+          </button>
+          <button 
+            className={`filter-btn ${activeTab === 'rooms' ? 'active' : ''}`}
+            onClick={() => setActiveTab('rooms')}
+          >
+            Manage Rooms ({rooms.length})
           </button>
         </div>
 
@@ -977,6 +1040,166 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                                     onMouseOver={(e) => e.currentTarget.style.background = '#FCE8E6'}
                                     onMouseOut={(e) => e.currentTarget.style.background = 'none'}
                                     title="Delete review"
+                                  >
+                                    <Trash2 size={18} />
+                                  </button>
+                                </div>
+                              </td>
+                            </>
+                          )}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </>
+            )}
+
+            {/* 4. ROOMS TAB */}
+            {activeTab === 'rooms' && (
+              <>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                  <h3 style={{ fontSize: '1.4rem', color: 'var(--color-primary-dark)' }}>Room Inventory</h3>
+                  <button 
+                    onClick={() => handleEditRoom({})}
+                    className="btn btn-primary"
+                    style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+                  >
+                    <PlusCircle size={18} /> Add New Room
+                  </button>
+                </div>
+
+                {rooms.length === 0 ? (
+                  <p style={{ color: 'var(--color-text-muted-light)', fontStyle: 'italic' }}>No rooms configured.</p>
+                ) : (
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
+                    <thead>
+                      <tr style={{ borderBottom: '2px solid var(--color-border-light)', textAlign: 'left' }}>
+                        <th style={{ padding: '12px', color: 'var(--color-primary-dark)', width: '30%' }}>Room Details</th>
+                        <th style={{ padding: '12px', color: 'var(--color-primary-dark)' }}>Type</th>
+                        <th style={{ padding: '12px', color: 'var(--color-primary-dark)' }}>Pricing & Capacity</th>
+                        <th style={{ padding: '12px', color: 'var(--color-primary-dark)', textAlign: 'center' }}>Available</th>
+                        <th style={{ padding: '12px', color: 'var(--color-primary-dark)', textAlign: 'center' }}>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {rooms.map(room => (
+                        <tr key={room._id} style={{ borderBottom: '1px solid var(--color-border-light)' }}>
+                          {editingRoomId === room._id ? (
+                            <td colSpan="5" style={{ padding: '16px 12px' }}>
+                              <div style={{ background: '#F9FAF9', padding: '16px', borderRadius: '8px', border: '1px dashed var(--color-gold)' }}>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+                                  <div className="form-group" style={{ marginBottom: 0 }}>
+                                    <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-primary-dark)', marginBottom: '4px' }}>Room Title</label>
+                                    <input 
+                                      type="text" 
+                                      className="form-input" 
+                                      value={editingRoomData.title || ''} 
+                                      onChange={(e) => setEditingRoomData({...editingRoomData, title: e.target.value})}
+                                      style={{ padding: '8px', fontSize: '0.85rem' }}
+                                    />
+                                  </div>
+                                  <div className="form-group" style={{ marginBottom: 0 }}>
+                                    <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-primary-dark)', marginBottom: '4px' }}>Type</label>
+                                    <select 
+                                      className="form-input" 
+                                      value={editingRoomData.type || 'bhunga'} 
+                                      onChange={(e) => setEditingRoomData({...editingRoomData, type: e.target.value})}
+                                      style={{ padding: '8px', fontSize: '0.85rem' }}
+                                    >
+                                      <option value="bhunga">Bhunga</option>
+                                      <option value="tent">Tent</option>
+                                      <option value="cottage">Cottage</option>
+                                    </select>
+                                  </div>
+                                  <div className="form-group" style={{ marginBottom: 0 }}>
+                                    <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-primary-dark)', marginBottom: '4px' }}>Price (₹)</label>
+                                    <input 
+                                      type="number" 
+                                      className="form-input" 
+                                      value={editingRoomData.price || 0} 
+                                      onChange={(e) => setEditingRoomData({...editingRoomData, price: Number(e.target.value)})}
+                                      style={{ padding: '8px', fontSize: '0.85rem' }}
+                                    />
+                                  </div>
+                                  <div className="form-group" style={{ marginBottom: 0 }}>
+                                    <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-primary-dark)', marginBottom: '4px' }}>Available Count</label>
+                                    <input 
+                                      type="number" 
+                                      className="form-input" 
+                                      value={editingRoomData.availableCount || 0} 
+                                      onChange={(e) => setEditingRoomData({...editingRoomData, availableCount: Number(e.target.value)})}
+                                      style={{ padding: '8px', fontSize: '0.85rem' }}
+                                    />
+                                  </div>
+                                  <div className="form-group" style={{ marginBottom: 0 }}>
+                                    <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-primary-dark)', marginBottom: '4px' }}>Max Guests</label>
+                                    <input 
+                                      type="number" 
+                                      className="form-input" 
+                                      value={editingRoomData.maxGuests || 0} 
+                                      onChange={(e) => setEditingRoomData({...editingRoomData, maxGuests: Number(e.target.value)})}
+                                      style={{ padding: '8px', fontSize: '0.85rem' }}
+                                    />
+                                  </div>
+                                  <div className="form-group" style={{ marginBottom: 0 }}>
+                                    <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-primary-dark)', marginBottom: '4px' }}>Size (sq ft)</label>
+                                    <input 
+                                      type="number" 
+                                      className="form-input" 
+                                      value={editingRoomData.size || 0} 
+                                      onChange={(e) => setEditingRoomData({...editingRoomData, size: Number(e.target.value)})}
+                                      style={{ padding: '8px', fontSize: '0.85rem' }}
+                                    />
+                                  </div>
+                                </div>
+                                <div className="form-group" style={{ marginBottom: '16px' }}>
+                                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-primary-dark)', marginBottom: '4px' }}>Description</label>
+                                  <textarea 
+                                    className="form-textarea" 
+                                    value={editingRoomData.description || ''} 
+                                    onChange={(e) => setEditingRoomData({...editingRoomData, description: e.target.value})}
+                                    style={{ padding: '8px', fontSize: '0.85rem', width: '100%' }}
+                                    rows="2"
+                                  ></textarea>
+                                </div>
+                                <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                                  <button onClick={() => handleSaveRoom(room._id)} className="btn btn-primary" style={{ padding: '6px 12px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '4px' }}><Save size={14} /> Save</button>
+                                  <button onClick={handleCancelEditRoom} className="btn btn-outline" style={{ padding: '6px 12px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '4px' }}><X size={14} /> Cancel</button>
+                                </div>
+                              </div>
+                            </td>
+                          ) : (
+                            <>
+                              <td style={{ padding: '16px 12px', verticalAlign: 'top' }}>
+                                <strong style={{ color: 'var(--color-primary-dark)', display: 'block', marginBottom: '4px' }}>{room.title}</strong>
+                                <span style={{ color: 'var(--color-text-muted-light)', fontSize: '0.8rem' }}>{room.description?.substring(0, 50)}...</span>
+                              </td>
+                              <td style={{ padding: '16px 12px', verticalAlign: 'top', textTransform: 'capitalize' }}>
+                                <span style={{ background: '#EAF2EE', color: 'var(--color-primary)', padding: '4px 8px', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 600 }}>
+                                  {room.type}
+                                </span>
+                              </td>
+                              <td style={{ padding: '16px 12px', verticalAlign: 'top' }}>
+                                <div style={{ color: 'var(--color-gold)', fontWeight: 'bold' }}>₹{room.price?.toLocaleString()} / night</div>
+                                <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted-light)' }}>Up to {room.maxGuests} guests • {room.size} sq.ft</div>
+                              </td>
+                              <td style={{ padding: '16px 12px', verticalAlign: 'top', textAlign: 'center' }}>
+                                <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--color-primary-dark)' }}>{room.availableCount}</span>
+                              </td>
+                              <td style={{ padding: '16px 12px', verticalAlign: 'top', textAlign: 'center' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                                  <button 
+                                    onClick={() => handleEditRoom(room)}
+                                    style={{ background: 'none', border: 'none', color: 'var(--color-gold-light)', cursor: 'pointer', padding: '8px', borderRadius: '4px' }}
+                                    title="Edit Room"
+                                  >
+                                    <Edit2 size={18} />
+                                  </button>
+                                  <button 
+                                    onClick={() => handleDeleteRoom(room._id)}
+                                    style={{ background: 'none', border: 'none', color: '#A82515', cursor: 'pointer', padding: '8px', borderRadius: '4px' }}
+                                    title="Delete Room"
                                   >
                                     <Trash2 size={18} />
                                   </button>

@@ -1015,6 +1015,24 @@ textarea {
   box-shadow: var(--shadow-sm);
 }
 
+/* Admin Panel Specific Filter Buttons */
+#admin-panel .filter-btn {
+  color: var(--color-primary);
+  border-color: rgba(30, 92, 53, 0.4);
+  background: rgba(30, 92, 53, 0.05);
+}
+
+#admin-panel .filter-btn:hover {
+  background: rgba(30, 92, 53, 0.15);
+  color: var(--color-primary-dark);
+}
+
+#admin-panel .filter-btn.active {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+}
+
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -35,6 +35,13 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
       element.scrollIntoView({ behavior: 'smooth' });
       // Update URL hash quietly without triggering window hashchange event re-renders
       window.history.pushState(null, null, `#${targetId}`);
+    } else {
+      // If we are on a separate page (like #booking) and the element doesn't exist, go to home
+      window.location.hash = '';
+      setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
     }
   };
 

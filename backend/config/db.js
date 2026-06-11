@@ -144,6 +144,18 @@ class MockModel {
     return Array.isArray(data) ? createdItems.map(i => new this(i)) : new this(createdItems[0]);
   }
 
+  static async findByIdAndDelete(id) {
+    const db = MockModel._read();
+    const collection = db[this.collectionName] || [];
+    const index = collection.findIndex(item => item._id === id);
+    if (index === -1) return null;
+
+    const deleted = collection.splice(index, 1)[0];
+    db[this.collectionName] = collection;
+    MockModel._write(db);
+    return deleted;
+  }
+
   static async deleteMany(query = {}) {
     const db = MockModel._read();
     const collection = db[this.collectionName] || [];

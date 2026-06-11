@@ -56,7 +56,7 @@ export default function Accommodations({ rooms }) {
                 </div>
 
                 <a 
-                  href="#inquiry" 
+                  href="#booking" 
                   className="btn btn-secondary" 
                   style={{ marginTop: 'auto', width: '100%', justifyContent: 'center', textAlign: 'center' }}
                 >

@@ -12,6 +12,9 @@ const api = axios.create({
 export const roomAPI = {
   getAll: () => api.get('/rooms'),
   getById: (id) => api.get(`/rooms/${id}`),
+  create: (roomData) => api.post('/rooms', roomData),
+  update: (id, roomData) => api.put(`/rooms/${id}`, roomData),
+  delete: (id) => api.delete(`/rooms/${id}`),
 };
 
 export const bookingAPI = {

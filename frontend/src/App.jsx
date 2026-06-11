@@ -145,7 +145,7 @@ export default function App() {
       // Only update state and scroll to top when entering or leaving the admin dashboard.
       // This prevents the page from re-rendering and aborting native browser scrolls
       // when clicking local section anchor tags (e.g. #accommodations).
-      if (newHash === '#admin' || hash === '#admin') {
+      if (newHash === '#admin' || hash === '#admin' || newHash === '#booking' || hash === '#booking') {
         setHash(newHash);
         window.scrollTo({ top: 0 });
       }
@@ -173,8 +173,27 @@ export default function App() {
             activeTab={adminTab} 
             setActiveTab={setAdminTab} 
             onBackToHome={handleLogout} 
+            refreshRooms={fetchRooms}
           />
         </div>
+      </div>
+    );
+  }
+
+  if (hash === '#booking') {
+    return (
+      <div style={{ backgroundColor: 'var(--color-bg-light)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <Navbar isAdminMode={false} />
+        <div style={{ flex: '1 0 auto', paddingTop: '80px' }}>
+          <BookingPage 
+            rooms={rooms} 
+            onBackToHome={() => {
+              window.location.hash = '';
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }} 
+          />
+        </div>
+        <Footer />
       </div>
     );
   }
@@ -189,8 +208,6 @@ export default function App() {
       <ModheraExperience />
 
       <Accommodations rooms={rooms} />
-
-      <BookingPage rooms={rooms} onBackToHome={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
 
       <Amenities />
 
