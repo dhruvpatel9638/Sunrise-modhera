@@ -75,78 +75,7 @@
       "availableCount": 5
     }
   ],
-  "bookings": [
-    {
-      "_id": "9fdei17",
-      "createdAt": "2026-06-10T03:28:57.146Z",
-      "roomId": "avdhox2",
-      "roomTitle": "Super Cottage / Deluxe Garden Room",
-      "guestName": "Dhruv Patel",
-      "guestEmail": "dhruvp9638@gmail.com",
-      "guestPhone": "5598663856",
-      "checkInDate": "2026-06-23",
-      "checkOutDate": "2026-06-24",
-      "guestsCount": 2,
-      "totalAmount": 7500,
-      "status": "Confirmed"
-    },
-    {
-      "_id": "v4u2npb",
-      "createdAt": "2026-06-10T09:51:03.766Z",
-      "roomId": "1sox1oc",
-      "roomTitle": "Luxury Glamping Tent",
-      "guestName": "D Patel",
-      "guestEmail": "dhruvp9638@gmail.com",
-      "guestPhone": "4552212741",
-      "checkInDate": "2026-06-10",
-      "checkOutDate": "2026-06-11",
-      "guestsCount": 2,
-      "totalAmount": 5500,
-      "status": "Confirmed"
-    },
-    {
-      "_id": "4hqepad",
-      "createdAt": "2026-06-11T04:14:16.733Z",
-      "roomId": "alzcqho",
-      "roomTitle": "Traditional Bhunga (Kutch Mud Hut)",
-      "guestName": "Dhruv Patel",
-      "guestEmail": "dhruvp9638@gmail.com",
-      "guestPhone": "655500112",
-      "checkInDate": "2026-06-12",
-      "checkOutDate": "2026-06-13",
-      "guestsCount": 2,
-      "totalAmount": 6500,
-      "status": "Confirmed"
-    },
-    {
-      "_id": "ztou9tv",
-      "createdAt": "2026-06-11T04:52:06.528Z",
-      "roomId": "1sox1oc",
-      "roomTitle": "Luxury Glamping Tent",
-      "guestName": "John Doe",
-      "guestEmail": "johndoe@example.com",
-      "guestPhone": "9876543210",
-      "checkInDate": "2026-06-12",
-      "checkOutDate": "2026-06-14",
-      "guestsCount": 2,
-      "totalAmount": 11000,
-      "status": "Confirmed"
-    },
-    {
-      "_id": "9lvnsxx",
-      "createdAt": "2026-06-11T11:57:54.669Z",
-      "roomId": "alzcqho",
-      "roomTitle": "Traditional Bhunga (Kutch Mud Hut)",
-      "guestName": "Dhruv Patel",
-      "guestEmail": "dhruvp9638@gmail.com",
-      "guestPhone": "4757577878",
-      "checkInDate": "2026-06-21",
-      "checkOutDate": "2026-06-23",
-      "guestsCount": 2,
-      "totalAmount": 1300,
-      "status": "Confirmed"
-    }
-  ],
+  "bookings": [],
   "inquiries": [
     {
       "_id": "3ua293z",
