@@ -147,7 +147,28 @@
       "status": "Confirmed"
     }
   ],
-  "inquiries": [],
+  "inquiries": [
+    {
+      "_id": "3ua293z",
+      "createdAt": "2026-06-12T03:01:30.725Z",
+      "name": "Dhruv Patel",
+      "email": "dhruvp9638@gmail.com",
+      "phone": "2211445566",
+      "inquiryType": "Corporate Outing",
+      "message": "20 guest at 20 june with panjabi cousin",
+      "date": "2026-06-12"
+    },
+    {
+      "_id": "0fdn74l",
+      "createdAt": "2026-06-12T03:11:54.764Z",
+      "name": "Dhruv Patel",
+      "email": "dhruvp9638@gmail.com",
+      "phone": "051100330",
+      "inquiryType": "General",
+      "message": "jkhju yu u",
+      "date": "2026-06-12"
+    }
+  ],
   "reviews": [
     {
       "_id": "09ys11n",

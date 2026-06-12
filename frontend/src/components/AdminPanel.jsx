@@ -97,8 +97,8 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
     }
   };
 
-  const fetchData = async () => {
-    setLoading(true);
+  const fetchData = async (isBackground = false) => {
+    if (!isBackground) setLoading(true);
     try {
       const [bookingsRes, inquiriesRes, reviewsRes, roomsRes] = await Promise.all([
         bookingAPI.getAll(),
@@ -113,7 +113,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
     } catch (error) {
       console.error('Error fetching admin data:', error);
     } finally {
-      setLoading(false);
+      if (!isBackground) setLoading(false);
     }
   };
 
@@ -122,6 +122,21 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
       fetchData();
     }
   }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    // Skip background polling if currently editing to avoid layout shifting or resetting edit inputs
+    if (editingBookingId !== null || editingReviewId !== null || editingRoomId !== null) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      fetchData(true);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [isAuthenticated, editingBookingId, editingReviewId, editingRoomId]);
 
   const showMessage = (msg) => {
     setActionMessage(msg);
@@ -750,7 +765,7 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                             </div>
                           </td>
                           <td style={{ padding: '16px 12px' }}>
-                            <span className="amenity-tag" style={{ background: 'var(--color-gold-light)', color: 'var(--color-gold-light)', fontWeight: 600 }}>
+                            <span className="amenity-tag" style={{ background: 'var(--color-gold-light)', color: 'var(--color-primary-dark)', fontWeight: 600 }}>
                               {inq.inquiryType}
                             </span>
                           </td>

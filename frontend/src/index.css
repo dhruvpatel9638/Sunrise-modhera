@@ -1412,6 +1412,11 @@ textarea {
   color: #FFFFFF;
 }
 
+#inquiry select.form-input option {
+  color: var(--color-primary-dark);
+  background-color: var(--color-bg-white);
+}
+
 #inquiry .form-input:focus,
 #inquiry .form-textarea:focus {
   border-color: var(--color-gold);
