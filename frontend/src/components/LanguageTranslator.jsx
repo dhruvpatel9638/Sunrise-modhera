@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Languages } from 'lucide-react';
 
-export default function LanguageTranslator() {
+export default function LanguageTranslator({ logoStage = 'finished' }) {
   const [currentLang, setCurrentLang] = useState('en'); // 'en' or 'hi'
 
   useEffect(() => {
@@ -88,7 +88,9 @@ export default function LanguageTranslator() {
           fontFamily: 'var(--font-body)',
           fontWeight: '600',
           fontSize: '0.85rem',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          opacity: logoStage === 'finished' ? 1 : 0,
+          pointerEvents: logoStage === 'finished' ? 'auto' : 'none',
+          transition: 'opacity 0.8s ease-in-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s',
         }}
       >
         <Languages size={16} />

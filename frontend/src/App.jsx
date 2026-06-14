@@ -306,7 +306,7 @@ export default function App() {
       <SunPreloader percent={bgPercent} isReady={roomsLoaded && reviewsLoaded && bgPercent === 100} />
       <ScrollBackground onProgress={setBgPercent} />
       <SunCursor />
-      <LanguageTranslator />
+      <LanguageTranslator logoStage={logoStage} />
 
       {logoStage !== 'finished' && logoStyle.left && (
         <>
