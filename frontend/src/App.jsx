@@ -16,6 +16,7 @@ import AdminPanel from './components/AdminPanel';
 import MobileBottomNav from './components/MobileBottomNav';
 import SunPreloader from './components/SunPreloader';
 import SunCursor from './components/SunCursor';
+import LanguageTranslator from './components/LanguageTranslator';
 import { roomAPI, reviewAPI } from './utils/api';
 import logoWhite from './assets/logo_white.png';
 
@@ -259,6 +260,7 @@ export default function App() {
   if (hash === '#admin') {
     return (
       <div style={{ backgroundColor: 'var(--color-bg-light)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <LanguageTranslator />
         <Navbar 
           isAdminMode={isAuthenticated} 
           activeTab={adminTab} 
@@ -283,6 +285,7 @@ export default function App() {
     return (
       <div style={{ backgroundColor: 'var(--color-bg-light)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <SunCursor />
+        <LanguageTranslator />
         <Navbar isAdminMode={false} logoStage="finished" />
         <div style={{ flex: '1 0 auto', paddingTop: '80px' }}>
           <BookingPage 
@@ -303,6 +306,7 @@ export default function App() {
       <SunPreloader percent={bgPercent} isReady={roomsLoaded && reviewsLoaded && bgPercent === 100} />
       <ScrollBackground onProgress={setBgPercent} />
       <SunCursor />
+      <LanguageTranslator />
 
       {logoStage !== 'finished' && logoStyle.left && (
         <>
