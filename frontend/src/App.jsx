@@ -19,7 +19,8 @@ import SunCursor from './components/SunCursor';
 import LanguageTranslator from './components/LanguageTranslator';
 import { roomAPI, reviewAPI } from './utils/api';
 import logoWhite from './assets/logo_white.png';
-
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 
 const FALLBACK_ROOMS = [
   {
@@ -250,6 +251,38 @@ export default function App() {
     }
     return () => {
       document.body.classList.remove('admin-mode');
+    };
+  }, [hash]);
+
+  // Lenis smooth scrolling (momentum/inertia)
+  useEffect(() => {
+    // Disable smooth scrolling on admin panel and booking page
+    if (hash === '#admin' || hash === '#booking') return;
+
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    let rafId;
+
+    function raf(time) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+
+    rafId = requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+      cancelAnimationFrame(rafId);
     };
   }, [hash]);
 
