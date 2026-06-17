@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import img2 from '../assets/WP/Screenshot_2026-06-16-22-20-51-69_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
@@ -171,7 +172,7 @@ export default function Gallery() {
       </div>
 
       {/* Lightbox Modal */}
-      {selectedImageIndex !== null && (
+      {selectedImageIndex !== null && createPortal(
         <div className="lightbox-overlay" onClick={closeLightbox}>
           <button className="lightbox-close" onClick={closeLightbox}>
             <X size={32} />
@@ -196,7 +197,8 @@ export default function Gallery() {
           <button className="lightbox-nav next" onClick={nextImage}>
             <ChevronRight size={48} />
           </button>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );
