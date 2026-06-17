@@ -2824,7 +2824,7 @@ body {
 
 @media (max-width: 768px) {
   .intro-spacer-section {
-    height: 380vh; /* slightly shorter track for mobile */
+    height: 600vh; /* Longer track for mobile to prevent texts from changing too fast */
   }
   .split-screen-container {
     flex-direction: column;
