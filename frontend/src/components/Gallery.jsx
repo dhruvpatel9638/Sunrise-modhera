@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import img1 from '../assets/WP/Screenshot_2026-06-16-22-20-48-49_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
 import img2 from '../assets/WP/Screenshot_2026-06-16-22-20-51-69_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
@@ -78,10 +79,43 @@ const galleryPhotos = [
 
 export default function Gallery() {
   const [filter, setFilter] = useState('all');
+  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
   const filteredPhotos = filter === 'all' 
     ? galleryPhotos 
     : galleryPhotos.filter(photo => photo.category === filter);
+
+  const openLightbox = (index) => {
+    setSelectedImageIndex(index);
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  };
+
+  const closeLightbox = () => {
+    setSelectedImageIndex(null);
+    document.body.style.overflow = '';
+  };
+
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setSelectedImageIndex((prev) => (prev === filteredPhotos.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setSelectedImageIndex((prev) => (prev === 0 ? filteredPhotos.length - 1 : prev - 1));
+  };
+
+  // Keyboard navigation for lightbox
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (selectedImageIndex === null) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextImage(e);
+      if (e.key === 'ArrowLeft') prevImage(e);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImageIndex, filteredPhotos.length]);
 
   return (
     <section id="gallery" className="section-padding">
@@ -123,8 +157,13 @@ export default function Gallery() {
 
         {/* Grid */}
         <div className="gallery-grid">
-          {filteredPhotos.map((photo) => (
-            <div className="gallery-item" key={photo.id}>
+          {filteredPhotos.map((photo, index) => (
+            <div 
+              className="gallery-item" 
+              key={photo.id} 
+              onClick={() => openLightbox(index)}
+              style={{ cursor: 'pointer' }}
+            >
               <img 
                 src={photo.url} 
                 alt={photo.title} 
@@ -138,6 +177,35 @@ export default function Gallery() {
           ))}
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      {selectedImageIndex !== null && (
+        <div className="lightbox-overlay" onClick={closeLightbox}>
+          <button className="lightbox-close" onClick={closeLightbox}>
+            <X size={32} />
+          </button>
+          
+          <button className="lightbox-nav prev" onClick={prevImage}>
+            <ChevronLeft size={48} />
+          </button>
+
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <img 
+              src={filteredPhotos[selectedImageIndex].url} 
+              alt={filteredPhotos[selectedImageIndex].title} 
+              className="lightbox-img"
+            />
+            <div className="lightbox-caption">
+              <h3>{filteredPhotos[selectedImageIndex].title}</h3>
+              <p>{filteredPhotos[selectedImageIndex].tag}</p>
+            </div>
+          </div>
+
+          <button className="lightbox-nav next" onClick={nextImage}>
+            <ChevronRight size={48} />
+          </button>
+        </div>
+      )}
     </section>
   );
 }
