@@ -128,18 +128,14 @@ export default function InquiryForm() {
                   <div className="form-group">
                     <label htmlFor="inquiry-phone">Phone Number</label>
                     <div style={{ display: 'flex', gap: '8px' }}>
-                      <select 
+                      <input 
+                        type="text"
                         className="form-input" 
-                        style={{ width: '80px', padding: '12px 8px' }}
+                        style={{ width: '60px', padding: '12px 8px', textAlign: 'center' }}
                         value={formData.countryCode}
                         onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
-                      >
-                        <option value="+91">+91</option>
-                        <option value="+1">+1</option>
-                        <option value="+44">+44</option>
-                        <option value="+61">+61</option>
-                        <option value="+971">+971</option>
-                      </select>
+                        placeholder="+91"
+                      />
                       <input 
                         type="tel" 
                         id="inquiry-phone" 
