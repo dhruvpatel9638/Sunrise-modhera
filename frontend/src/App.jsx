@@ -254,7 +254,7 @@ export default function App() {
     };
   }, [hash]);
 
-  // Lenis smooth scrolling (momentum/inertia)
+  // Lenis smooth scrolling (momentum/inertia) and initial animation scroll lock
   useEffect(() => {
     // Disable smooth scrolling on admin panel and booking page
     if (hash === '#admin' || hash === '#booking') return;
@@ -271,6 +271,14 @@ export default function App() {
       infinite: false,
     });
 
+    if (logoStage !== 'finished') {
+      lenis.stop();
+      document.body.style.overflow = 'hidden';
+    } else {
+      lenis.start();
+      document.body.style.overflow = '';
+    }
+
     let rafId;
 
     function raf(time) {
@@ -283,8 +291,9 @@ export default function App() {
     return () => {
       lenis.destroy();
       cancelAnimationFrame(rafId);
+      document.body.style.overflow = '';
     };
-  }, [hash]);
+  }, [hash, logoStage]);
 
 
   const handleNewReview = (newReview) => {
