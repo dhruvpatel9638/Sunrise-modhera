@@ -73,6 +73,7 @@ const galleryPhotos = [
 export default function Gallery() {
   const [filter, setFilter] = useState('all');
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+  const [isZoomed, setIsZoomed] = useState(false);
 
   const filteredPhotos = filter === 'all' 
     ? galleryPhotos 
@@ -80,21 +81,25 @@ export default function Gallery() {
 
   const openLightbox = (index) => {
     setSelectedImageIndex(index);
+    setIsZoomed(false);
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
   };
 
   const closeLightbox = () => {
     setSelectedImageIndex(null);
+    setIsZoomed(false);
     document.body.style.overflow = '';
   };
 
   const nextImage = (e) => {
     e.stopPropagation();
+    setIsZoomed(false);
     setSelectedImageIndex((prev) => (prev === filteredPhotos.length - 1 ? 0 : prev + 1));
   };
 
   const prevImage = (e) => {
     e.stopPropagation();
+    setIsZoomed(false);
     setSelectedImageIndex((prev) => (prev === 0 ? filteredPhotos.length - 1 : prev - 1));
   };
 
@@ -183,11 +188,15 @@ export default function Gallery() {
           </button>
 
           <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <img 
-              src={filteredPhotos[selectedImageIndex].url} 
-              alt={filteredPhotos[selectedImageIndex].title} 
-              className="lightbox-img"
-            />
+            <div className="lightbox-img-wrapper" style={{ overflow: isZoomed ? 'auto' : 'hidden', maxWidth: '100vw', maxHeight: '80vh', borderRadius: '4px' }}>
+              <img 
+                src={filteredPhotos[selectedImageIndex].url} 
+                alt={filteredPhotos[selectedImageIndex].title} 
+                className={`lightbox-img ${isZoomed ? 'zoomed' : ''}`}
+                onClick={() => setIsZoomed(!isZoomed)}
+                title={isZoomed ? "Click to Zoom Out" : "Click to Zoom In"}
+              />
+            </div>
             <div className="lightbox-caption">
               <h3>{filteredPhotos[selectedImageIndex].title}</h3>
               <p>{filteredPhotos[selectedImageIndex].tag}</p>
