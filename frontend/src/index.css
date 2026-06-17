@@ -2564,6 +2564,7 @@ body {
   width: 8px;
   height: 8px;
 }
+
 .lightbox-img-wrapper::-webkit-scrollbar-thumb {
   background-color: var(--color-gold);
   border-radius: 4px;
@@ -2574,7 +2575,7 @@ body {
   max-height: 75vh;
   object-fit: contain;
   border-radius: 4px;
-  box-shadow: 0 10px 50px rgba(0,0,0,0.7);
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
   border: 2px solid rgba(201, 168, 76, 0.2);
   transition: transform 0.3s ease, cursor 0.3s ease;
   cursor: zoom-in;
@@ -2616,19 +2617,46 @@ body {
     background: var(--color-primary-dark);
     border: 2px solid var(--color-gold);
   }
-  .lightbox-nav.prev { left: 20%; }
-  .lightbox-nav.next { right: 20%; }
-  .lightbox-img { max-height: 65vh; }
-  .lightbox-img.zoomed { transform: scale(2.5); }
-  .lightbox-caption h3 { font-size: 1.4rem; }
-  .lightbox-close { top: 15px; right: 15px; background: rgba(0,0,0,0.5); border-radius: 50%; padding: 5px; }
-  .lightbox-content { max-width: 95%; max-height: 90vh; }
+
+  .lightbox-nav.prev {
+    left: 20%;
+  }
+
+  .lightbox-nav.next {
+    right: 20%;
+  }
+
+  .lightbox-img {
+    max-height: 65vh;
+  }
+
+  .lightbox-img.zoomed {
+    transform: scale(2.5);
+  }
+
+  .lightbox-caption h3 {
+    font-size: 1.4rem;
+  }
+
+  .lightbox-close {
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 5px;
+  }
+
+  .lightbox-content {
+    max-width: 95%;
+    max-height: 90vh;
+  }
 }
 
 /* Elegant Sticky Scroll Spacer Section */
 .intro-spacer-section {
   position: relative;
-  height: 450vh; /* Extended scroll track height for smoother transitions & 4 slides */
+  height: 850vh;
+  /* Extended scroll track height for smoother transitions & 4 slides */
   background: transparent;
   z-index: 5;
 }
@@ -2706,7 +2734,8 @@ body {
   margin: 0;
   white-space: nowrap;
   position: relative;
-  width: 160%; /* overflows onto the right panel */
+  width: 160%;
+  /* overflows onto the right panel */
   z-index: 15;
 }
 
@@ -2814,9 +2843,11 @@ body {
   .split-left-panel {
     width: 60%;
   }
+
   .split-right-panel {
     width: 40%;
   }
+
   .split-title {
     width: 150%;
   }
@@ -2824,11 +2855,14 @@ body {
 
 @media (max-width: 768px) {
   .intro-spacer-section {
-    height: 600vh; /* Longer track for mobile to prevent texts from changing too fast */
+    height: 600vh;
+    /* Longer track for mobile to prevent texts from changing too fast */
   }
+
   .split-screen-container {
     flex-direction: column;
   }
+
   .split-left-panel {
     width: 100%;
     height: 65%;
@@ -2836,20 +2870,26 @@ body {
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
+
   .split-right-panel {
     width: 100%;
     height: 35%;
   }
+
   .split-title {
     width: 100%;
     font-size: 2.2rem;
     white-space: normal;
   }
+
   .split-desc {
     font-size: 0.95rem;
     margin-bottom: 20px;
   }
-  .split-indicators, .split-arrows, .split-leaves-deco {
+
+  .split-indicators,
+  .split-arrows,
+  .split-leaves-deco {
     display: none;
   }
 }
@@ -2999,6 +3039,7 @@ body {
   .editorial-sidebar {
     display: none;
   }
+
   .intro-slide {
     padding: 0 6%;
   }
@@ -3006,16 +3047,20 @@ body {
 
 @media (max-width: 768px) {
   .intro-spacer-section {
-    height: 250vh; /* slightly shorter track for mobile */
+    height: 250vh;
+    /* slightly shorter track for mobile */
   }
+
   .editorial-title {
     font-size: 2.2rem;
     margin-bottom: 16px;
   }
+
   .editorial-paragraph {
     font-size: 0.95rem;
     line-height: 1.6;
   }
+
   .editorial-paragraph.center-spaced {
     font-size: 0.75rem;
     letter-spacing: 0.08em;

@@ -18,10 +18,24 @@ export default function ScrollBackground({ onProgress }) {
     let animationFrameId = null;
 
     const getScrollProgress = () => {
+      const introSpacer = document.querySelector('.intro-spacer-section');
+      if (!introSpacer) {
+        // Fallback to page-scroll progress if spacer isn't found (e.g. on booking or admin pages)
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight <= 0) return 0;
+        return Math.min(Math.max(scrollTop / docHeight, 0), 1);
+      }
+
+      // Calculate absolute document-level bottom coordinate of the spacer section
+      const rect = introSpacer.getBoundingClientRect();
+      const introSpacerBottom = rect.bottom + window.scrollY;
+      const maxScroll = introSpacerBottom - window.innerHeight;
+
+      if (maxScroll <= 0) return 0;
+
       const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (docHeight <= 0) return 0;
-      return Math.min(Math.max(scrollTop / docHeight, 0), 1);
+      return Math.min(Math.max(scrollTop / maxScroll, 0), 1);
     };
 
     const drawImageProp = (img) => {
