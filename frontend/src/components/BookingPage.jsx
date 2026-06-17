@@ -11,6 +11,7 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
 
   const [guestName, setGuestName] = useState('');
   const [guestEmail, setGuestEmail] = useState('');
+  const [countryCode, setCountryCode] = useState('+91');
   const [guestPhone, setGuestPhone] = useState('');
 
   // Payment mock state
@@ -115,7 +116,7 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
         roomId,
         guestName,
         guestEmail,
-        guestPhone,
+        guestPhone: `${countryCode} ${guestPhone}`,
         checkInDate: checkIn,
         checkOutDate: checkOut,
         guestsCount: Number(guestsCount)
@@ -277,14 +278,32 @@ export default function BookingPage({ rooms, initialDetails, onBackToHome }) {
                       </div>
                       <div className="form-group">
                         <label>Phone Number</label>
-                        <input
-                          type="tel"
-                          className="form-input"
-                          placeholder="e.g. 9876543210"
-                          value={guestPhone}
-                          onChange={(e) => setGuestPhone(e.target.value)}
-                          required
-                        />
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                          <select 
+                            className="form-input" 
+                            style={{ width: '80px', padding: '12px 8px' }}
+                            value={countryCode}
+                            onChange={(e) => setCountryCode(e.target.value)}
+                          >
+                            <option value="+91">+91</option>
+                            <option value="+1">+1</option>
+                            <option value="+44">+44</option>
+                            <option value="+61">+61</option>
+                            <option value="+971">+971</option>
+                          </select>
+                          <input
+                            type="tel"
+                            className="form-input"
+                            placeholder="10-digit mobile number"
+                            value={guestPhone}
+                            onChange={(e) => setGuestPhone(e.target.value.replace(/\D/g, ''))}
+                            pattern="\d{10}"
+                            maxLength="10"
+                            title="Please enter exactly 10 digits"
+                            required
+                            style={{ flex: 1 }}
+                          />
+                        </div>
                       </div>
                     </div>
 

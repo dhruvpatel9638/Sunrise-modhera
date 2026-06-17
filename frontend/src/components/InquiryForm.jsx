@@ -6,6 +6,7 @@ export default function InquiryForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    countryCode: '+91',
     phone: '',
     inquiryType: 'Corporate Outing',
     message: ''
@@ -17,9 +18,13 @@ export default function InquiryForm() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await inquiryAPI.create(formData);
+      const submissionData = {
+        ...formData,
+        phone: `${formData.countryCode} ${formData.phone}`
+      };
+      await inquiryAPI.create(submissionData);
       setSuccess(true);
-      setFormData({ name: '', email: '', phone: '', inquiryType: 'Corporate Outing', message: '' });
+      setFormData({ name: '', email: '', countryCode: '+91', phone: '', inquiryType: 'Corporate Outing', message: '' });
       setTimeout(() => setSuccess(false), 6000);
     } catch (error) {
       console.error('Error submitting inquiry:', error);
@@ -122,15 +127,33 @@ export default function InquiryForm() {
                   </div>
                   <div className="form-group">
                     <label htmlFor="inquiry-phone">Phone Number</label>
-                    <input 
-                      type="tel" 
-                      id="inquiry-phone" 
-                      className="form-input" 
-                      placeholder="e.g. 9876543210"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      required 
-                    />
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <select 
+                        className="form-input" 
+                        style={{ width: '80px', padding: '12px 8px' }}
+                        value={formData.countryCode}
+                        onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
+                      >
+                        <option value="+91">+91</option>
+                        <option value="+1">+1</option>
+                        <option value="+44">+44</option>
+                        <option value="+61">+61</option>
+                        <option value="+971">+971</option>
+                      </select>
+                      <input 
+                        type="tel" 
+                        id="inquiry-phone" 
+                        className="form-input" 
+                        placeholder="10-digit mobile number"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, '') })}
+                        pattern="\d{10}"
+                        maxLength="10"
+                        title="Please enter exactly 10 digits"
+                        required 
+                        style={{ flex: 1 }}
+                      />
+                    </div>
                   </div>
                 </div>
 
