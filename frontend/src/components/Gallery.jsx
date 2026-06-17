@@ -1,67 +1,77 @@
 import React, { useState } from 'react';
 
+import img1 from '../assets/WP/Screenshot_2026-06-16-22-20-48-49_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
+import img2 from '../assets/WP/Screenshot_2026-06-16-22-20-51-69_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
+import img3 from '../assets/WP/Screenshot_2026-06-16-22-21-30-24_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
+import img4 from '../assets/WP/Screenshot_2026-06-16-22-21-38-03_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
+import img5 from '../assets/WP/Screenshot_2026-06-16-22-21-42-75_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
+import img6 from '../assets/WP/Screenshot_2026-06-16-22-21-47-69_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
+import img7 from '../assets/WP/Screenshot_2026-06-16-22-21-51-21_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
+import img8 from '../assets/WP/Screenshot_2026-06-16-22-21-53-79_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
+import img9 from '../assets/WP/Screenshot_2026-06-16-22-22-15-92_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
+
 const galleryPhotos = [
   {
     id: 1,
     title: 'Traditional Bhunga Mirror Work',
     category: 'heritage',
-    url: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80',
+    url: img1,
     tag: 'Heritage & Nature'
   },
   {
     id: 2,
     title: 'Dense Tree Canopy Pathways',
     category: 'heritage',
-    url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80',
+    url: img2,
     tag: 'Heritage & Nature'
   },
   {
     id: 3,
     title: 'Resident Peacocks in Garden',
     category: 'heritage',
-    url: 'https://images.unsplash.com/photo-1595914757367-bf1b51e06d9d?auto=format&fit=crop&w=800&q=80',
+    url: img3,
     tag: 'Heritage & Nature'
   },
   {
     id: 4,
     title: 'Integrated Kids Pool Zone',
     category: 'leisure',
-    url: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80',
+    url: img4,
     tag: 'Leisure'
   },
   {
     id: 5,
     title: 'Candlelight Dinner Setup',
     category: 'leisure',
-    url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
+    url: img5,
     tag: 'Leisure'
   },
   {
     id: 6,
     title: 'Manicured Lawns at Sunset',
     category: 'leisure',
-    url: 'https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?auto=format&fit=crop&w=800&q=80',
+    url: img6,
     tag: 'Leisure'
   },
   {
     id: 7,
     title: 'Historic Modhera Sun Temple',
     category: 'proximity',
-    url: 'https://images.unsplash.com/photo-1600100397608-f010e42ed97c?auto=format&fit=crop&w=800&q=80',
+    url: img7,
     tag: 'Proximity'
   },
   {
     id: 8,
     title: 'Stone Carvings & Heritage Pillar',
     category: 'proximity',
-    url: 'https://images.unsplash.com/photo-1581012733307-2856ce43dccb?auto=format&fit=crop&w=800&q=80',
+    url: img8,
     tag: 'Proximity'
   },
   {
     id: 9,
     title: 'Sunset Temple Silhouette',
     category: 'proximity',
-    url: 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80',
+    url: img9,
     tag: 'Proximity'
   }
 ];
