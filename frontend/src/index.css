@@ -2624,3 +2624,401 @@ body {
   .lightbox-close { top: 15px; right: 15px; background: rgba(0,0,0,0.5); border-radius: 50%; padding: 5px; }
   .lightbox-content { max-width: 95%; max-height: 90vh; }
 }
+
+/* Elegant Sticky Scroll Spacer Section */
+.intro-spacer-section {
+  position: relative;
+  height: 450vh; /* Extended scroll track height for smoother transitions & 4 slides */
+  background: transparent;
+  z-index: 5;
+}
+
+/* Split Screen Layout (Slide 0) styling mimicking reference image */
+.split-screen-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.split-left-panel {
+  width: 50%;
+  height: 100%;
+  background: rgba(12, 31, 18, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 8% 0 10%;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 10;
+}
+
+.split-right-panel {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  z-index: 5;
+}
+
+/* Floating green leaves in top-left */
+.split-leaves-deco {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  width: 140px;
+  height: auto;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.split-content {
+  max-width: 540px;
+  color: #FFFFFF;
+}
+
+.split-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold-light);
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+
+.split-title-wrap {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+/* Large bold heading crossing the boundary */
+.split-title {
+  font-family: var(--font-headings);
+  font-size: calc(2.4rem + 2.2vw);
+  line-height: 1.1;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin: 0;
+  white-space: nowrap;
+  position: relative;
+  width: 160%; /* overflows onto the right panel */
+  z-index: 15;
+}
+
+.split-title span.masked-text {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.split-title span.white-text {
+  color: #FFFFFF;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.split-desc {
+  font-family: var(--font-headings);
+  font-size: 1.0rem;
+  line-height: 1.6;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 28px;
+}
+
+.split-cta-btn {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  border-bottom: 2px solid var(--color-gold);
+  padding-bottom: 4px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.split-cta-btn:hover {
+  color: var(--color-gold-light);
+  border-bottom-color: #FFFFFF;
+  letter-spacing: 0.25em;
+}
+
+/* Vertical progress indicator details on the right */
+.split-indicators {
+  position: absolute;
+  right: 4vw;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  z-index: 20;
+}
+
+.indicator-line {
+  width: 1px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.indicator-dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(45deg);
+  transition: all 0.3s ease;
+}
+
+.indicator-dot.active {
+  background: var(--color-gold-light);
+  box-shadow: 0 0 10px var(--color-gold-light);
+}
+
+/* Bottom right arrow slide triggers (decorative mockup) */
+.split-arrows {
+  position: absolute;
+  bottom: 40px;
+  right: 4vw;
+  display: flex;
+  gap: 10px;
+  z-index: 20;
+}
+
+.split-arrow-btn {
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.split-arrow-btn:hover {
+  background: var(--color-primary);
+  border-color: var(--color-gold-light);
+}
+
+/* Responsive adjustments for split screen */
+@media (max-width: 1024px) {
+  .split-left-panel {
+    width: 60%;
+  }
+  .split-right-panel {
+    width: 40%;
+  }
+  .split-title {
+    width: 150%;
+  }
+}
+
+@media (max-width: 768px) {
+  .intro-spacer-section {
+    height: 380vh; /* slightly shorter track for mobile */
+  }
+  .split-screen-container {
+    flex-direction: column;
+  }
+  .split-left-panel {
+    width: 100%;
+    height: 65%;
+    padding: 12% 8% 6% 8%;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .split-right-panel {
+    width: 100%;
+    height: 35%;
+  }
+  .split-title {
+    width: 100%;
+    font-size: 2.2rem;
+    white-space: normal;
+  }
+  .split-desc {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+  .split-indicators, .split-arrows, .split-leaves-deco {
+    display: none;
+  }
+}
+
+
+.intro-sticky-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+  padding: 0 10%;
+}
+
+.intro-slide.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Editorial Typography & Layout */
+.editorial-layout {
+  width: 100%;
+  max-width: 1100px;
+  position: relative;
+  color: #FFFFFF;
+}
+
+.editorial-layout.layout-left {
+  text-align: left;
+  margin-right: auto;
+}
+
+.editorial-layout.layout-right {
+  text-align: right;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.editorial-layout.layout-center {
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editorial-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--color-gold-light);
+  margin-bottom: 24px;
+  display: block;
+  font-weight: 500;
+}
+
+.editorial-title {
+  font-family: var(--font-headings);
+  font-size: calc(2.2rem + 2.5vw);
+  line-height: 1.15;
+  color: #FFFFFF;
+  margin-bottom: 24px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.editorial-title em {
+  font-style: italic;
+  font-family: var(--font-headings);
+  font-weight: 300;
+  color: var(--color-gold-light);
+}
+
+.editorial-sidebar {
+  position: absolute;
+  top: 50%;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+  font-family: var(--font-body);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.editorial-sidebar.left-side {
+  left: -8vw;
+  writing-mode: vertical-lr;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.editorial-sidebar.right-side {
+  right: -8vw;
+  writing-mode: vertical-lr;
+  transform: translateY(-50%);
+}
+
+.editorial-paragraph {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 500px;
+  font-weight: 300;
+}
+
+.editorial-paragraph.center-spaced {
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  line-height: 2.2;
+  text-transform: uppercase;
+  max-width: 750px;
+  margin: 0 auto;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Adjust spacings/gaps inside paragraph to replicate image */
+.editorial-paragraph.center-spaced span {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+@media (max-width: 1024px) {
+  .editorial-sidebar {
+    display: none;
+  }
+  .intro-slide {
+    padding: 0 6%;
+  }
+}
+
+@media (max-width: 768px) {
+  .intro-spacer-section {
+    height: 250vh; /* slightly shorter track for mobile */
+  }
+  .editorial-title {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+  }
+  .editorial-paragraph {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .editorial-paragraph.center-spaced {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    line-height: 2;
+  }
+}

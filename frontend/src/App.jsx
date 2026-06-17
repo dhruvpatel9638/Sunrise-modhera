@@ -12,6 +12,7 @@ import InquiryForm from './components/InquiryForm';
 import Footer from './components/Footer';
 import ScrollBackground from './components/ScrollBackground';
 import BookingPage from './components/BookingPage';
+import IntroSpacer from './components/IntroSpacer';
 import AdminPanel from './components/AdminPanel';
 import MobileBottomNav from './components/MobileBottomNav';
 import SunPreloader from './components/SunPreloader';
@@ -379,6 +380,7 @@ export default function App() {
       <Navbar isAdminMode={false} logoStage={logoStage} />
       
       <Hero logoStage={logoStage} />
+      <IntroSpacer />
       <ModheraExperience />
 
       <Accommodations rooms={rooms} />

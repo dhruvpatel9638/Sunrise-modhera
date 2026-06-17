@@ -31,7 +31,7 @@ export default function ModheraExperience() {
         
         <div className="text-center">
           <span className="section-subtitle">Storytelling Experience</span>
-          <h2 className="section-title">The Modhera Experience</h2>
+          <h2 className="section-title" style={{ color: '#FFFFFF' }}>The Modhera Experience</h2>
         </div>
 
         <div className="experience-container">
