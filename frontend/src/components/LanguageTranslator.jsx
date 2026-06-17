@@ -3,6 +3,7 @@ import { Languages } from 'lucide-react';
 
 export default function LanguageTranslator({ logoStage = 'finished' }) {
   const [currentLang, setCurrentLang] = useState('en'); // 'en' or 'hi'
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     // 1. Add Google Translate init function
@@ -60,6 +61,20 @@ export default function LanguageTranslator({ logoStage = 'finished' }) {
     }
   };
 
+  const handleButtonClick = () => {
+    if (!isExpanded) {
+      setIsExpanded(true);
+      
+      // Auto-collapse after 5 seconds if they don't click to translate
+      setTimeout(() => {
+        setIsExpanded(false);
+      }, 5000);
+    } else {
+      toggleLanguage();
+      setIsExpanded(false);
+    }
+  };
+
   return (
     <>
       {/* Hidden container for Google Translate default widgets */}
@@ -67,7 +82,7 @@ export default function LanguageTranslator({ logoStage = 'finished' }) {
 
       {/* Beautiful Floating Translator Toggle Button */}
       <button
-        onClick={toggleLanguage}
+        onClick={handleButtonClick}
         className="language-toggle-btn"
         aria-label="Switch Language"
         style={{
@@ -78,23 +93,30 @@ export default function LanguageTranslator({ logoStage = 'finished' }) {
           backgroundColor: 'var(--color-primary-dark)',
           border: '2px solid var(--color-gold)',
           color: 'var(--color-gold)',
-          padding: '10px 18px',
+          padding: isExpanded ? '10px 18px' : '10px',
           borderRadius: '30px',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
+          justifyContent: 'center',
+          width: isExpanded ? 'auto' : '44px',
+          height: '44px',
+          overflow: 'hidden',
           boxShadow: '0 4px 20px rgba(12, 31, 18, 0.4)',
           fontFamily: 'var(--font-body)',
           fontWeight: '600',
           fontSize: '0.85rem',
           opacity: logoStage === 'finished' ? 1 : 0,
           pointerEvents: logoStage === 'finished' ? 'auto' : 'none',
-          transition: 'opacity 0.8s ease-in-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s',
+          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
         }}
       >
-        <Languages size={16} />
-        <span>{currentLang === 'en' ? 'English ➜ हिन्दी' : 'हिन्दी ➜ English'}</span>
+        <Languages size={18} style={{ flexShrink: 0 }} />
+        {isExpanded && (
+          <span style={{ marginLeft: '8px', whiteSpace: 'nowrap', animation: 'fadeIn 0.3s ease-in' }}>
+            {currentLang === 'en' ? 'English ➜ हिन्दी' : 'हिन्दी ➜ English'}
+          </span>
+        )}
       </button>
     </>
   );
