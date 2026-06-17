@@ -260,16 +260,28 @@ export default function App() {
     let targetScroll = window.scrollY;
     let currentScroll = window.scrollY;
     let requestRef = null;
-    const speedMultiplier = 4.5; // Boost scroll speed/distance
-    const lerpFactor = 0.05; // Smoothness factor (lower = smoother/slower, higher = faster response)
+    const speedMultiplier = 4.0; // Boost scroll speed/distance
+    const lerpFactor = 0.15; // Smoothness factor (higher = faster response/less delay)
 
     const handleWheel = (e) => {
+      // Prevent scrolling while preloader or logo intro animation is active
+      if (logoStage !== 'finished') {
+        e.preventDefault();
+        return;
+      }
+
       // Don't intercept scroll inside scrollable elements
       if (e.target.closest('textarea, input, select, .luxury-stats-container, [data-no-scroll]')) {
         return;
       }
 
       e.preventDefault();
+
+      // If targetScroll is out of sync with actual scroll (e.g. from external scroll events), sync it
+      if (Math.abs(targetScroll - window.scrollY) > 120) {
+        targetScroll = window.scrollY;
+        currentScroll = window.scrollY;
+      }
 
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       // Normalize wheel delta to ensure consistent speed behavior across different mouse devices
@@ -311,7 +323,7 @@ export default function App() {
         cancelAnimationFrame(requestRef);
       }
     };
-  }, [hash]);
+  }, [hash, logoStage]);
 
   const handleNewReview = (newReview) => {
     setReviews((prev) => [newReview, ...prev]);
