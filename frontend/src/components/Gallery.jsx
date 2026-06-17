@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
-import img1 from '../assets/WP/Screenshot_2026-06-16-22-20-48-49_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
 import img2 from '../assets/WP/Screenshot_2026-06-16-22-20-51-69_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
 import img3 from '../assets/WP/Screenshot_2026-06-16-22-21-30-24_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
 import img4 from '../assets/WP/Screenshot_2026-06-16-22-21-38-03_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
@@ -12,13 +11,6 @@ import img8 from '../assets/WP/Screenshot_2026-06-16-22-21-53-79_40deb401b9ffe8e
 import img9 from '../assets/WP/Screenshot_2026-06-16-22-22-15-92_40deb401b9ffe8e1df2f1cc5ba480b12.jpg.jpeg';
 
 const galleryPhotos = [
-  {
-    id: 1,
-    title: 'Sunrise Resort Modhera',
-    category: 'heritage',
-    url: img1,
-    tag: 'Heritage & Nature'
-  },
   {
     id: 2,
     title: 'Leopard Statue in Garden',
