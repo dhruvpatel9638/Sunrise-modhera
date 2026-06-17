@@ -14,63 +14,63 @@ import img9 from '../assets/WP/Screenshot_2026-06-16-22-22-15-92_40deb401b9ffe8e
 const galleryPhotos = [
   {
     id: 1,
-    title: 'Traditional Bhunga Mirror Work',
+    title: 'Sunrise Resort Modhera',
     category: 'heritage',
     url: img1,
     tag: 'Heritage & Nature'
   },
   {
     id: 2,
-    title: 'Dense Tree Canopy Pathways',
+    title: 'Leopard Statue in Garden',
     category: 'heritage',
     url: img2,
     tag: 'Heritage & Nature'
   },
   {
     id: 3,
-    title: 'Resident Peacocks in Garden',
+    title: 'Bhunga Village Overview',
     category: 'heritage',
     url: img3,
     tag: 'Heritage & Nature'
   },
   {
     id: 4,
-    title: 'Integrated Kids Pool Zone',
+    title: 'Premium White Cottages',
     category: 'leisure',
     url: img4,
     tag: 'Leisure'
   },
   {
     id: 5,
-    title: 'Candlelight Dinner Setup',
+    title: 'Garden Water Fountain',
     category: 'leisure',
     url: img5,
     tag: 'Leisure'
   },
   {
     id: 6,
-    title: 'Manicured Lawns at Sunset',
+    title: 'Traditional Wooden Swing',
     category: 'leisure',
     url: img6,
     tag: 'Leisure'
   },
   {
     id: 7,
-    title: 'Historic Modhera Sun Temple',
+    title: 'Resort Pathways & Greenery',
     category: 'proximity',
     url: img7,
     tag: 'Proximity'
   },
   {
     id: 8,
-    title: 'Stone Carvings & Heritage Pillar',
+    title: 'Peaceful Village Atmosphere',
     category: 'proximity',
     url: img8,
     tag: 'Proximity'
   },
   {
     id: 9,
-    title: 'Sunset Temple Silhouette',
+    title: 'Evening Serenity at Resort',
     category: 'proximity',
     url: img9,
     tag: 'Proximity'

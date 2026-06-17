@@ -43,7 +43,7 @@ export default function LanguageTranslator({ logoStage = 'finished' }) {
 
   const toggleLanguage = () => {
     const nextLang = currentLang === 'en' ? 'hi' : 'en';
-    
+
     // Find Google Translate select element
     const selectEl = document.querySelector('select.goog-te-combo');
     if (selectEl) {
@@ -75,14 +75,14 @@ export default function LanguageTranslator({ logoStage = 'finished' }) {
           right: '24px',
           bottom: '24px',
           zIndex: 9999,
-          display: (logoStage && logoStage !== 'finished') ? 'none' : 'flex',
-          alignItems: 'center',
           backgroundColor: 'var(--color-primary-dark)',
           border: '2px solid var(--color-gold)',
           color: 'var(--color-gold)',
           padding: '10px 18px',
           borderRadius: '30px',
           cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
           gap: '8px',
           boxShadow: '0 4px 20px rgba(12, 31, 18, 0.4)',
           fontFamily: 'var(--font-body)',
