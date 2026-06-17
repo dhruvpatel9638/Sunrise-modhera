@@ -34,18 +34,18 @@ export default function Hero({ logoStage }) {
           left: 0,
           width: '100%',
           height: '100%',
-          backgroundColor: 'var(--color-overlay-hero)', // rgba(12, 31, 18, 0.65)
+          backgroundColor: 'var(--color-overlay-hero)', // rgba(255, 255, 255, 0.54)
           zIndex: 1,
           pointerEvents: 'none'
         }}
       />
 
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-        <div 
+        <div
           className="hero-content"
           style={isFinished ? {} : { opacity: 0, transform: 'translateY(20px)', animation: 'none', pointerEvents: 'none' }}
         >
-          
+
           <h1 className="hero-title">
             Come,<br />
             experience a<br />

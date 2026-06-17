@@ -253,6 +253,64 @@ export default function App() {
     };
   }, [hash]);
 
+  // Custom Smooth Scrolling & Scroll Speed Booster
+  useEffect(() => {
+    if (hash === '#admin' || hash === '#booking') return;
+
+    let targetScroll = window.scrollY;
+    let currentScroll = window.scrollY;
+    let requestRef = null;
+    const speedMultiplier = 2.0; // Boost scroll speed/distance
+    const lerpFactor = 0.08; // Smoothness factor (lower = smoother/slower, higher = faster response)
+
+    const handleWheel = (e) => {
+      // Don't intercept scroll inside scrollable elements
+      if (e.target.closest('textarea, input, select, .luxury-stats-container, [data-no-scroll]')) {
+        return;
+      }
+
+      e.preventDefault();
+
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      targetScroll = Math.max(0, Math.min(targetScroll + e.deltaY * speedMultiplier, maxScroll));
+
+      if (!requestRef) {
+        animate();
+      }
+    };
+
+    const animate = () => {
+      const diff = targetScroll - currentScroll;
+      if (Math.abs(diff) > 0.5) {
+        currentScroll += diff * lerpFactor;
+        window.scrollTo(0, currentScroll);
+        requestRef = requestAnimationFrame(animate);
+      } else {
+        currentScroll = targetScroll;
+        window.scrollTo(0, currentScroll);
+        requestRef = null;
+      }
+    };
+
+    const handleScroll = () => {
+      if (!requestRef) {
+        targetScroll = window.scrollY;
+        currentScroll = window.scrollY;
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('scroll', handleScroll);
+      if (requestRef) {
+        cancelAnimationFrame(requestRef);
+      }
+    };
+  }, [hash]);
+
   const handleNewReview = (newReview) => {
     setReviews((prev) => [newReview, ...prev]);
   };
