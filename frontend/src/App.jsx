@@ -260,8 +260,8 @@ export default function App() {
     let targetScroll = window.scrollY;
     let currentScroll = window.scrollY;
     let requestRef = null;
-    const speedMultiplier = 2.0; // Boost scroll speed/distance
-    const lerpFactor = 0.08; // Smoothness factor (lower = smoother/slower, higher = faster response)
+    const speedMultiplier = 4.5; // Boost scroll speed/distance
+    const lerpFactor = 0.05; // Smoothness factor (lower = smoother/slower, higher = faster response)
 
     const handleWheel = (e) => {
       // Don't intercept scroll inside scrollable elements
@@ -272,7 +272,9 @@ export default function App() {
       e.preventDefault();
 
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      targetScroll = Math.max(0, Math.min(targetScroll + e.deltaY * speedMultiplier, maxScroll));
+      // Normalize wheel delta to ensure consistent speed behavior across different mouse devices
+      const delta = Math.sign(e.deltaY) * Math.min(100, Math.abs(e.deltaY));
+      targetScroll = Math.max(0, Math.min(targetScroll + delta * speedMultiplier, maxScroll));
 
       if (!requestRef) {
         animate();
