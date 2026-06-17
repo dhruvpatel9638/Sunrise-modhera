@@ -1,5 +1,6 @@
 import React from 'react';
 import { Leaf, Compass } from 'lucide-react';
+import diningThali from '../assets/dining_thali.jpg';
 
 const cuisines = [
   'Traditional Gujarati Thali',
@@ -17,8 +18,8 @@ export default function Dining() {
           <div className="dining-img-pane">
             <div className="dining-img-wrapper">
               <img 
-                src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" 
-                alt="Jungle Candlelight Dining" 
+                src={diningThali} 
+                alt="Traditional Gujarati Thali" 
                 className="dining-img"
               />
               <div className="dining-badge">
