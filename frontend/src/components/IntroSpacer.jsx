@@ -82,21 +82,7 @@ export default function IntroSpacer() {
               <div className="indicator-line" />
             </div>
 
-            {/* Bottom-right slide control arrows (decorative mockup) */}
-            <div className="split-arrows">
-              <button className="split-arrow-btn" aria-label="Previous Slide">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="19" y1="12" x2="5" y2="12" />
-                  <polyline points="12 19 5 12 12 5" />
-                </svg>
-              </button>
-              <button className="split-arrow-btn" aria-label="Next Slide">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </button>
-            </div>
+
           </div>
         </div>
 
