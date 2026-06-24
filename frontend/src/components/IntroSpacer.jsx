@@ -46,7 +46,17 @@ export default function IntroSpacer() {
     <section ref={containerRef} className="intro-spacer-section">
       <div className="intro-sticky-container">
         
-        {/* Slide 0: Split Screen Layout (Frosted Glass Panel, Decorative Leaves & Indicators) */}
+        {/* Right-side vertical diamond progress indicators */}
+        <div className="split-indicators">
+          <div className="indicator-line" />
+          <div className={`indicator-dot ${activeSlide === 0 ? 'active' : ''}`} />
+          <div className={`indicator-dot ${activeSlide === 1 ? 'active' : ''}`} />
+          <div className={`indicator-dot ${activeSlide === 2 ? 'active' : ''}`} />
+          <div className={`indicator-dot ${activeSlide === 3 ? 'active' : ''}`} />
+          <div className="indicator-line" />
+        </div>
+
+        {/* Slide 0: Split Screen Layout (Frosted Glass Panel) */}
         <div className={`intro-slide ${activeSlide === 0 ? 'active' : ''}`} style={{ padding: 0 }}>
           <div className="split-screen-container">
             {/* Frosted glass left panel */}
@@ -71,16 +81,6 @@ export default function IntroSpacer() {
 
             {/* Clear right panel where background canvas animation shows through */}
             <div className="split-right-panel" />
-
-            {/* Right-side vertical diamond progress indicators */}
-            <div className="split-indicators">
-              <div className="indicator-line" />
-              <div className={`indicator-dot ${activeSlide === 0 ? 'active' : ''}`} />
-              <div className={`indicator-dot ${activeSlide === 1 ? 'active' : ''}`} />
-              <div className={`indicator-dot ${activeSlide === 2 ? 'active' : ''}`} />
-              <div className={`indicator-dot ${activeSlide === 3 ? 'active' : ''}`} />
-              <div className="indicator-line" />
-            </div>
 
 
           </div>

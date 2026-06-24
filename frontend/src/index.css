@@ -391,6 +391,8 @@ textarea {
 
 .navbar.scrolled .nav-logo {
   color: var(--color-gold);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .nav-links {
@@ -2692,16 +2694,6 @@ body {
   z-index: 5;
 }
 
-/* Floating green leaves in top-left */
-.split-leaves-deco {
-  position: absolute;
-  top: 40px;
-  left: 40px;
-  width: 140px;
-  height: auto;
-  opacity: 0.85;
-  pointer-events: none;
-}
 
 .split-content {
   max-width: 540px;
@@ -2710,7 +2702,7 @@ body {
 
 .split-subtitle {
   font-family: var(--font-body);
-  font-size: 0.78rem;
+  font-size: 0.7rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--color-gold-light);
@@ -2726,7 +2718,7 @@ body {
 /* Large bold heading crossing the boundary */
 .split-title {
   font-family: var(--font-headings);
-  font-size: calc(2.4rem + 2.2vw);
+  font-size: calc(3.5rem + 3.0vw);
   line-height: 1.1;
   font-weight: 700;
   text-transform: uppercase;
@@ -2750,7 +2742,7 @@ body {
 
 .split-desc {
   font-family: var(--font-headings);
-  font-size: 1.0rem;
+  font-size: 0.9rem;
   line-height: 1.6;
   font-style: italic;
   font-weight: 300;
@@ -2810,33 +2802,7 @@ body {
   box-shadow: 0 0 10px var(--color-gold-light);
 }
 
-/* Bottom right arrow slide triggers (decorative mockup) */
-.split-arrows {
-  position: absolute;
-  bottom: 40px;
-  right: 4vw;
-  display: flex;
-  gap: 10px;
-  z-index: 20;
-}
 
-.split-arrow-btn {
-  width: 50px;
-  height: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FFFFFF;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.split-arrow-btn:hover {
-  background: var(--color-primary);
-  border-color: var(--color-gold-light);
-}
 
 /* Responsive adjustments for split screen */
 @media (max-width: 1024px) {
@@ -2855,7 +2821,7 @@ body {
 
 @media (max-width: 768px) {
   .intro-spacer-section {
-    height: 600vh;
+    height: 1200vh;
     /* Longer track for mobile to prevent texts from changing too fast */
   }
 
@@ -2887,9 +2853,7 @@ body {
     margin-bottom: 20px;
   }
 
-  .split-indicators,
-  .split-arrows,
-  .split-leaves-deco {
+  .split-indicators {
     display: none;
   }
 }
