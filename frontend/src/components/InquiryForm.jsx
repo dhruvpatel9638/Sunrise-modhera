@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Mail, PhoneCall, MapPin, CheckCircle2 } from 'lucide-react';
 import { inquiryAPI } from '../utils/api';
 
@@ -39,7 +40,13 @@ export default function InquiryForm() {
       <div className="container">
         <div className="inquiry-split">
           {/* Details Pane */}
-          <div className="inquiry-details">
+          <motion.div 
+            className="inquiry-details"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
             <h3>Plan Your Outing or Celebration</h3>
             <p>
               Modhera Sunrise Resort features large manicured lawns, traditional gazebos, and thematic setups perfect for corporate team outings, family celebrations, day picnics, and candlelight garden dining.
@@ -76,10 +83,17 @@ export default function InquiryForm() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Form Pane */}
-          <div className="review-form-card" style={{ background: 'var(--color-bg-dark-mid)', border: '1px solid var(--color-border-dark)' }}>
+          <motion.div 
+            className="review-form-card" 
+            style={{ background: 'var(--color-bg-dark-mid)', border: '1px solid var(--color-border-dark)' }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
             <h4 style={{ fontSize: '1.4rem', color: '#FFFFFF', marginBottom: '8px' }}>
               Outing & Inquiry Form
             </h4>
@@ -191,7 +205,7 @@ export default function InquiryForm() {
                 </button>
               </form>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

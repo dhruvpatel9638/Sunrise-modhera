@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Waves, TreePine, BatteryCharging, Gamepad2, Flame } from 'lucide-react';
 
 const resortAmenities = [
@@ -30,30 +31,71 @@ const resortAmenities = [
 ];
 
 export default function Amenities() {
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1.2,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    }
+  };
+
   return (
     <section id="amenities" className="section-padding amenities-bg">
       <div className="container">
-        <div className="text-center">
-          <h2 className="section-title">Premium Amenities</h2>
-          <p className="section-subtitle">
+        <div className="text-center" style={{ marginBottom: '60px' }}>
+          <motion.h2 
+            className="section-title"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
+            Premium Amenities
+          </motion.h2>
+          <motion.p 
+            className="section-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+            viewport={{ once: true }}
+          >
             Enjoy modern leisure and convenience designed to elevate your heritage escape.
-          </p>
+          </motion.p>
         </div>
 
-        <div className="amenities-grid">
+        <motion.div 
+          className="amenities-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {resortAmenities.map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div className="amenity-card" key={idx}>
+              <motion.div className="amenity-card" key={idx} variants={cardVariants}>
                 <div className="amenity-icon-wrapper">
                   <Icon size={28} />
                 </div>
                 <h3 className="amenity-name">{item.name}</h3>
                 <p className="amenity-desc">{item.desc}</p>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

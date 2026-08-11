@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { reviewAPI } from '../utils/api';
 
@@ -44,11 +45,25 @@ export default function ReviewSection({ reviews, onNewReviewAdded }) {
   return (
     <section id="reviews" className="section-padding">
       <div className="container">
-        <div className="text-center">
-          <h2 className="section-title">Guest Testimonials</h2>
-          <p className="section-subtitle">
+        <div className="text-center" style={{ marginBottom: '60px' }}>
+          <motion.h2 
+            className="section-title"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
+            Guest Testimonials
+          </motion.h2>
+          <motion.p 
+            className="section-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+            viewport={{ once: true }}
+          >
             See why our guests rate us 4.1 / 5 stars on major booking networks.
-          </p>
+          </motion.p>
         </div>
 
         <div className="reviews-layout">

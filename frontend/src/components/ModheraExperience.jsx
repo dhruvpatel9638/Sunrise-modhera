@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function ModheraExperience() {
   const experiences = [
@@ -25,30 +26,94 @@ export default function ModheraExperience() {
     }
   ];
 
+  const itemVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1.2,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    }
+  };
+
+  const textBlockVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1.2,
+        ease: [0.16, 1, 0.3, 1],
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const childVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    }
+  };
+
   return (
     <section id="experience" className="section-padding" style={{ background: 'transparent' }}>
       <div className="container">
         
-        <div className="text-center">
-          <span className="section-subtitle">Storytelling Experience</span>
-          <h2 className="section-title" style={{ color: '#FFFFFF' }}>The Modhera Experience</h2>
+        <div className="text-center" style={{ marginBottom: '60px' }}>
+          <motion.span 
+            className="section-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            Storytelling Experience
+          </motion.span>
+          <motion.h2 
+            className="section-title" 
+            style={{ color: '#FFFFFF' }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
+            The Modhera Experience
+          </motion.h2>
         </div>
 
         <div className="experience-container">
           {experiences.map(exp => (
             <div key={exp.id} className="experience-card">
-              <div className="experience-card-img-wrapper">
-                <img 
+              <div className="experience-card-img-wrapper" style={{ overflow: 'hidden' }}>
+                <motion.img 
                   src={exp.image} 
                   alt={exp.title} 
                   className="experience-card-img" 
+                  initial={{ scale: 1.1 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                  viewport={{ once: true }}
                 />
               </div>
-              <div className="experience-card-text-wrapper">
-                <span className="experience-card-tag">{exp.tag}</span>
-                <h3 className="experience-card-title">{exp.title}</h3>
-                <p className="experience-card-desc">{exp.desc}</p>
-              </div>
+              <motion.div 
+                className="experience-card-text-wrapper"
+                variants={textBlockVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+              >
+                <motion.span className="experience-card-tag" variants={childVariants}>{exp.tag}</motion.span>
+                <motion.h3 className="experience-card-title" variants={childVariants}>{exp.title}</motion.h3>
+                <motion.p className="experience-card-desc" variants={childVariants}>{exp.desc}</motion.p>
+              </motion.div>
             </div>
           ))}
         </div>

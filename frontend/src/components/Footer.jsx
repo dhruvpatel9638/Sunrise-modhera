@@ -5,6 +5,7 @@ import logo from '../assets/logo.png';
 export default function Footer() {
   return (
     <footer className="footer">
+      <div className="footer-bg-text">Sunrise</div>
       <div className="container">
         <div className="footer-grid">
           {/* Col 1 - About */}
@@ -40,10 +41,10 @@ export default function Footer() {
           <div className="footer-col footer-links">
             <h4>Explore Nearby</h4>
             <ul>
-              <li><a href="#transit">UNESCO Sun Temple</a></li>
-              <li><a href="#transit">Modheshwari Temple</a></li>
-              <li><a href="#transit">Bahucharaji Temple</a></li>
-              <li><a href="#transit">Patan (Rani Ki Vav)</a></li>
+              <li><a href="https://maps.google.com/?q=Modhera+Sun+Temple" target="_blank" rel="noopener noreferrer">UNESCO Sun Temple</a></li>
+              <li><a href="https://maps.app.goo.gl/B7NDjBSFRYCbZZe69" target="_blank" rel="noopener noreferrer">Modheshwari Temple</a></li>
+              <li><a href="https://maps.app.goo.gl/4S4ubH23fJgVM9v38" target="_blank" rel="noopener noreferrer">Bahucharaji Temple</a></li>
+              <li><a href="https://maps.app.goo.gl/CkRze4gkN3u8L8ek7" target="_blank" rel="noopener noreferrer">Patan (Rani Ki Vav)</a></li>
             </ul>
           </div>
 
