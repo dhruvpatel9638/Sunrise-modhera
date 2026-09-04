@@ -98,10 +98,14 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
       transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
       style={{
         position: 'fixed',
+        inset: 0,
         top: 0,
         left: 0,
+        right: 0,
+        bottom: 0,
         width: '100vw',
         height: '100vh',
+        minHeight: '100dvh',
         backgroundColor: '#F8F5EE',
         /* Parchment texture overlaid with cream color to show at 20% opacity */
         backgroundImage: `linear-gradient(rgba(248, 245, 238, 0.8), rgba(248, 245, 238, 0.8)), url(${parchmentBg})`,
@@ -127,6 +131,7 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
             style={{
               width: '100%',
               height: '100%',
+              minHeight: '100dvh',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -143,7 +148,8 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: '20px',
-                maxWidth: '460px'
+                maxWidth: '460px',
+                margin: 'auto 0'
               }}
             >
               {/* Logo Container with Smooth Entrance */}
@@ -239,6 +245,7 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
             style={{
               width: '100%',
               height: '100%',
+              minHeight: '100dvh',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -250,11 +257,14 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
               className="sun-loader-container" 
               style={{ 
                 textAlign: 'center', 
+                width: '100%',
                 maxWidth: '340px', 
-                padding: '24px',
+                padding: '0 20px',
+                margin: 'auto 0',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center'
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
             >
               {/* Sacred Sun Geometry SVG with Glow and Rotation */}
@@ -262,9 +272,9 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
                 className="sun-svg-wrapper" 
                 style={{ 
                   position: 'relative', 
-                  width: '120px', 
-                  height: '120px', 
-                  margin: '0 auto 24px' 
+                  width: '116px', 
+                  height: '116px', 
+                  margin: '0 auto 20px' 
                 }}
               >
                 {/* Pulsating golden glow */}
@@ -319,12 +329,13 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
               <h2
                 style={{
                   fontFamily: 'var(--font-headings, "Playfair Display", serif)',
-                  fontSize: '1.9rem',
+                  fontSize: 'clamp(1.75rem, 5vw, 1.95rem)',
                   color: 'var(--color-primary-dark, #1B382B)',
                   fontWeight: '400',
                   fontStyle: 'italic',
-                  marginBottom: '8px',
-                  letterSpacing: '0.02em'
+                  marginBottom: '6px',
+                  letterSpacing: '0.02em',
+                  lineHeight: 1.2
                 }}
               >
                 Modhera Sunrise
@@ -338,7 +349,7 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
                   color: 'var(--color-text-muted-light, #5C6F64)',
                   letterSpacing: '0.04em',
                   minHeight: '22px',
-                  marginBottom: '22px',
+                  marginBottom: '18px',
                   transition: 'color 0.3s ease'
                 }}
               >
@@ -348,13 +359,14 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
               {/* Progress Bar Track */}
               <div
                 style={{
-                  width: '100%',
+                  width: '220px',
+                  maxWidth: '80%',
                   height: '3px',
                   backgroundColor: 'rgba(30, 91, 58, 0.12)',
                   borderRadius: '3px',
                   overflow: 'hidden',
                   position: 'relative',
-                  marginBottom: '10px'
+                  marginBottom: '8px'
                 }}
               >
                 <div
@@ -381,6 +393,27 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
                 {displayPercent}%
               </div>
             </div>
+
+            {/* Experience Initializing Text at bottom center (consistent across mobile & desktop) */}
+            <motion.div
+              initial={{ opacity: 0, y: 6, x: '-50%' }}
+              animate={{ opacity: 1, y: 0, x: '-50%' }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              style={{
+                position: 'absolute',
+                bottom: '36px',
+                left: '50%',
+                fontFamily: "'Inter', 'Outfit', sans-serif",
+                fontSize: '0.72rem',
+                fontWeight: 600,
+                color: 'rgba(130, 142, 153, 0.75)',
+                letterSpacing: '0.24em',
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              EXPERIENCE INITIALIZING...
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
