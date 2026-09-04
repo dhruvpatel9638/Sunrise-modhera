@@ -1,169 +1,176 @@
 import React, { useEffect, useState } from 'react';
-
-const LOADING_MESSAGES = [
-  { max: 25, text: "Greeting the morning horizon..." },
-  { max: 50, text: "Channelling the Temple's solar rays..." },
-  { max: 75, text: "Gathering riverside tranquility..." },
-  { max: 99, text: "Awakening the sanctuary..." },
-  { max: 100, text: "Sun rises over Modhera." }
-];
+import { motion } from 'framer-motion';
+import amyaLogo from '../assets/Amya LOGO png.png';
+import parchmentBg from '../assets/parchment_texture.jpg';
 
 export default function SunPreloader({ percent, isReady }) {
   const [fadeStarted, setFadeStarted] = useState(false);
   const [visible, setVisible] = useState(true);
-  const [message, setMessage] = useState("Invoking sunrise...");
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
 
-  // Select message based on current load percent
+  // Guarantee display duration so user experiences the complete luxury sequence
   useEffect(() => {
-    const matched = LOADING_MESSAGES.find(m => percent <= m.max);
-    if (matched) {
-      setMessage(matched.text);
-    }
-  }, [percent]);
+    const timer = setTimeout(() => {
+      setMinTimeElapsed(true);
+    }, 2400);
+    return () => clearTimeout(timer);
+  }, []);
 
-  // Handle smooth fade out when app is ready
+  // Smooth fade out when ready
   useEffect(() => {
-    if (isReady) {
-      // Small delay for the 100% state to be visible
+    if (isReady && minTimeElapsed) {
       const timer1 = setTimeout(() => {
         setFadeStarted(true);
-      }, 600);
+      }, 300);
 
-      // Remove from DOM after transition completes
       const timer2 = setTimeout(() => {
         setVisible(false);
-      }, 1400); // 600ms delay + 800ms transition time
+      }, 1100);
 
       return () => {
         clearTimeout(timer1);
         clearTimeout(timer2);
       };
     }
-  }, [isReady]);
+  }, [isReady, minTimeElapsed]);
 
   if (!visible) return null;
 
   return (
-    <div
-      className={`sun-preloader-overlay ${fadeStarted ? 'fade-out' : ''}`}
+    <motion.div
+      className="amya-preloader-overlay"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: fadeStarted ? 0 : 1 }}
+      transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
         width: '100vw',
         height: '100vh',
-        backgroundColor: '#F8F4ED', // Warm ivory background
+        backgroundColor: '#F8F5EE',
+        /* Overlay an 80% opaque cream color to make the parchment texture appear at 20% opacity */
+        backgroundImage: `linear-gradient(rgba(248, 245, 238, 0.8), rgba(248, 245, 238, 0.8)), url(${parchmentBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex: 99999,
-        transition: 'opacity 0.8s ease-in-out',
-        pointerEvents: isReady ? 'none' : 'all'
+        zIndex: 999999,
+        pointerEvents: (isReady && minTimeElapsed) ? 'none' : 'all'
       }}
     >
-      <div className="sun-loader-container" style={{ textAlign: 'center', maxWidth: '320px', padding: '20px' }}>
-        {/* Sacred Sun Geometry SVG */}
-        <div className="sun-svg-wrapper" style={{ position: 'relative', width: '120px', height: '120px', margin: '0 auto 28px' }}>
-          {/* Animated Glow behind the sun */}
-          <div className="sun-glow" />
-
-          <svg
-            viewBox="0 0 100 100"
-            style={{ width: '100%', height: '100%', display: 'block', overflow: 'visible' }}
-          >
-            {/* Pulsating Sun Core */}
-            <circle
-              cx="50"
-              cy="50"
-              r="18"
-              fill="var(--color-gold)"
-              className="sun-core-pulse"
-            />
-            {/* Outer Rotating Rays */}
-            <g className="sun-rays-rotate" style={{ transformOrigin: '50px 50px' }}>
-              {[...Array(12)].map((_, i) => {
-                const angle = (i * 360) / 12;
-                return (
-                  <path
-                    key={i}
-                    d="M 50 16 L 53 28 L 47 28 Z"
-                    fill="var(--color-gold-light)"
-                    transform={`rotate(${angle} 50 50)`}
-                    style={{ opacity: 0.9 }}
-                  />
-                );
-              })}
-              {/* Secondary offset minor rays */}
-              {[...Array(12)].map((_, i) => {
-                const angle = (i * 360) / 12 + 15;
-                return (
-                  <path
-                    key={i}
-                    d="M 50 22 L 52 30 L 48 30 Z"
-                    fill="var(--color-gold)"
-                    transform={`rotate(${angle} 50 50)`}
-                    style={{ opacity: 0.7 }}
-                  />
-                );
-              })}
-            </g>
-          </svg>
-        </div>
-
-        {/* Dynamic Typography */}
-        <h2
-          style={{
-            fontFamily: 'var(--font-headings)',
-            fontSize: '1.8rem',
-            color: 'var(--color-primary-dark)',
-            fontWeight: '400',
-            fontStyle: 'italic',
-            marginBottom: '8px'
-          }}
+      {/* Central Content Container */}
+      <div 
+        style={{
+          textAlign: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px',
+          maxWidth: '460px'
+        }}
+      >
+        {/* Logo Container with Smooth Blur & Rise Entrance */}
+        <motion.div
+          initial={{ opacity: 0, y: 28, filter: 'blur(10px)', scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}
         >
-          Modhera Sunrise
-        </h2>
-
-        <p
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.85rem',
-            color: 'var(--color-text-muted-light)',
-            letterSpacing: '0.05em',
-            minHeight: '20px',
-            marginBottom: '20px',
-            transition: 'color 0.3s ease'
-          }}
-        >
-          {message}
-        </p>
-
-        {/* Progress Bar & Percentage */}
-        <div style={{ width: '100%', height: '3px', backgroundColor: 'rgba(30, 91, 58, 0.1)', borderRadius: '3px', overflow: 'hidden', position: 'relative', marginBottom: '8px' }}>
-          <div
+          <img
+            src={amyaLogo}
+            alt="Amya Growth"
             style={{
-              height: '100%',
-              width: `${percent}%`,
-              backgroundColor: 'var(--color-gold)',
-              boxShadow: '0 0 8px var(--color-gold)',
-              transition: 'width 0.2s ease-out'
+              width: '270px',
+              maxWidth: '82vw',
+              height: 'auto',
+              display: 'block',
+              objectFit: 'contain',
+              mixBlendMode: 'multiply' /* Blends white PNG background seamlessly into parchment */
             }}
           />
-        </div>
+        </motion.div>
 
-        <div
+        {/* Webapp Crafted with Love Text */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
           style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.75rem',
-            fontWeight: '600',
-            color: 'var(--color-gold-light)',
-            letterSpacing: '0.1em'
+            fontFamily: "'Inter', 'Outfit', system-ui, -apple-system, sans-serif",
+            fontSize: '0.94rem',
+            fontWeight: 500,
+            color: '#294B46',
+            marginTop: '4px',
+            marginBottom: '26px',
+            letterSpacing: '0.01em'
           }}
         >
-          {percent}%
-        </div>
+          Webapp Crafted with <span style={{ color: '#E53E3E', margin: '0 2px' }}>❤️</span> by Amya Growth
+        </motion.p>
+
+        {/* Single Clean Spinning Teal Ring Loader */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+          style={{ width: '34px', height: '34px', position: 'relative' }}
+        >
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              borderRadius: '50%',
+              border: '3px solid rgba(41, 75, 70, 0.15)',
+              borderTopColor: '#00A896',
+              borderRightColor: '#58938E',
+              animation: 'amyaSingleSpin 0.9s linear infinite'
+            }}
+          />
+        </motion.div>
       </div>
-    </div>
+
+      {/* Experience Initializing Text at very bottom center */}
+      <motion.div
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.4 }}
+        style={{
+          position: 'absolute',
+          bottom: '36px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          fontFamily: "'Inter', 'Outfit', sans-serif",
+          fontSize: '0.72rem',
+          fontWeight: 600,
+          color: 'rgba(130, 142, 153, 0.75)',
+          letterSpacing: '0.24em',
+          textTransform: 'uppercase',
+          whiteSpace: 'nowrap'
+        }}
+      >
+        EXPERIENCE INITIALIZING...
+      </motion.div>
+
+      {/* Keyframe Animation for Single Ring Spinner */}
+      <style>{`
+        @keyframes amyaSingleSpin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
+    </motion.div>
   );
 }
+
+
+
+

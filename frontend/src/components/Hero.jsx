@@ -86,11 +86,7 @@ export default function Hero({ logoStage }) {
           style={{ pointerEvents: isFinished ? 'auto' : 'none' }}
         >
           <motion.h1 className="hero-title" variants={titleVariants}>
-            Come,<br />
-            experience a<br />
-            new morning in<br />
-            nature's<br />
-            embrace
+            Come, experience a new morning in nature's embrace
           </motion.h1>
         </motion.div>
       </div>
