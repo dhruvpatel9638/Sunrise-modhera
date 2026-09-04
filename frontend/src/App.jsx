@@ -94,10 +94,11 @@ export default function App() {
   const [roomsLoaded, setRoomsLoaded] = useState(false);
   const [reviewsLoaded, setReviewsLoaded] = useState(false);
   const [bgPercent, setBgPercent] = useState(0);
+  const [preloaderCompleted, setPreloaderCompleted] = useState(false);
 
   const [logoStage, setLogoStage] = useState(
-    window.location.hash === '#admin' || window.location.hash === '#booking' 
-      ? 'finished' 
+    window.location.hash === '#admin' || window.location.hash === '#booking'
+      ? 'finished'
       : 'preloader'
   );
   const [logoStyle, setLogoStyle] = useState({});
@@ -107,7 +108,8 @@ export default function App() {
     const timer = setTimeout(() => {
       setRoomsLoaded(true);
       setReviewsLoaded(true);
-    }, 6000); // 6 seconds max load safety net
+      setBgPercent(100);
+    }, 7000); // 7 seconds max load safety net
     return () => clearTimeout(timer);
   }, []);
 
@@ -165,15 +167,13 @@ export default function App() {
     fetchReviews();
   }, []);
 
-  const isPreloaderReady = roomsLoaded && reviewsLoaded && bgPercent === 100;
-
   useEffect(() => {
-    if (isPreloaderReady && logoStage === 'preloader') {
+    if (preloaderCompleted && logoStage === 'preloader') {
       const startWidth = 180;
       const startHeight = 180;
       const startLeft = (window.innerWidth - startWidth) / 2;
       const startTop = (window.innerHeight - startHeight) / 2;
-      
+
       setLogoStyle({
         position: 'fixed',
         left: `${startLeft}px`,
@@ -189,17 +189,17 @@ export default function App() {
 
       const timer = setTimeout(() => {
         setLogoStage('center');
-      }, 1400);
-      
+      }, 700);
+
       return () => clearTimeout(timer);
     }
-  }, [isPreloaderReady, logoStage]);
+  }, [preloaderCompleted, logoStage]);
 
   useEffect(() => {
     if (logoStage === 'center') {
       const timer = setTimeout(() => {
         setLogoStage('animating');
-        
+
         const target = document.getElementById('nav-logo-img');
         if (target) {
           const rect = target.getBoundingClientRect();
@@ -214,7 +214,7 @@ export default function App() {
           setLogoStage('finished');
         }
       }, 3000); // 3 seconds centered
-      
+
       return () => clearTimeout(timer);
     }
   }, [logoStage]);
@@ -224,7 +224,7 @@ export default function App() {
       const timer = setTimeout(() => {
         setLogoStage('finished');
       }, 2200);
-      
+
       return () => clearTimeout(timer);
     }
   }, [logoStage]);
@@ -305,19 +305,19 @@ export default function App() {
     return (
       <div style={{ backgroundColor: 'var(--color-bg-light)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <LanguageTranslator />
-        <Navbar 
-          isAdminMode={isAuthenticated} 
-          activeTab={adminTab} 
-          setActiveTab={setAdminTab} 
+        <Navbar
+          isAdminMode={isAuthenticated}
+          activeTab={adminTab}
+          setActiveTab={setAdminTab}
           logoStage="finished"
         />
         <div style={{ flex: '1 0 auto' }}>
-          <AdminPanel 
+          <AdminPanel
             isAuthenticated={isAuthenticated}
             onLoginSuccess={handleLoginSuccess}
-            activeTab={adminTab} 
-            setActiveTab={setAdminTab} 
-            onBackToHome={handleLogout} 
+            activeTab={adminTab}
+            setActiveTab={setAdminTab}
+            onBackToHome={handleLogout}
             refreshRooms={fetchRooms}
           />
         </div>
@@ -332,12 +332,12 @@ export default function App() {
         <LanguageTranslator />
         <Navbar isAdminMode={false} logoStage="finished" />
         <div style={{ flex: '1 0 auto', paddingTop: '80px' }}>
-          <BookingPage 
-            rooms={rooms} 
+          <BookingPage
+            rooms={rooms}
             onBackToHome={() => {
               window.location.hash = '';
               window.scrollTo({ top: 0, behavior: 'smooth' });
-            }} 
+            }}
           />
         </div>
         <Footer />
@@ -347,14 +347,18 @@ export default function App() {
 
   return (
     <>
-      <SunPreloader percent={bgPercent} isReady={roomsLoaded && reviewsLoaded && bgPercent === 100} />
+      <SunPreloader 
+        percent={bgPercent} 
+        isReady={roomsLoaded && reviewsLoaded && bgPercent === 100} 
+        onComplete={() => setPreloaderCompleted(true)} 
+      />
       <ScrollBackground onProgress={setBgPercent} />
       <SunCursor />
       <LanguageTranslator logoStage={logoStage} />
 
       {logoStage !== 'finished' && logoStyle.left && (
         <>
-          <div 
+          <div
             className={`intro-logo-overlay ${logoStage === 'animating' ? 'fade-out' : ''}`}
             style={{
               position: 'fixed',
@@ -378,7 +382,7 @@ export default function App() {
       )}
 
       <Navbar isAdminMode={false} logoStage={logoStage} />
-      
+
       <Hero logoStage={logoStage} />
       <IntroSpacer />
       <ModheraExperience />
@@ -393,9 +397,9 @@ export default function App() {
 
       <Transit />
 
-      <ReviewSection 
-        reviews={reviews} 
-        onNewReviewAdded={handleNewReview} 
+      <ReviewSection
+        reviews={reviews}
+        onNewReviewAdded={handleNewReview}
       />
 
       <InquiryForm />
