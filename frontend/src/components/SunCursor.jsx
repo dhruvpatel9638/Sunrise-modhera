@@ -1,31 +1,52 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function SunCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [trailPosition, setTrailPosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const [isOverInput, setIsOverInput] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    // Check if device supports a fine pointer (mouse)
-    const mediaQuery = window.matchMedia('(pointer: fine)');
-    if (!mediaQuery.matches) return;
+  const dotRef = useRef(null);
+  const haloRef = useRef(null);
+  const mousePos = useRef({ x: -100, y: -100 });
+  const trailPos = useRef({ x: -100, y: -100 });
+  const isVisibleRef = useRef(false);
 
-    const handleMouseMove = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      if (!isVisible) setIsVisible(true);
+  useEffect(() => {
+    let animationFrameId;
+
+    const onMouseMove = (e) => {
+      mousePos.current = { x: e.clientX, y: e.clientY };
+      if (!isVisibleRef.current) {
+        isVisibleRef.current = true;
+        setIsVisible(true);
+        document.body.classList.add('has-custom-cursor');
+      }
     };
 
-    const handleMouseEnter = () => setIsVisible(true);
-    const handleMouseLeave = () => setIsVisible(false);
+    const onTouchStart = () => {
+      // Hide custom cursor on touch tap so it does not obstruct touch UI
+      if (isVisibleRef.current) {
+        isVisibleRef.current = false;
+        setIsVisible(false);
+        document.body.classList.remove('has-custom-cursor');
+      }
+    };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseenter', handleMouseEnter);
-    document.addEventListener('mouseleave', handleMouseLeave);
+    const onMouseLeave = () => {
+      if (isVisibleRef.current) {
+        isVisibleRef.current = false;
+        setIsVisible(false);
+        document.body.classList.remove('has-custom-cursor');
+      }
+    };
 
-    // Dynamic hover states for all interactive elements
-    const handleMouseOver = (e) => {
+    const onMouseEnter = () => {
+      isVisibleRef.current = true;
+      setIsVisible(true);
+      document.body.classList.add('has-custom-cursor');
+    };
+
+    const onMouseOver = (e) => {
       const target = e.target;
       if (!target) return;
 
@@ -36,7 +57,11 @@ export default function SunCursor() {
         target.closest('button') ||
         target.closest('.btn') ||
         target.closest('.clickable') ||
+        target.closest('.hero-pill-btn') ||
         target.closest('.mobile-nav-item') ||
+        target.closest('.amenity-card') ||
+        target.closest('.room-card') ||
+        target.closest('.gallery-item') ||
         window.getComputedStyle(target).cursor === 'pointer';
 
       const isTextInput = 
@@ -51,81 +76,88 @@ export default function SunCursor() {
       setIsOverInput(!!isTextInput);
     };
 
-    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('mouseover', onMouseOver, { passive: true });
+    document.addEventListener('mouseleave', onMouseLeave);
+    document.addEventListener('mouseenter', onMouseEnter);
+
+    // Smooth RAF loop for direct transform updates - 60fps buttery smooth with zero React state overhead
+    const renderLoop = () => {
+      // Damping coefficient 0.18 makes outer solar rays lag with celestial elegance
+      const dx = mousePos.current.x - trailPos.current.x;
+      const dy = mousePos.current.y - trailPos.current.y;
+      trailPos.current.x += dx * 0.18;
+      trailPos.current.y += dy * 0.18;
+
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${mousePos.current.x}px, ${mousePos.current.y}px, 0) translate(-50%, -50%)`;
+      }
+      if (haloRef.current) {
+        haloRef.current.style.transform = `translate3d(${trailPos.current.x}px, ${trailPos.current.y}px, 0) translate(-50%, -50%)`;
+      }
+
+      animationFrameId = requestAnimationFrame(renderLoop);
+    };
+
+    animationFrameId = requestAnimationFrame(renderLoop);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseenter', handleMouseEnter);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      window.removeEventListener('mouseover', handleMouseOver);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('mouseover', onMouseOver);
+      document.removeEventListener('mouseleave', onMouseLeave);
+      document.removeEventListener('mouseenter', onMouseEnter);
+      cancelAnimationFrame(animationFrameId);
+      document.body.classList.remove('has-custom-cursor');
     };
-  }, [isVisible]);
-
-  // Smooth trail calculation for the outer sun rays halo
-  useEffect(() => {
-    // Active only when custom cursor is visible
-    if (!isVisible) return;
-
-    let animationFrameId;
-    
-    const updateTrail = () => {
-      setTrailPosition((prev) => {
-        const dx = position.x - prev.x;
-        const dy = position.y - prev.y;
-        // Damping coefficient 0.15 makes the outer rays lag elegantly
-        return {
-          x: prev.x + dx * 0.15,
-          y: prev.y + dy * 0.15
-        };
-      });
-      animationFrameId = requestAnimationFrame(updateTrail);
-    };
-
-    animationFrameId = requestAnimationFrame(updateTrail);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [position, isVisible]);
-
-  if (!isVisible) return null;
+  }, []);
 
   return (
     <div 
       className="custom-sun-cursor" 
       style={{ 
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
         pointerEvents: 'none',
-        opacity: isOverInput ? 0 : 1,
-        transition: 'opacity 0.2s ease-in-out'
+        zIndex: 99999999,
+        opacity: isVisible && !isOverInput ? 1 : 0,
+        transition: 'opacity 0.25s ease-in-out'
       }}
     >
       {/* Sun Core (Center Dot) */}
       <div
+        ref={dotRef}
         style={{
           position: 'fixed',
-          left: position.x,
-          top: position.y,
+          top: 0,
+          left: 0,
           width: isHovered ? '6px' : '8px',
           height: isHovered ? '6px' : '8px',
           backgroundColor: 'var(--color-gold)',
           borderRadius: '50%',
-          transform: 'translate(-50%, -50%)',
-          zIndex: 999999,
           pointerEvents: 'none',
-          boxShadow: isHovered ? '0 0 14px var(--color-gold)' : '0 0 8px var(--color-gold)',
-          transition: 'width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease'
+          boxShadow: isHovered ? '0 0 16px var(--color-gold)' : '0 0 8px var(--color-gold)',
+          transition: 'width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease',
+          willChange: 'transform'
         }}
       />
 
       {/* Sun Rays Halo */}
       <div
+        ref={haloRef}
         style={{
           position: 'fixed',
-          left: trailPosition.x,
-          top: trailPosition.y,
+          top: 0,
+          left: 0,
           width: isHovered ? '48px' : '32px',
           height: isHovered ? '48px' : '32px',
-          transform: 'translate(-50%, -50%)',
-          zIndex: 999998,
           pointerEvents: 'none',
-          transition: 'width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1)'
+          transition: 'width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1)',
+          willChange: 'transform'
         }}
       >
         <svg

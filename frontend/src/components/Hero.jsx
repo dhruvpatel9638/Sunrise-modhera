@@ -66,22 +66,26 @@ export default function Hero({ logoStage }) {
 
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         <motion.div
-          className="hero-content"
+          className="hero-content editorial-layout layout-left"
           variants={containerVariants}
           initial="hidden"
           animate={isFinished ? "visible" : "hidden"}
           style={{ pointerEvents: isFinished ? 'auto' : 'none' }}
         >
+          {/* Vertical decorative editorial sidebar */}
+          <span className="editorial-sidebar left-side">NATURE SANCTUARY</span>
+
           <motion.span className="hero-eyebrow" variants={itemVariants}>
-            IT'S TIME TO
+            01 / THE FOREST CANOPY
           </motion.span>
 
           <motion.h1 className="hero-title" variants={itemVariants}>
-            VISIT MODHERA
+            Breathe <em>the quiet</em><br />
+            of nature.
           </motion.h1>
 
           <motion.p className="hero-copy" variants={itemVariants}>
-            Crave ancient temple heritage, mystical sunrises and serene rural luxury? You need to visit Modhera. We make sure that you'll get an experience you'll never forget.
+            Where the green canopy whispers stories of ancient Modhera. Wake up to a symphony of peacocks under dense green boughs, where time slows down to a gentle heartbeat.
           </motion.p>
 
           <motion.div className="hero-cta-container" variants={itemVariants}>
