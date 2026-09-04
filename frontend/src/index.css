@@ -496,25 +496,40 @@ textarea {
 
 .hero-content {
   text-align: left;
-  max-width: 800px;
+  max-width: 680px;
   animation: fadeIn 1.2s ease-out;
   margin: 0;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.3vw, 1.15rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0 0 14px 0;
+  display: block;
 }
 
 .hero-title {
   font-family: var(--font-headings);
-  font-size: clamp(2.4rem, 4.8vw, 4.2rem);
-  line-height: 1.18;
+  font-size: clamp(2.8rem, 6.2vw, 4.8rem);
+  line-height: 1.06;
   font-weight: 700;
   color: var(--color-text-hero);
-  letter-spacing: -0.02em;
-  margin: 0 0 30px 0;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin: 0 0 20px 0;
   text-align: left;
   max-width: 780px;
   word-break: keep-all;
   overflow-wrap: break-word;
-  text-wrap: balance;
+  text-shadow: 0 4px 28px rgba(0, 0, 0, 0.45);
 }
 
 /* Devanagari / Hindi Language UI Optimization */
@@ -524,17 +539,22 @@ html[lang="hi"] {
   font-family: var(--font-body-hi);
 }
 
+:lang(hi) .hero-eyebrow,
+html[lang="hi"] .hero-eyebrow {
+  font-family: var(--font-body-hi) !important;
+  letter-spacing: 0.05em !important;
+}
+
 :lang(hi) .hero-title,
 html[lang="hi"] .hero-title,
 .hero-title:lang(hi) {
   font-family: var(--font-headings-hi) !important;
-  font-size: clamp(2.2rem, 4.2vw, 3.6rem) !important;
-  line-height: 1.35 !important;
+  font-size: clamp(2.4rem, 4.8vw, 4rem) !important;
+  line-height: 1.25 !important;
   letter-spacing: 0em !important;
   font-weight: 600 !important;
   word-break: keep-all !important;
   overflow-wrap: break-word !important;
-  text-wrap: balance !important;
 }
 
 :lang(hi) h1, :lang(hi) h2, :lang(hi) h3,
@@ -546,27 +566,51 @@ html[lang="hi"] h1, html[lang="hi"] h2, html[lang="hi"] h3 {
 
 .hero-copy {
   font-family: var(--font-body);
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: var(--color-text-body-light);
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.88);
   max-width: 480px;
-  margin: 20px 0 0 auto;
+  margin: 0 0 28px 0;
   font-weight: 400;
   text-align: left;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
 }
 
 .hero-cta-container {
-  margin-top: 30px;
+  margin-top: 0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
-.hero-btn {
-  padding: 16px 36px !important;
-  font-size: 0.95rem !important;
-  border-radius: 15px !important;
+.hero-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  border-radius: 9999px;
+  padding: 12px 34px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  font-family: var(--font-body);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.hero-pill-btn:hover {
+  background: #FFFFFF;
+  color: #162F1E;
+  border-color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
 }
 
 .hero-buttons {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 import heroVideo from '../assets/WhatsApp Video 2026-06-14 at 8.58.31 AM.mp4';
 
 export default function Hero({ logoStage }) {
@@ -11,20 +10,8 @@ export default function Hero({ logoStage }) {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.25,
+        staggerChildren: 0.18,
         delayChildren: 0.1
-      }
-    }
-  };
-
-  const titleVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 1.5,
-        ease: [0.16, 1, 0.3, 1]
       }
     }
   };
@@ -35,7 +22,7 @@ export default function Hero({ logoStage }) {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 1.2,
+        duration: 1.1,
         ease: [0.16, 1, 0.3, 1]
       }
     }
@@ -85,9 +72,23 @@ export default function Hero({ logoStage }) {
           animate={isFinished ? "visible" : "hidden"}
           style={{ pointerEvents: isFinished ? 'auto' : 'none' }}
         >
-          <motion.h1 className="hero-title" variants={titleVariants}>
-            Come, experience a new morning in nature's embrace
+          <motion.span className="hero-eyebrow" variants={itemVariants}>
+            IT'S TIME TO
+          </motion.span>
+
+          <motion.h1 className="hero-title" variants={itemVariants}>
+            VISIT MODHERA
           </motion.h1>
+
+          <motion.p className="hero-copy" variants={itemVariants}>
+            Crave ancient temple heritage, mystical sunrises and serene rural luxury? You need to visit Modhera. We make sure that you'll get an experience you'll never forget.
+          </motion.p>
+
+          <motion.div className="hero-cta-container" variants={itemVariants}>
+            <a href="#accommodations" className="hero-pill-btn">
+              OUR OFFERS
+            </a>
+          </motion.div>
         </motion.div>
       </div>
     </section>

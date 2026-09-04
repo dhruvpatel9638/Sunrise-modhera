@@ -8,15 +8,17 @@ export default function LanguageTranslator({ logoStage = 'finished' }) {
   useEffect(() => {
     // 1. Add Google Translate init function
     window.googleTranslateElementInit = () => {
-      new window.google.translate.TranslateElement(
-        {
-          pageLanguage: 'en',
-          includedLanguages: 'en,hi',
-          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false,
-        },
-        'google_translate_element'
-      );
+      if (window.google && window.google.translate) {
+        new window.google.translate.TranslateElement(
+          {
+            pageLanguage: 'en',
+            includedLanguages: 'en,hi',
+            layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false,
+          },
+          'google_translate_element'
+        );
+      }
     };
 
     // 2. Load the Google Translate script
@@ -37,8 +39,9 @@ export default function LanguageTranslator({ logoStage = 'finished' }) {
     };
 
     const initialCookie = getTransCookie();
-    if (initialCookie.includes('/hi')) {
+    if (initialCookie && initialCookie.includes('/hi')) {
       setCurrentLang('hi');
+      document.documentElement.setAttribute('lang', 'hi');
     }
   }, []);
 
@@ -51,34 +54,41 @@ export default function LanguageTranslator({ logoStage = 'finished' }) {
       selectEl.value = nextLang;
       selectEl.dispatchEvent(new Event('change'));
       setCurrentLang(nextLang);
+      document.documentElement.setAttribute('lang', nextLang);
     } else {
-      // Fallback: Set cookie and refresh page if select has not rendered yet
+      // Fallback: Set cookie and reload if select has not fully mounted yet
       const cookieValue = nextLang === 'hi' ? '/en/hi' : '/en/en';
       document.cookie = `googtrans=${cookieValue}; path=/;`;
-      // Also set for localhost subdomains if testing locally
-      document.cookie = `googtrans=${cookieValue}; path=/; domain=localhost;`;
+      document.cookie = `googtrans=${cookieValue}; path=/; domain=${window.location.hostname};`;
+      document.documentElement.setAttribute('lang', nextLang);
       window.location.reload();
     }
   };
 
   const handleButtonClick = () => {
-    if (!isExpanded) {
-      setIsExpanded(true);
-      
-      // Auto-collapse after 5 seconds if they don't click to translate
-      setTimeout(() => {
-        setIsExpanded(false);
-      }, 5000);
-    } else {
-      toggleLanguage();
+    toggleLanguage();
+    setIsExpanded(true);
+    setTimeout(() => {
       setIsExpanded(false);
-    }
+    }, 2500);
   };
 
   return (
     <>
-      {/* Hidden container for Google Translate default widgets */}
-      <div id="google_translate_element" style={{ display: 'none', position: 'absolute', top: '-9999px' }} />
+      {/* Hidden container for Google Translate widgets (avoid display: none so select element mounts) */}
+      <div 
+        id="google_translate_element" 
+        style={{ 
+          position: 'fixed', 
+          top: '-9999px', 
+          left: '-9999px', 
+          width: '1px', 
+          height: '1px', 
+          overflow: 'hidden', 
+          opacity: 0, 
+          pointerEvents: 'none' 
+        }} 
+      />
 
       {/* Beautiful Floating Translator Toggle Button */}
       <button
