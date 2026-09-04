@@ -1854,8 +1854,34 @@ html[lang="hi"] h1, html[lang="hi"] h2, html[lang="hi"] h3 {
   color: rgba(255, 255, 255, 0.5);
 }
 
+/* Fluid navbar adjustment when viewport is horizontally shortened between 1025px and 1260px */
+@media (min-width: 1025px) and (max-width: 1260px) {
+  .nav-links {
+    gap: clamp(10px, 1.4vw, 20px) !important;
+  }
+
+  .nav-link {
+    font-size: clamp(0.8rem, 0.9vw, 0.9rem) !important;
+    white-space: nowrap;
+  }
+
+  .nav-links .btn {
+    padding: 8px clamp(12px, 1.2vw, 20px) !important;
+    font-size: clamp(0.72rem, 0.8vw, 0.82rem) !important;
+    white-space: nowrap;
+  }
+}
+
 /* Responsive Rules */
 @media (max-width: 1024px) {
+  .nav-links {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: block !important;
+  }
+
   .room-grid {
     grid-template-columns: repeat(2, 1fr);
   }

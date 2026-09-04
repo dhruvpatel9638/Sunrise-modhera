@@ -16,7 +16,18 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
       }
     };
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    const handleResize = () => {
+      if (window.innerWidth > 1024) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const toggleMobileMenu = () => {
@@ -121,19 +132,24 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div 
+          className="mobile-nav-drawer"
           style={{
             position: 'fixed',
-            top: '70px',
+            top: '68px',
             left: 0,
             width: '100%',
-            background: 'var(--color-primary-dark)',
-            padding: '24px',
+            background: 'rgba(18, 42, 25, 0.98)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            padding: '24px 28px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '20px',
-            boxShadow: 'var(--shadow-lg)',
+            gap: '18px',
+            boxShadow: '0 16px 36px rgba(0, 0, 0, 0.4)',
             borderBottom: '2px solid var(--color-gold)',
-            zIndex: 999,
+            zIndex: 9999,
+            maxHeight: 'calc(100vh - 68px)',
+            overflowY: 'auto'
           }}
         >
           {isAdminMode ? (

@@ -1,9 +1,66 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import heroVideo from '../assets/WhatsApp Video 2026-06-14 at 8.58.31 AM.mp4';
 
 export default function Hero({ logoStage }) {
   const isFinished = logoStage === 'finished';
+  const videoRef = useRef(null);
+  const hasStartedRef = useRef(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (!isFinished) {
+      // Pause video while preloader and intro logo animation are active
+      video.pause();
+      try {
+        video.currentTime = 0;
+      } catch (e) {}
+      return;
+    }
+
+    // When logoStage finishes and hero page is entered, start the video from beginning
+    try {
+      video.currentTime = 0;
+    } catch (e) {}
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((err) => {
+        console.warn("Video playback was prevented:", err);
+      });
+    }
+    hasStartedRef.current = true;
+
+    // IntersectionObserver to restart/resume video whenever entering the hero section
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.25) {
+          if (!hasStartedRef.current) {
+            try {
+              video.currentTime = 0;
+            } catch (e) {}
+          }
+          const p = video.play();
+          if (p !== undefined) p.catch(() => {});
+          hasStartedRef.current = true;
+        } else if (!entry.isIntersecting) {
+          hasStartedRef.current = false;
+          video.pause();
+        }
+      },
+      { threshold: [0, 0.25, 0.6] }
+    );
+
+    const heroSection = document.getElementById('hero');
+    if (heroSection) {
+      observer.observe(heroSection);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isFinished]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -32,10 +89,11 @@ export default function Hero({ logoStage }) {
     <section id="hero" className="hero" style={{ position: 'relative' }}>
       {/* Background Video */}
       <video
-        autoPlay
+        ref={videoRef}
         loop
         muted
         playsInline
+        preload="auto"
         style={{
           position: 'absolute',
           top: 0,
