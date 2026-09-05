@@ -130,6 +130,9 @@ export default function App() {
       : 'preloader'
   );
   const [logoStyle, setLogoStyle] = useState({});
+  const [showFloatingLogo, setShowFloatingLogo] = useState(
+    window.location.hash !== '#admin' && window.location.hash !== '#booking'
+  );
 
   // Safety fallback to force load completion if API is slow or hangs
   useEffect(() => {
@@ -143,16 +146,10 @@ export default function App() {
 
   // Force scroll-to-top and disable native scroll restoration on reload for homepage entrance animation
   useEffect(() => {
-    const currentHash = window.location.hash;
-    if (currentHash !== '#admin' && currentHash !== '#booking') {
-      if ('scrollRestoration' in window.history) {
-        window.history.scrollRestoration = 'manual';
-      }
-      window.scrollTo(0, 0);
-      if (currentHash && currentHash !== '#hero') {
-        window.history.replaceState(null, null, ' ');
-      }
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
     }
+    window.scrollTo(0, 0);
   }, []);
 
   const handleLoginSuccess = () => {
@@ -212,7 +209,9 @@ export default function App() {
         transition: 'all 2.2s cubic-bezier(0.77, 0, 0.175, 1)',
         pointerEvents: 'none',
         objectFit: 'contain',
-        borderRadius: '4px'
+        borderRadius: '4px',
+        filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35))',
+        opacity: 1
       });
 
       const timer = setTimeout(() => {
@@ -236,10 +235,12 @@ export default function App() {
             left: `${rect.left}px`,
             top: `${rect.top}px`,
             width: `${rect.width}px`,
-            height: `${rect.height}px`
+            height: `${rect.height}px`,
+            filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35))'
           }));
         } else {
           setLogoStage('finished');
+          setShowFloatingLogo(false);
         }
       }, 3000); // 3 seconds centered
 
@@ -251,9 +252,22 @@ export default function App() {
     if (logoStage === 'animating') {
       const timer = setTimeout(() => {
         setLogoStage('finished');
+        // Fade out floating logo smoothly now that navbar logo is already visible underneath
+        setLogoStyle(prev => ({
+          ...prev,
+          opacity: 0,
+          transition: 'opacity 0.4s ease-out'
+        }));
       }, 2200);
 
-      return () => clearTimeout(timer);
+      const cleanupTimer = setTimeout(() => {
+        setShowFloatingLogo(false);
+      }, 2650);
+
+      return () => {
+        clearTimeout(timer);
+        clearTimeout(cleanupTimer);
+      };
     }
   }, [logoStage]);
 
@@ -384,7 +398,7 @@ export default function App() {
       <SunCursor />
       <LanguageTranslator logoStage={logoStage} />
 
-      {logoStage !== 'finished' && logoStyle.left && (
+      {showFloatingLogo && logoStyle.left && (
         <>
           <div
             className={`intro-logo-overlay ${logoStage === 'animating' ? 'fade-out' : ''}`}
@@ -398,7 +412,7 @@ export default function App() {
               zIndex: 1499,
               transition: 'opacity 2.2s ease-in-out',
               pointerEvents: 'none',
-              opacity: logoStage === 'animating' ? 0 : 1
+              opacity: (logoStage === 'animating' || logoStage === 'finished') ? 0 : 1
             }}
           />
           <img

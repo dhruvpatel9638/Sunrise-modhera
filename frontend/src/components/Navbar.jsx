@@ -65,7 +65,10 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
             src={logoWhite} 
             alt="Modhera Sunrise Logo" 
             className="logo-img" 
-            style={{ visibility: logoStage === 'finished' ? 'visible' : 'hidden' }}
+            style={{ 
+              opacity: logoStage === 'finished' ? 1 : 0,
+              transition: 'opacity 0.25s ease'
+            }}
           />
         </a>
 
