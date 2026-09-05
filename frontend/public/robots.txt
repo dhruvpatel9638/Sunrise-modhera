@@ -1,0 +1,28 @@
+# Robots.txt for Modhera Sunrise Resort
+# https://sunrise-modhera.vercel.app
+
+User-agent: Googlebot
+Allow: /
+Allow: /#accommodations
+Allow: /#amenities
+Allow: /#dining
+Allow: /#gallery
+Allow: /#reviews
+Allow: /#inquiry
+Allow: /#booking
+
+User-agent: Googlebot-Image
+Allow: /assets/
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.png
+Allow: /*.webp
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /#admin-panel
+Disallow: /api/
+
+# Sitemap location for Google Search Console
+Sitemap: https://modherasunriseresort.com/sitemap.xml

@@ -98,11 +98,17 @@ export default function Hero({ logoStage }) {
           position: 'absolute',
           top: 0,
           left: 0,
+          right: 0,
+          bottom: 0,
           width: '100%',
           height: '100%',
+          minWidth: '100%',
+          minHeight: '100%',
           objectFit: 'cover',
+          objectPosition: 'center center',
           zIndex: 1,
-          pointerEvents: 'none'
+          pointerEvents: 'none',
+          display: 'block'
         }}
       >
         <source src={heroVideo} type="video/mp4" />
@@ -114,9 +120,28 @@ export default function Hero({ logoStage }) {
           position: 'absolute',
           top: 0,
           left: 0,
+          right: 0,
+          bottom: 0,
           width: '100%',
           height: '100%',
+          minWidth: '100%',
+          minHeight: '100%',
           backgroundColor: 'var(--color-overlay-hero)',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }}
+      />
+
+      {/* Bottom seamless blend to eliminate any gap or sharp angle at bottom corners */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          width: '100%',
+          height: '120px',
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(12, 31, 18, 0.7) 65%, var(--color-bg-dark) 100%)',
           zIndex: 1,
           pointerEvents: 'none'
         }}

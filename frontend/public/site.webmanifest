@@ -1,0 +1,24 @@
+{
+  "name": "Modhera Sunrise Resort",
+  "short_name": "Sunrise Modhera",
+  "description": "Luxury heritage eco-resort situated directly behind the UNESCO Modhera Sun Temple in Gujarat. Authentic Bhungas, glamping, pure veg dining, and peacocks garden.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0C1F12",
+  "theme_color": "#162F1E",
+  "orientation": "portrait",
+  "categories": ["travel", "hotel", "resort", "lifestyle"],
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
