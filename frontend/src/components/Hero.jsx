@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import heroVideo from '../assets/WhatsApp Video 2026-06-14 at 8.58.31 AM.mp4';
 
@@ -6,6 +6,7 @@ export default function Hero({ logoStage }) {
   const isFinished = logoStage === 'finished';
   const videoRef = useRef(null);
   const hasStartedRef = useRef(false);
+  const [videoFadedIn, setVideoFadedIn] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -14,13 +15,14 @@ export default function Hero({ logoStage }) {
     if (!isFinished) {
       // Pause video while preloader and intro logo animation are active
       video.pause();
+      setVideoFadedIn(false);
       try {
         video.currentTime = 0;
       } catch (e) {}
       return;
     }
 
-    // When logoStage finishes and hero page is entered, start the video from beginning
+    // When logoStage finishes and hero page is entered, start the video from beginning with fade-in
     try {
       video.currentTime = 0;
     } catch (e) {}
@@ -31,6 +33,11 @@ export default function Hero({ logoStage }) {
       });
     }
     hasStartedRef.current = true;
+
+    // Trigger smooth fade in transition
+    const fadeTimer = setTimeout(() => {
+      setVideoFadedIn(true);
+    }, 100);
 
     // IntersectionObserver to restart/resume video whenever entering the hero section
     const observer = new IntersectionObserver(
@@ -44,6 +51,7 @@ export default function Hero({ logoStage }) {
           const p = video.play();
           if (p !== undefined) p.catch(() => {});
           hasStartedRef.current = true;
+          setVideoFadedIn(true);
         } else if (!entry.isIntersecting) {
           hasStartedRef.current = false;
           video.pause();
@@ -58,6 +66,7 @@ export default function Hero({ logoStage }) {
     }
 
     return () => {
+      clearTimeout(fadeTimer);
       observer.disconnect();
     };
   }, [isFinished]);
@@ -86,14 +95,10 @@ export default function Hero({ logoStage }) {
   };
 
   return (
-    <section id="hero" className="hero" style={{ position: 'relative' }}>
-      {/* Background Video */}
-      <video
-        ref={videoRef}
-        loop
-        muted
-        playsInline
-        preload="auto"
+    <section id="hero" className="hero" style={{ position: 'relative', overflow: 'hidden' }}>
+      {/* Background Video with Smooth Fade-In */}
+      <div
+        className="hero-video-wrapper"
         style={{
           position: 'absolute',
           top: 0,
@@ -102,17 +107,41 @@ export default function Hero({ logoStage }) {
           bottom: 0,
           width: '100%',
           height: '100%',
-          minWidth: '100%',
-          minHeight: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center center',
+          overflow: 'hidden',
+          backgroundColor: '#0a1d11',
           zIndex: 1,
-          pointerEvents: 'none',
-          display: 'block'
+          pointerEvents: 'none'
         }}
       >
-        <source src={heroVideo} type="video/mp4" />
-      </video>
+        <video
+          ref={videoRef}
+          loop
+          muted
+          playsInline
+          preload="auto"
+          onPlaying={() => setVideoFadedIn(true)}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: '100%',
+            height: '100%',
+            minWidth: '100%',
+            minHeight: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center center',
+            pointerEvents: 'none',
+            display: 'block',
+            opacity: isFinished && videoFadedIn ? 1 : 0,
+            transition: 'opacity 2.2s cubic-bezier(0.25, 1, 0.5, 1)',
+            willChange: 'opacity'
+          }}
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
+      </div>
 
       {/* Nature Green Gradient Overlay (Top to Bottom) */}
       <div
@@ -128,12 +157,12 @@ export default function Hero({ logoStage }) {
           minWidth: '100%',
           minHeight: '100%',
           background: 'linear-gradient(to bottom, rgba(18, 48, 28, 0.55) 0%, rgba(28, 72, 42, 0.32) 35%, rgba(30, 75, 45, 0.12) 65%, transparent 95%)',
-          zIndex: 1,
+          zIndex: 2,
           pointerEvents: 'none'
         }}
       />
 
-      <div className="container hero-left-container" style={{ position: 'relative', zIndex: 2 }}>
+      <div className="container hero-left-container" style={{ position: 'relative', zIndex: 3 }}>
         <motion.div
           className="hero-content-left"
           variants={containerVariants}
