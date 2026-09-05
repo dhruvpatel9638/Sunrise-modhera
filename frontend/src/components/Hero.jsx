@@ -133,30 +133,37 @@ export default function Hero({ logoStage }) {
         }}
       />
 
-      <div className="container hero-center-container" style={{ position: 'relative', zIndex: 2 }}>
+      <div className="container hero-left-container" style={{ position: 'relative', zIndex: 2 }}>
         <motion.div
-          className="hero-reference-layout"
+          className="hero-content-left"
           variants={containerVariants}
           initial="hidden"
           animate={isFinished ? "visible" : "hidden"}
           style={{ pointerEvents: isFinished ? 'auto' : 'none' }}
         >
           {/* Eyebrow Tag */}
-          <motion.span className="hero-ref-eyebrow" variants={itemVariants}>
-            WHY WAIT?
+          <motion.span className="hero-eyebrow" variants={itemVariants}>
+            01 / THE FOREST CANOPY
           </motion.span>
 
-          {/* Editorial Stacked Title */}
-          <motion.h1 className="hero-ref-title" variants={itemVariants}>
-            <span className="hero-ref-line">WHERE SUN</span>
-            <span className="hero-ref-line hero-ref-italic">MEETS</span>
-            <span className="hero-ref-line">SOUL.</span>
+          {/* Left-Aligned Title */}
+          <motion.h1 className="hero-title" variants={itemVariants}>
+            Where SUN<br />
+            <em>meet</em><br />
+            SOUL.
           </motion.h1>
 
           {/* Subtitle / Body text */}
-          <motion.p className="hero-ref-copy" variants={itemVariants}>
+          <motion.p className="hero-copy" variants={itemVariants}>
             Nestled in the heart of nature, Sunrise Resort Modhera is where golden mornings meet green serenity — a retreat crafted for those who believe rest is sacred.
           </motion.p>
+
+          {/* Restored OUR OFFERS Pill Button */}
+          <motion.div className="hero-cta-container" variants={itemVariants}>
+            <a href="#accommodations" className="hero-pill-btn">
+              OUR OFFERS
+            </a>
+          </motion.div>
         </motion.div>
       </div>
     </section>
