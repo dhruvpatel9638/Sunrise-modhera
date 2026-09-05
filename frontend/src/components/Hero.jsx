@@ -148,17 +148,14 @@ export default function Hero({ logoStage }) {
 
           {/* Editorial Stacked Title */}
           <motion.h1 className="hero-ref-title" variants={itemVariants}>
-            <span className="hero-ref-line">LET'S</span>
-            <span className="hero-ref-line hero-ref-italic">MAKE</span>
-            <span className="hero-ref-line">A START</span>
-            <span className="hero-ref-line">TOGETHER.</span>
+            <span className="hero-ref-line">WHERE SUN</span>
+            <span className="hero-ref-line hero-ref-italic">MEETS</span>
+            <span className="hero-ref-line">SOUL.</span>
           </motion.h1>
 
           {/* Subtitle / Body text */}
           <motion.p className="hero-ref-copy" variants={itemVariants}>
-            HOWEVER SMALL IT MAY BE — WE'D LOVE TO HELP YOU DO SO.<br />
-            TAP THE BOOKING BUTTON AND LET'S MAKE YOUR<br />
-            FIRST STEPS TOGETHER.
+            Nestled in the heart of nature, Sunrise Resort Modhera is where golden mornings meet green serenity — a retreat crafted for those who believe rest is sacred.
           </motion.p>
         </motion.div>
       </div>
