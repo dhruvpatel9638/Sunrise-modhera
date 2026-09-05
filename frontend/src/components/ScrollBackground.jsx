@@ -147,24 +147,11 @@ export default function ScrollBackground({ onProgress }) {
           top: 0,
           left: 0,
           zIndex: 2,
-          opacity: 0.85,
+          opacity: 1,
           pointerEvents: 'none',
           willChange: 'transform',
           transform: 'translate3d(0, 0, 0)',
           WebkitTransform: 'translate3d(0, 0, 0)'
-        }}
-      />
-      <div 
-        className="scroll-bg-green-overlay"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'var(--color-overlay-hero)',
-          zIndex: 3,
-          pointerEvents: 'none'
         }}
       />
     </div>

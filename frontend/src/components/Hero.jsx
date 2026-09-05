@@ -114,7 +114,7 @@ export default function Hero({ logoStage }) {
         <source src={heroVideo} type="video/mp4" />
       </video>
 
-      {/* Dark Green Scrim overlay */}
+      {/* Subtle neutral gradient scrim on the left for text contrast without altering background video colors */}
       <div
         style={{
           position: 'absolute',
@@ -126,22 +126,7 @@ export default function Hero({ logoStage }) {
           height: '100%',
           minWidth: '100%',
           minHeight: '100%',
-          backgroundColor: 'var(--color-overlay-hero)',
-          zIndex: 1,
-          pointerEvents: 'none'
-        }}
-      />
-
-      {/* Bottom seamless blend to eliminate any gap or sharp angle at bottom corners */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          width: '100%',
-          height: '120px',
-          background: 'linear-gradient(to bottom, transparent 0%, rgba(12, 31, 18, 0.7) 65%, var(--color-bg-dark) 100%)',
+          background: 'linear-gradient(to right, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.15) 45%, transparent 100%)',
           zIndex: 1,
           pointerEvents: 'none'
         }}

@@ -85,7 +85,7 @@ export default function ReviewSection({ reviews, onNewReviewAdded }) {
             </div>
 
             {/* What guests love table / grid */}
-            <div style={{ marginBottom: '32px', background: 'rgba(12, 31, 18, 0.72)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.18)', borderRadius: '16px', padding: '20px' }}>
+            <div style={{ marginBottom: '32px', background: 'rgba(0, 0, 0, 0.45)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.18)', borderRadius: '16px', padding: '20px' }}>
               <h4 style={{ color: '#E8CA7A', fontSize: '1rem', fontWeight: 600, marginBottom: '12px' }}>
                 🟢 What Guests Love Most:
               </h4>
