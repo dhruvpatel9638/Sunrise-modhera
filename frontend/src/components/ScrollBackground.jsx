@@ -154,6 +154,20 @@ export default function ScrollBackground({ onProgress }) {
           WebkitTransform: 'translate3d(0, 0, 0)'
         }}
       />
+      {/* White / Light Gradient Overlay (Top to Bottom, 10% - 20% Opacity, No Blur, No Dark Fill) */}
+      <div
+        className="scroll-bg-light-overlay"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.12) 35%, rgba(255, 255, 255, 0.04) 70%, transparent 100%)',
+          zIndex: 3,
+          pointerEvents: 'none'
+        }}
+      />
     </div>
   );
 }
