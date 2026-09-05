@@ -108,7 +108,7 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
               <a href="#gallery" className="nav-link" onClick={(e) => handleNavClick(e, 'gallery')}>Gallery</a>
               <a href="#reviews" className="nav-link" onClick={(e) => handleNavClick(e, 'reviews')}>Reviews</a>
               <a href="#inquiry" className="nav-link" onClick={(e) => handleNavClick(e, 'inquiry')}>Contact</a>
-              <a href="#booking" className="btn btn-primary" onClick={closeMobileMenu}>
+              <a href="#booking" className="nav-cta-btn" onClick={closeMobileMenu}>
                 Plan Your Outing
               </a>
             </>
@@ -187,7 +187,7 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
               <a href="#inquiry" className="nav-link" onClick={(e) => handleNavClick(e, 'inquiry')}>Contact</a>
               <a 
                 href="#booking"
-                className="btn btn-primary" 
+                className="nav-cta-btn" 
                 onClick={closeMobileMenu}
                 style={{ width: '100%', justifyContent: 'center', textAlign: 'center' }}
               >

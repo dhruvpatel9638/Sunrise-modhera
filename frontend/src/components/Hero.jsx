@@ -114,7 +114,7 @@ export default function Hero({ logoStage }) {
         <source src={heroVideo} type="video/mp4" />
       </video>
 
-      {/* Subtle neutral gradient scrim on the left for text contrast without altering background video colors */}
+      {/* Subtle neutral vignette overlay to maximize contrast for centered text while preserving natural video colors */}
       <div
         style={{
           position: 'absolute',
@@ -126,41 +126,39 @@ export default function Hero({ logoStage }) {
           height: '100%',
           minWidth: '100%',
           minHeight: '100%',
-          background: 'linear-gradient(to right, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.15) 45%, transparent 100%)',
+          background: 'radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.32) 0%, rgba(0, 0, 0, 0.18) 60%, rgba(0, 0, 0, 0.42) 100%)',
           zIndex: 1,
           pointerEvents: 'none'
         }}
       />
 
-      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+      <div className="container hero-center-container" style={{ position: 'relative', zIndex: 2 }}>
         <motion.div
-          className="hero-content editorial-layout layout-left"
+          className="hero-reference-layout"
           variants={containerVariants}
           initial="hidden"
           animate={isFinished ? "visible" : "hidden"}
           style={{ pointerEvents: isFinished ? 'auto' : 'none' }}
         >
-          {/* Vertical decorative editorial sidebar */}
-          <span className="editorial-sidebar left-side">NATURE SANCTUARY</span>
-
-          <motion.span className="hero-eyebrow" variants={itemVariants}>
-            01 / THE FOREST CANOPY
+          {/* Eyebrow Tag */}
+          <motion.span className="hero-ref-eyebrow" variants={itemVariants}>
+            WHY WAIT?
           </motion.span>
 
-          <motion.h1 className="hero-title" variants={itemVariants}>
-            Breathe <em>the quiet</em><br />
-            of nature.
+          {/* Editorial Stacked Title */}
+          <motion.h1 className="hero-ref-title" variants={itemVariants}>
+            <span className="hero-ref-line">LET'S</span>
+            <span className="hero-ref-line hero-ref-italic">MAKE</span>
+            <span className="hero-ref-line">A START</span>
+            <span className="hero-ref-line">TOGETHER.</span>
           </motion.h1>
 
-          <motion.p className="hero-copy" variants={itemVariants}>
-            Where the green canopy whispers stories of ancient Modhera. Wake up to a symphony of peacocks under dense green boughs, where time slows down to a gentle heartbeat.
+          {/* Subtitle / Body text */}
+          <motion.p className="hero-ref-copy" variants={itemVariants}>
+            HOWEVER SMALL IT MAY BE — WE'D LOVE TO HELP YOU DO SO.<br />
+            TAP THE BOOKING BUTTON AND LET'S MAKE YOUR<br />
+            FIRST STEPS TOGETHER.
           </motion.p>
-
-          <motion.div className="hero-cta-container" variants={itemVariants}>
-            <a href="#accommodations" className="hero-pill-btn">
-              OUR OFFERS
-            </a>
-          </motion.div>
         </motion.div>
       </div>
     </section>
