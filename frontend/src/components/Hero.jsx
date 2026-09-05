@@ -114,7 +114,7 @@ export default function Hero({ logoStage }) {
         <source src={heroVideo} type="video/mp4" />
       </video>
 
-      {/* White / Light Gradient Overlay (Top to Bottom, 10% - 20% Opacity, No Blur, No Dark Fill) */}
+      {/* White / Light Gradient Overlay (Top to Bottom, Enhanced Visibility) */}
       <div
         className="hero-light-gradient-overlay"
         style={{
@@ -127,7 +127,7 @@ export default function Hero({ logoStage }) {
           height: '100%',
           minWidth: '100%',
           minHeight: '100%',
-          background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.12) 35%, rgba(255, 255, 255, 0.04) 70%, transparent 100%)',
+          background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.32) 30%, rgba(255, 255, 255, 0.14) 60%, transparent 95%)',
           zIndex: 1,
           pointerEvents: 'none'
         }}

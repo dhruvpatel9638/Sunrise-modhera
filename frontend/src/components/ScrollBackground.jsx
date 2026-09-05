@@ -154,7 +154,7 @@ export default function ScrollBackground({ onProgress }) {
           WebkitTransform: 'translate3d(0, 0, 0)'
         }}
       />
-      {/* White / Light Gradient Overlay (Top to Bottom, 10% - 20% Opacity, No Blur, No Dark Fill) */}
+      {/* White / Light Gradient Overlay (Top to Bottom, Enhanced Visibility) */}
       <div
         className="scroll-bg-light-overlay"
         style={{
@@ -163,7 +163,7 @@ export default function ScrollBackground({ onProgress }) {
           left: 0,
           width: '100%',
           height: '100%',
-          background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.12) 35%, rgba(255, 255, 255, 0.04) 70%, transparent 100%)',
+          background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.32) 30%, rgba(255, 255, 255, 0.14) 60%, transparent 95%)',
           zIndex: 3,
           pointerEvents: 'none'
         }}
