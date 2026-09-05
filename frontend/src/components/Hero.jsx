@@ -141,16 +141,10 @@ export default function Hero({ logoStage }) {
           animate={isFinished ? "visible" : "hidden"}
           style={{ pointerEvents: isFinished ? 'auto' : 'none' }}
         >
-          {/* Eyebrow Tag */}
-          <motion.span className="hero-eyebrow" variants={itemVariants}>
-            01 / THE FOREST CANOPY
-          </motion.span>
-
           {/* Left-Aligned Title */}
           <motion.h1 className="hero-title" variants={itemVariants}>
             Where SUN<br />
-            <em>meet</em><br />
-            SOUL.
+            <em>meet</em> SOUL.
           </motion.h1>
 
           {/* Subtitle / Body text */}
