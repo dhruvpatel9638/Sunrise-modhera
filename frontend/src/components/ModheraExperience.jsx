@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import indianVegCuisine from '../assets/indian_veg_cuisine.jpg';
 
 export default function ModheraExperience() {
   const experiences = [
@@ -15,7 +16,7 @@ export default function ModheraExperience() {
       tag: 'Dining Experience',
       title: 'Farm-to-Table Cuisine',
       desc: 'Savor organic, 100% pure vegetarian Gujarati meals prepared with fresh ingredients sourced directly from local farms. Relish authentic cuisine served under starry skies in a rustic dining atmosphere.',
-      image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=85'
+      image: indianVegCuisine
     },
     {
       id: 'nature-wellness',
