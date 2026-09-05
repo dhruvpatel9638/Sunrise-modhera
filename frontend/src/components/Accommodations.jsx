@@ -1,6 +1,101 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Maximize2 } from 'lucide-react';
+import { Users, Maximize2, ChevronLeft, ChevronRight } from 'lucide-react';
+
+function RoomImageCarousel({ images, title, type, price }) {
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const imgList = (images && images.length > 0)
+    ? images 
+    : ['https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=800&q=80'];
+
+  // Auto-changing photo timer (every 3.5 seconds)
+  useEffect(() => {
+    if (imgList.length <= 1 || isHovered) return;
+    const interval = setInterval(() => {
+      setCurrentIdx(prev => (prev + 1) % imgList.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [imgList.length, isHovered]);
+
+  const prevPhoto = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setCurrentIdx(prev => (prev - 1 + imgList.length) % imgList.length);
+  };
+
+  const nextPhoto = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setCurrentIdx(prev => (prev + 1) % imgList.length);
+  };
+
+  const selectPhoto = (e, idx) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setCurrentIdx(idx);
+  };
+
+  return (
+    <div 
+      className="room-img-container" 
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="room-img-slider">
+        {imgList.map((img, idx) => (
+          <img
+            key={idx}
+            src={img}
+            alt={`${title} - photo ${idx + 1}`}
+            className={`room-img-slide ${idx === currentIdx ? 'active' : ''}`}
+            loading="lazy"
+          />
+        ))}
+      </div>
+
+      <span className="room-type-badge">{type}</span>
+      <div className="room-price-tag">
+        <span>₹{price}</span> / night
+      </div>
+
+      {imgList.length > 1 && (
+        <>
+          <button 
+            type="button" 
+            className="room-carousel-arrow prev" 
+            onClick={prevPhoto}
+            aria-label="Previous photo"
+          >
+            <ChevronLeft size={18} />
+          </button>
+          
+          <button 
+            type="button" 
+            className="room-carousel-arrow next" 
+            onClick={nextPhoto}
+            aria-label="Next photo"
+          >
+            <ChevronRight size={18} />
+          </button>
+
+          <div className="room-carousel-dots">
+            {imgList.map((_, dotIdx) => (
+              <button
+                key={dotIdx}
+                type="button"
+                className={`carousel-dot ${dotIdx === currentIdx ? 'active' : ''}`}
+                onClick={(e) => selectPhoto(e, dotIdx)}
+                aria-label={`Go to photo ${dotIdx + 1}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 
 export default function Accommodations({ rooms }) {
   const containerVariants = {
@@ -57,21 +152,12 @@ export default function Accommodations({ rooms }) {
         >
           {rooms.map((room) => (
             <motion.div className="room-card" key={room._id} variants={cardVariants}>
-              <div className="room-img-container" style={{ overflow: 'hidden' }}>
-                <motion.img 
-                  src={room.images?.[0] || 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=800&q=80'} 
-                  alt={room.title} 
-                  className="room-img"
-                  initial={{ scale: 1.1 }}
-                  whileInView={{ scale: 1 }}
-                  transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                  viewport={{ once: true }}
-                />
-                <span className="room-type-badge">{room.type}</span>
-                <div className="room-price-tag">
-                  <span>₹{room.price}</span> / night
-                </div>
-              </div>
+              <RoomImageCarousel 
+                images={room.images} 
+                title={room.title} 
+                type={room.type} 
+                price={room.price} 
+              />
 
               <div className="room-info">
                 <h3 className="room-title">{room.title}</h3>

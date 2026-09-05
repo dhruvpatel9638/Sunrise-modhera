@@ -25,40 +25,68 @@ import 'lenis/dist/lenis.css';
 
 const FALLBACK_ROOMS = [
   {
-    _id: 'bhunga-mock-1',
-    title: "Traditional Bhunga (Kutch Mud Hut)",
+    _id: 'bhunga-01',
+    title: "Traditional AC Bhunga (Kutchi Mud Hut)",
     type: "bhunga",
-    price: 6500,
+    price: 3200,
     maxGuests: 3,
-    size: 450,
-    description: "Circular, authentic Kutch-style mud houses with conical thatched roofs. Artfully decorated with traditional hand-crafted mirror-work (lipan kaam) on the interior walls. Upgraded with premium king-size bedding, writing desk, and quiet air conditioning for luxury comfort in a rustic ambiance.",
-    amenities: ["Air Conditioning", "King Size Bed", "Premium Linens", "Attached Luxury Bath", "Lipan Kaam Decor", "Tea/Coffee Maker", "Mineral Water", "Free Wi-Fi"],
-    images: ["https://images.unsplash.com/photo-1508193638397-1c4234db14d8?auto=format&fit=crop&w=800&q=80"],
+    size: 380,
+    description: "Authentic circular Kutch-style mud house with conical thatched roof. Artfully adorned with traditional hand-crafted mirror-work (lipan kaam), king-size bed, quiet air conditioning, and attached luxury bathroom.",
+    amenities: ["Air Conditioning", "King Size Bed", "Lipan Kaam Decor", "Attached Modern Bath", "Garden View", "Complimentary Breakfast", "Free Wi-Fi", "Tea/Coffee Maker"],
+    images: [
+      "/images/rooms/bhunga_village.jpg",
+      "/images/rooms/bhunga_interior.jpg",
+      "/images/rooms/resort_pathways.jpg"
+    ],
+    availableCount: 5
+  },
+  {
+    _id: 'cottage-02',
+    title: "Family AC Cottage",
+    type: "cottage",
+    price: 3800,
+    maxGuests: 4,
+    size: 480,
+    description: "Standalone brick-and-mortar cottage with private sit-out verandah opening directly to lush resort lawns. Equipped with comfortable double bedding, sitting lounge, and modern en-suite amenities.",
+    amenities: ["Panoramic Garden Porch", "Air Conditioning", "Double Beds", "Attached Bathroom", "Flat Screen TV", "Mini Fridge", "Free Wi-Fi", "Electric Kettle"],
+    images: [
+      "/images/rooms/cottage_exterior.jpg",
+      "/images/rooms/cottage_interior.jpg",
+      "/images/rooms/resort_evening.jpg"
+    ],
     availableCount: 4
   },
   {
-    _id: 'tent-mock-2',
-    title: "Luxury Glamping Tent",
-    type: "tent",
-    price: 5500,
+    _id: 'deluxe-03',
+    title: "Deluxe AC Room",
+    type: "deluxe",
+    price: 2600,
     maxGuests: 2,
-    size: 400,
-    description: "Glamour camping (Glamping) setups giving a raw, immersive nature feel. Nestled under dense green tree canopies, each tent features premium mattress setups, fine fabrics, and a fully attached modern concrete bathroom. Includes a private wood-deck verandah for viewing free-roaming peacocks and bird watching.",
-    amenities: ["Private Sit-out Verandah", "Attached Concrete Bathroom", "Hot & Cold Shower", "Air Cooler/AC", "Complimentary Breakfast", "Nature View Deck", "Tea Kettle"],
-    images: ["https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80"],
+    size: 280,
+    description: "Well-appointed contemporary resort room offering serene views of surrounding garden pathways. Features a king bed, work desk, silent air conditioning, and spotless private bath.",
+    amenities: ["Air Conditioning", "King Bed", "Garden View", "En-suite Bathroom", "Tea/Coffee Maker", "Flat Screen TV", "Free Wi-Fi", "Daily Housekeeping"],
+    images: [
+      "/images/rooms/deluxe_room_interior.jpg",
+      "/images/rooms/garden_fountain.jpg",
+      "/images/rooms/village_serene.jpg"
+    ],
     availableCount: 6
   },
   {
-    _id: 'cottage-mock-3',
-    title: "Super Cottage / Deluxe Garden Room",
-    type: "cottage",
-    price: 7500,
-    maxGuests: 4,
-    size: 625,
-    description: "Spacious standard brick-and-mortar luxury bungalows with high ceilings and wide french windows. Each cottage opens up directly to a panoramic private garden space. Equipped with premium double beds, a cozy seating lounge, double vanity bathrooms, and upscale contemporary furnishings.",
-    amenities: ["Panoramic Garden View", "French Windows", "Double Vanity Bathroom", "Air Conditioning", "In-Room Electronic Safe", "Mini Fridge", "Flat Screen Smart TV", "Lounge Seating Area"],
-    images: ["https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"],
-    availableCount: 5
+    _id: 'tent-04',
+    title: "Luxury Glamping Tent",
+    type: "tent",
+    price: 2800,
+    maxGuests: 2,
+    size: 320,
+    description: "Immersive nature-stay canvas tent sheltered under native tree canopies with attached concrete bathroom, hot & cold shower, air cooler/AC, and private wooden sit-out deck for birdwatching.",
+    amenities: ["Private Wood Deck", "Attached Bathroom", "Hot & Cold Shower", "Air Cooler/AC", "Nature Canopy", "Complimentary Breakfast", "Morning Birdwatching"],
+    images: [
+      "https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=1000&q=85",
+      "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=1000&q=85",
+      "/images/rooms/resort_swing.jpg"
+    ],
+    availableCount: 6
   }
 ];
 
