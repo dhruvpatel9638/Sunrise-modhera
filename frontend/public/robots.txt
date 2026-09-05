@@ -25,4 +25,4 @@ Disallow: /#admin-panel
 Disallow: /api/
 
 # Sitemap location for Google Search Console
-Sitemap: https://modherasunriseresort.com/sitemap.xml
+Sitemap: https://sunrise-modhera.vercel.app/sitemap.xml

@@ -5,15 +5,15 @@
 
   <!-- Home / Main Resort Landing Page -->
   <url>
-    <loc>https://modherasunriseresort.com/</loc>
+    <loc>https://sunrise-modhera.vercel.app/</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://modherasunriseresort.com/" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://modherasunriseresort.com/#hi" />
-    <xhtml:link rel="alternate" hreflang="gu" href="https://modherasunriseresort.com/#gu" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sunrise-modhera.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://sunrise-modhera.vercel.app/#hi" />
+    <xhtml:link rel="alternate" hreflang="gu" href="https://sunrise-modhera.vercel.app/#gu" />
     <image:image>
-      <image:loc>https://modherasunriseresort.com/assets/dining_thali.jpg</image:loc>
+      <image:loc>https://sunrise-modhera.vercel.app/assets/dining_thali.jpg</image:loc>
       <image:title>Modhera Sunrise Resort - Luxury Heritage Stay near Sun Temple</image:title>
       <image:caption>Authentic Gujarati heritage cottages and dining directly behind the UNESCO Modhera Sun Temple</image:caption>
       <image:geo_location>Modhera, Gujarat, India</image:geo_location>
@@ -22,16 +22,16 @@
 
   <!-- Accommodations / Rooms & Bhungas -->
   <url>
-    <loc>https://modherasunriseresort.com/#accommodations</loc>
+    <loc>https://sunrise-modhera.vercel.app/#accommodations</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://modherasunriseresort.com/#accommodations" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sunrise-modhera.vercel.app/#accommodations" />
   </url>
 
   <!-- Amenities & Leisure -->
   <url>
-    <loc>https://modherasunriseresort.com/#amenities</loc>
+    <loc>https://sunrise-modhera.vercel.app/#amenities</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -39,7 +39,7 @@
 
   <!-- Pure Veg Dining & Jungle Restaurant -->
   <url>
-    <loc>https://modherasunriseresort.com/#dining</loc>
+    <loc>https://sunrise-modhera.vercel.app/#dining</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -47,7 +47,7 @@
 
   <!-- Photo & Video Gallery -->
   <url>
-    <loc>https://modherasunriseresort.com/#gallery</loc>
+    <loc>https://sunrise-modhera.vercel.app/#gallery</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -55,7 +55,7 @@
 
   <!-- Guest Reviews & Testimonials -->
   <url>
-    <loc>https://modherasunriseresort.com/#reviews</loc>
+    <loc>https://sunrise-modhera.vercel.app/#reviews</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -63,7 +63,7 @@
 
   <!-- Contact & Location / Directions -->
   <url>
-    <loc>https://modherasunriseresort.com/#inquiry</loc>
+    <loc>https://sunrise-modhera.vercel.app/#inquiry</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -71,7 +71,7 @@
 
   <!-- Direct Room Booking Engine -->
   <url>
-    <loc>https://modherasunriseresort.com/#booking</loc>
+    <loc>https://sunrise-modhera.vercel.app/#booking</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
