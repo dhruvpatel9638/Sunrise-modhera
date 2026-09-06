@@ -67,10 +67,10 @@ export default function Footer() {
             © {new Date().getFullYear()} Modhera Sunrise Resort.
           </div>
           <div className="footer-bottom-center">
-            All Rights Reserved.
+            Designed with nature therapy & heritage protection in mind.
           </div>
           <div className="footer-bottom-right">
-            Designed with nature therapy & heritage protection in mind.
+            All Rights Reserved.
           </div>
         </div>
       </div>
