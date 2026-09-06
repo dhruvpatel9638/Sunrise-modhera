@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 export default function IntroSpacer() {
   const containerRef = useRef(null);
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(-1);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -11,11 +11,20 @@ export default function IntroSpacer() {
       const elementHeight = rect.height;
       const windowHeight = window.innerHeight;
 
+      // If user is still at Hero and hasn't reached IntroSpacer yet
+      if (rect.top > windowHeight * 0.45) {
+        setActiveSlide(-1);
+        return;
+      }
+
       // Scroll progress tracking inside the spacer container
       const totalScrollable = elementHeight - windowHeight;
       const scrolled = -rect.top;
 
-      if (totalScrollable <= 0) return;
+      if (totalScrollable <= 0) {
+        setActiveSlide(0);
+        return;
+      }
       const progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
 
       // Distribute the 4 slides across scroll segments
