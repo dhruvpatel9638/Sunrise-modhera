@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import amyaLogo from '../assets/Amya LOGO png.png';
+import { motion } from 'framer-motion';
 import parchmentBg from '../assets/parchment_texture.jpg';
 
 const LOADING_MESSAGES = [
@@ -12,27 +11,14 @@ const LOADING_MESSAGES = [
 ];
 
 export default function SunPreloader({ percent = 0, isReady = false, onComplete }) {
-  // Stages: 'amya' (Stage 1: strictly 2.5s) -> 'sun' (Stage 2: stays until web is loaded)
-  const [stage, setStage] = useState('amya');
   const [visible, setVisible] = useState(true);
   const [sunFadeOut, setSunFadeOut] = useState(false);
-
-  // Smooth visual percentage for the Sun stage
   const [displayPercent, setDisplayPercent] = useState(0);
   const [sunMessage, setSunMessage] = useState("Invoking sunrise...");
 
-  const sunStartTimeRef = useRef(null);
+  const startTimeRef = useRef(Date.now());
 
-  // Stage 1: Amya Growth screen displays for EXACTLY 2.5 seconds (2500ms)
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setStage('sun');
-      sunStartTimeRef.current = Date.now();
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Update dynamic message for Sun stage based on displayPercent
+  // Update dynamic message based on displayPercent
   useEffect(() => {
     const matched = LOADING_MESSAGES.find(m => displayPercent <= m.max);
     if (matched) {
@@ -40,16 +26,15 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
     }
   }, [displayPercent]);
 
-  // Smooth progress calculation in Sun stage
+  // Smooth progress calculation tied to actual loading
   useEffect(() => {
-    if (stage !== 'sun') return;
-
     const interval = setInterval(() => {
       setDisplayPercent(prev => {
-        // If web is ready, target 100%; otherwise target actual percent loaded
-        const target = isReady ? 100 : Math.max(prev, percent);
+        // If web is ready, target 100%; otherwise cap at 95% until website is fully loaded
+        const maxUnready = 95;
+        const target = isReady ? 100 : Math.min(maxUnready, Math.max(prev, percent));
         if (prev < target) {
-          const step = Math.max(1, Math.ceil((target - prev) / 6));
+          const step = Math.max(1, Math.ceil((target - prev) / 5));
           return Math.min(target, prev + step);
         }
         return prev;
@@ -57,36 +42,33 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
     }, 35);
 
     return () => clearInterval(interval);
-  }, [stage, percent, isReady]);
+  }, [percent, isReady]);
 
-  // Handle completion when web is ready AND Stage 2 (Sun) has displayed sufficiently
+  // Handle completion when website is fully ready AND progress reaches 100%
   useEffect(() => {
-    if (stage !== 'sun') return;
-
-    // Only proceed when website is fully ready AND progress bar reached 100%
     if (isReady && displayPercent >= 100) {
       const now = Date.now();
-      const elapsedSun = sunStartTimeRef.current ? (now - sunStartTimeRef.current) : 1500;
-      const minSunDuration = 1400; // Guarantee sun animation is visible for at least ~1.4s
-      const remainingTime = Math.max(0, minSunDuration - elapsedSun);
+      const elapsed = startTimeRef.current ? (now - startTimeRef.current) : 1200;
+      const minDuration = 1200; // Guarantee animation is visible for at least ~1.2s
+      const remainingTime = Math.max(0, minDuration - elapsed);
 
       const t1 = setTimeout(() => {
         setSunFadeOut(true);
         if (onComplete) {
           onComplete();
         }
-      }, remainingTime + 500); // 500ms hold at 100% "Sun rises over Modhera."
+      }, remainingTime + 450); // Hold at 100% "Sun rises over Modhera."
 
       const t2 = setTimeout(() => {
         setVisible(false);
-      }, remainingTime + 1300); // 500ms hold + 800ms fade transition
+      }, remainingTime + 1250); // Complete smooth fade transition
 
       return () => {
         clearTimeout(t1);
         clearTimeout(t2);
       };
     }
-  }, [stage, isReady, displayPercent, onComplete]);
+  }, [isReady, displayPercent, onComplete]);
 
   if (!visible) return null;
 
@@ -120,315 +102,183 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
         pointerEvents: sunFadeOut ? 'none' : 'all'
       }}
     >
-      <AnimatePresence mode="wait">
-        {/* STAGE 1: AMYA GROWTH SCREEN (Exactly 2.5s) */}
-        {stage === 'amya' && (
-          <motion.div
-            key="stage-amya"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 0.98, filter: 'blur(3px)' }}
-            transition={{ duration: 0.45, ease: 'easeInOut' }}
-            style={{
-              width: '100%',
-              height: '100%',
-              minHeight: '100dvh',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'relative'
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          minHeight: '100dvh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'relative'
+        }}
+      >
+        <div 
+          className="sun-loader-container" 
+          style={{ 
+            textAlign: 'center', 
+            width: '100%',
+            maxWidth: '340px', 
+            padding: '0 20px',
+            margin: 'auto 0',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          {/* Sacred Sun Geometry SVG with Glow and Rotation */}
+          <div 
+            className="sun-svg-wrapper" 
+            style={{ 
+              position: 'relative', 
+              width: '116px', 
+              height: '116px', 
+              margin: '0 auto 20px' 
             }}
           >
-            {/* Central Content */}
-            <div 
-              style={{
-                textAlign: 'center',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '20px',
-                maxWidth: '460px',
-                margin: 'auto 0'
-              }}
+            {/* Pulsating golden glow */}
+            <div className="sun-glow" />
+
+            <svg
+              viewBox="0 0 100 100"
+              style={{ width: '100%', height: '100%', display: 'block', overflow: 'visible' }}
             >
-              {/* Logo Container with Smooth Entrance */}
-              <motion.div
-                initial={{ opacity: 0, y: 24, filter: 'blur(8px)', scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
-                transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-                style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}
-              >
-                <img
-                  src={amyaLogo}
-                  alt="Amya Growth"
-                  style={{
-                    width: '270px',
-                    maxWidth: '82vw',
-                    height: 'auto',
-                    display: 'block',
-                    objectFit: 'contain',
-                    mixBlendMode: 'multiply'
-                  }}
-                />
-              </motion.div>
+              {/* Pulsating Sun Core */}
+              <circle
+                cx="50"
+                cy="50"
+                r="18"
+                fill="var(--color-gold, #c89b3c)"
+                className="sun-core-pulse"
+              />
 
-              {/* Webapp Crafted with Love Text */}
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
-                style={{
-                  fontFamily: "'Inter', 'Outfit', system-ui, -apple-system, sans-serif",
-                  fontSize: '0.94rem',
-                  fontWeight: 500,
-                  color: '#294B46',
-                  marginTop: '4px',
-                  marginBottom: '26px',
-                  letterSpacing: '0.01em'
-                }}
-              >
-                Webapp Crafted with <span style={{ color: '#E53E3E', margin: '0 2px' }}>❤️</span> by Amya Growth
-              </motion.p>
+              {/* Outer Rotating Rays */}
+              <g className="sun-rays-rotate" style={{ transformOrigin: '50px 50px' }}>
+                {/* Primary Rays */}
+                {[...Array(12)].map((_, i) => {
+                  const angle = (i * 360) / 12;
+                  return (
+                    <path
+                      key={`ray-p-${i}`}
+                      d="M 50 16 L 53 28 L 47 28 Z"
+                      fill="var(--color-gold-light, #dfb76c)"
+                      transform={`rotate(${angle} 50 50)`}
+                      style={{ opacity: 0.92 }}
+                    />
+                  );
+                })}
+                {/* Secondary offset minor rays */}
+                {[...Array(12)].map((_, i) => {
+                  const angle = (i * 360) / 12 + 15;
+                  return (
+                    <path
+                      key={`ray-s-${i}`}
+                      d="M 50 22 L 52 30 L 48 30 Z"
+                      fill="var(--color-gold, #c89b3c)"
+                      transform={`rotate(${angle} 50 50)`}
+                      style={{ opacity: 0.75 }}
+                    />
+                  );
+                })}
+              </g>
+            </svg>
+          </div>
 
-              {/* Single Clean Spinning Teal Ring Loader */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
-                style={{ width: '34px', height: '34px', position: 'relative' }}
-              >
-                <div
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: '50%',
-                    border: '3px solid rgba(41, 75, 70, 0.15)',
-                    borderTopColor: '#00A896',
-                    borderRightColor: '#58938E',
-                    animation: 'amyaSingleSpin 0.9s linear infinite'
-                  }}
-                />
-              </motion.div>
-            </div>
-
-            {/* Experience Initializing Text at very bottom center */}
-            <motion.div
-              initial={{ opacity: 0, y: 6, x: '-50%' }}
-              animate={{ opacity: 1, y: 0, x: '-50%' }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              style={{
-                position: 'absolute',
-                bottom: '36px',
-                left: '50%',
-                fontFamily: "'Inter', 'Outfit', sans-serif",
-                fontSize: '0.72rem',
-                fontWeight: 600,
-                color: 'rgba(130, 142, 153, 0.75)',
-                letterSpacing: '0.24em',
-                textTransform: 'uppercase',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              EXPERIENCE INITIALIZING...
-            </motion.div>
-          </motion.div>
-        )}
-
-        {/* STAGE 2: ORIGINAL SUN LOADING ANIMATION (Until website fully loaded) */}
-        {stage === 'sun' && (
-          <motion.div
-            key="stage-sun"
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          {/* Modhera Sunrise Heading */}
+          <h2
             style={{
-              width: '100%',
-              height: '100%',
-              minHeight: '100dvh',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'relative'
+              fontFamily: 'var(--font-headings, "Playfair Display", serif)',
+              fontSize: 'clamp(1.75rem, 5vw, 1.95rem)',
+              color: 'var(--color-primary-dark, #1B382B)',
+              fontWeight: '400',
+              fontStyle: 'italic',
+              marginBottom: '6px',
+              letterSpacing: '0.02em',
+              lineHeight: 1.2
             }}
           >
-            <div 
-              className="sun-loader-container" 
-              style={{ 
-                textAlign: 'center', 
-                width: '100%',
-                maxWidth: '340px', 
-                padding: '0 20px',
-                margin: 'auto 0',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              {/* Sacred Sun Geometry SVG with Glow and Rotation */}
-              <div 
-                className="sun-svg-wrapper" 
-                style={{ 
-                  position: 'relative', 
-                  width: '116px', 
-                  height: '116px', 
-                  margin: '0 auto 20px' 
-                }}
-              >
-                {/* Pulsating golden glow */}
-                <div className="sun-glow" />
+            Modhera Sunrise
+          </h2>
 
-                <svg
-                  viewBox="0 0 100 100"
-                  style={{ width: '100%', height: '100%', display: 'block', overflow: 'visible' }}
-                >
-                  {/* Pulsating Sun Core */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="18"
-                    fill="var(--color-gold, #c89b3c)"
-                    className="sun-core-pulse"
-                  />
+          {/* Dynamic loading status message */}
+          <p
+            style={{
+              fontFamily: 'var(--font-body, "Inter", sans-serif)',
+              fontSize: '0.86rem',
+              color: 'var(--color-text-muted-light, #5C6F64)',
+              letterSpacing: '0.04em',
+              minHeight: '22px',
+              marginBottom: '18px',
+              transition: 'color 0.3s ease'
+            }}
+          >
+            {sunMessage}
+          </p>
 
-                  {/* Outer Rotating Rays */}
-                  <g className="sun-rays-rotate" style={{ transformOrigin: '50px 50px' }}>
-                    {/* Primary Rays */}
-                    {[...Array(12)].map((_, i) => {
-                      const angle = (i * 360) / 12;
-                      return (
-                        <path
-                          key={`ray-p-${i}`}
-                          d="M 50 16 L 53 28 L 47 28 Z"
-                          fill="var(--color-gold-light, #dfb76c)"
-                          transform={`rotate(${angle} 50 50)`}
-                          style={{ opacity: 0.92 }}
-                        />
-                      );
-                    })}
-                    {/* Secondary offset minor rays */}
-                    {[...Array(12)].map((_, i) => {
-                      const angle = (i * 360) / 12 + 15;
-                      return (
-                        <path
-                          key={`ray-s-${i}`}
-                          d="M 50 22 L 52 30 L 48 30 Z"
-                          fill="var(--color-gold, #c89b3c)"
-                          transform={`rotate(${angle} 50 50)`}
-                          style={{ opacity: 0.75 }}
-                        />
-                      );
-                    })}
-                  </g>
-                </svg>
-              </div>
-
-              {/* Dynamic Modhera Sunrise Heading */}
-              <h2
-                style={{
-                  fontFamily: 'var(--font-headings, "Playfair Display", serif)',
-                  fontSize: 'clamp(1.75rem, 5vw, 1.95rem)',
-                  color: 'var(--color-primary-dark, #1B382B)',
-                  fontWeight: '400',
-                  fontStyle: 'italic',
-                  marginBottom: '6px',
-                  letterSpacing: '0.02em',
-                  lineHeight: 1.2
-                }}
-              >
-                Modhera Sunrise
-              </h2>
-
-              {/* Dynamic loading status message */}
-              <p
-                style={{
-                  fontFamily: 'var(--font-body, "Inter", sans-serif)',
-                  fontSize: '0.86rem',
-                  color: 'var(--color-text-muted-light, #5C6F64)',
-                  letterSpacing: '0.04em',
-                  minHeight: '22px',
-                  marginBottom: '18px',
-                  transition: 'color 0.3s ease'
-                }}
-              >
-                {sunMessage}
-              </p>
-
-              {/* Progress Bar Track */}
-              <div
-                style={{
-                  width: '220px',
-                  maxWidth: '80%',
-                  height: '3px',
-                  backgroundColor: 'rgba(30, 91, 58, 0.12)',
-                  borderRadius: '3px',
-                  overflow: 'hidden',
-                  position: 'relative',
-                  marginBottom: '8px'
-                }}
-              >
-                <div
-                  style={{
-                    height: '100%',
-                    width: `${displayPercent}%`,
-                    backgroundColor: 'var(--color-gold, #c89b3c)',
-                    boxShadow: '0 0 10px var(--color-gold, #c89b3c)',
-                    transition: 'width 0.15s ease-out'
-                  }}
-                />
-              </div>
-
-              {/* Percentage Indicator */}
-              <div
-                style={{
-                  fontFamily: 'var(--font-body, "Inter", sans-serif)',
-                  fontSize: '0.78rem',
-                  fontWeight: '600',
-                  color: 'var(--color-gold, #b38a32)',
-                  letterSpacing: '0.12em'
-                }}
-              >
-                {displayPercent}%
-              </div>
-            </div>
-
-            {/* Experience Initializing Text at bottom center (consistent across mobile & desktop) */}
-            <motion.div
-              initial={{ opacity: 0, y: 6, x: '-50%' }}
-              animate={{ opacity: 1, y: 0, x: '-50%' }}
-              transition={{ duration: 0.7, delay: 0.3 }}
+          {/* Progress Bar Track */}
+          <div
+            style={{
+              width: '220px',
+              maxWidth: '80%',
+              height: '3px',
+              backgroundColor: 'rgba(30, 91, 58, 0.12)',
+              borderRadius: '3px',
+              overflow: 'hidden',
+              position: 'relative',
+              marginBottom: '8px'
+            }}
+          >
+            <div
               style={{
-                position: 'absolute',
-                bottom: '36px',
-                left: '50%',
-                fontFamily: "'Inter', 'Outfit', sans-serif",
-                fontSize: '0.72rem',
-                fontWeight: 600,
-                color: 'rgba(130, 142, 153, 0.75)',
-                letterSpacing: '0.24em',
-                textTransform: 'uppercase',
-                whiteSpace: 'nowrap'
+                height: '100%',
+                width: `${displayPercent}%`,
+                backgroundColor: 'var(--color-gold, #c89b3c)',
+                boxShadow: '0 0 10px var(--color-gold, #c89b3c)',
+                transition: 'width 0.15s ease-out'
               }}
-            >
-              EXPERIENCE INITIALIZING...
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            />
+          </div>
 
-      {/* Embedded Styles for Sun and Amya Animations */}
+          {/* Percentage Indicator */}
+          <div
+            style={{
+              fontFamily: 'var(--font-body, "Inter", sans-serif)',
+              fontSize: '0.78rem',
+              fontWeight: '600',
+              color: 'var(--color-gold, #b38a32)',
+              letterSpacing: '0.12em'
+            }}
+          >
+            {displayPercent}%
+          </div>
+        </div>
+
+        {/* Experience Initializing Text at bottom center (consistent across mobile & desktop) */}
+        <motion.div
+          initial={{ opacity: 0, y: 6, x: '-50%' }}
+          animate={{ opacity: 1, y: 0, x: '-50%' }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          style={{
+            position: 'absolute',
+            bottom: '36px',
+            left: '50%',
+            fontFamily: "'Inter', 'Outfit', sans-serif",
+            fontSize: '0.72rem',
+            fontWeight: 600,
+            color: 'rgba(130, 142, 153, 0.75)',
+            letterSpacing: '0.24em',
+            textTransform: 'uppercase',
+            whiteSpace: 'nowrap'
+          }}
+        >
+          EXPERIENCE INITIALIZING...
+        </motion.div>
+      </div>
+
+      {/* Embedded Styles for Sun Animation */}
       <style>{`
-        @keyframes amyaSingleSpin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-
         .sun-svg-wrapper {
           perspective: 1000px;
         }
@@ -477,3 +327,4 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
     </motion.div>
   );
 }
+

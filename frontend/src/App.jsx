@@ -122,7 +122,19 @@ export default function App() {
   const [roomsLoaded, setRoomsLoaded] = useState(false);
   const [reviewsLoaded, setReviewsLoaded] = useState(false);
   const [bgPercent, setBgPercent] = useState(0);
+  const [windowLoaded, setWindowLoaded] = useState(document.readyState === 'complete');
   const [preloaderCompleted, setPreloaderCompleted] = useState(false);
+
+  // Track window load event
+  useEffect(() => {
+    if (document.readyState === 'complete') {
+      setWindowLoaded(true);
+      return;
+    }
+    const handleLoad = () => setWindowLoaded(true);
+    window.addEventListener('load', handleLoad);
+    return () => window.removeEventListener('load', handleLoad);
+  }, []);
 
   const [logoStage, setLogoStage] = useState(
     window.location.hash === '#admin' || window.location.hash === '#booking'
@@ -134,13 +146,14 @@ export default function App() {
     window.location.hash !== '#admin' && window.location.hash !== '#booking'
   );
 
-  // Safety fallback to force load completion if API is slow or hangs
+  // Safety fallback to prevent preloader hang on very slow networks
   useEffect(() => {
     const timer = setTimeout(() => {
       setRoomsLoaded(true);
       setReviewsLoaded(true);
       setBgPercent(100);
-    }, 7000); // 7 seconds max load safety net
+      setWindowLoaded(true);
+    }, 12000); // 12 seconds safety fallback
     return () => clearTimeout(timer);
   }, []);
 
@@ -420,7 +433,7 @@ export default function App() {
     <>
       <SunPreloader 
         percent={bgPercent} 
-        isReady={roomsLoaded && reviewsLoaded && bgPercent === 100} 
+        isReady={roomsLoaded && reviewsLoaded && bgPercent === 100 && windowLoaded} 
         onComplete={() => setPreloaderCompleted(true)} 
       />
       <ScrollBackground onProgress={setBgPercent} />
