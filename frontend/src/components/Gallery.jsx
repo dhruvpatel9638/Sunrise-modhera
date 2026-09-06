@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -80,6 +79,11 @@ export default function Gallery() {
     ? galleryPhotos 
     : galleryPhotos.filter(photo => photo.category === filter);
 
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
+    setSelectedImageIndex(null);
+  };
+
   const openLightbox = (index) => {
     setSelectedImageIndex(index);
     setIsZoomed(false);
@@ -116,121 +120,72 @@ export default function Gallery() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedImageIndex, filteredPhotos.length]);
 
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.08
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 1.2,
-        ease: [0.16, 1, 0.3, 1]
-      }
-    }
-  };
-
   return (
     <section id="gallery" className="section-padding">
       <div className="container">
         <div className="section-header">
-          <motion.h2 
-            className="section-title"
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
-          >
+          <h2 className="section-title">
             Resort Gallery
-          </motion.h2>
-          <motion.p 
-            className="section-subtitle"
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            viewport={{ once: true }}
-          >
+          </h2>
+          <p className="section-subtitle">
             Explore the scenic charm, historic connection, and modern leisure structures that define our eco-sanctuary.
-          </motion.p>
+          </p>
         </div>
 
         {/* Filters */}
-        <motion.div 
-          className="gallery-filters"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          viewport={{ once: true }}
-        >
+        <div className="gallery-filters">
           <button 
             className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
-            onClick={() => setFilter('all')}
+            onClick={() => handleFilterChange('all')}
           >
             All Memories
           </button>
           <button 
             className={`filter-btn ${filter === 'heritage' ? 'active' : ''}`}
-            onClick={() => setFilter('heritage')}
+            onClick={() => handleFilterChange('heritage')}
           >
             Heritage & Nature
           </button>
           <button 
             className={`filter-btn ${filter === 'leisure' ? 'active' : ''}`}
-            onClick={() => setFilter('leisure')}
+            onClick={() => handleFilterChange('leisure')}
           >
             Leisure & Pool
           </button>
           <button 
             className={`filter-btn ${filter === 'proximity' ? 'active' : ''}`}
-            onClick={() => setFilter('proximity')}
+            onClick={() => handleFilterChange('proximity')}
           >
             Sun Temple Proximity
           </button>
-        </motion.div>
+        </div>
 
         {/* Grid */}
-        <motion.div 
-          className="gallery-grid"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05 }}
-        >
+        <div className="gallery-grid">
           {filteredPhotos.map((photo, index) => (
-            <motion.div 
+            <div 
               className="gallery-item" 
               key={photo.id} 
               onClick={() => openLightbox(index)}
-              style={{ cursor: 'pointer', overflow: 'hidden' }}
-              variants={itemVariants}
+              style={{ cursor: 'pointer' }}
             >
-              <motion.img 
+              <img 
                 src={photo.url} 
                 alt={photo.title} 
                 className="gallery-item-img"
-                initial={{ scale: 1.15 }}
-                whileInView={{ scale: 1 }}
-                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
+                loading="eager"
               />
               <div className="gallery-overlay">
                 <span className="gallery-tag">{photo.tag}</span>
                 <h4 className="gallery-title">{photo.title}</h4>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Lightbox Modal */}
-      {selectedImageIndex !== null && createPortal(
+      {selectedImageIndex !== null && filteredPhotos[selectedImageIndex] && createPortal(
         <div className="lightbox-overlay" onClick={closeLightbox}>
           <button className="lightbox-close" onClick={closeLightbox}>
             <X size={32} />
