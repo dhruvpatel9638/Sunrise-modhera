@@ -144,9 +144,9 @@ export default function Hero({ logoStage }) {
         </video>
       </div>
 
-      {/* Nature Green Gradient Overlay (Top to Bottom) */}
+      {/* White Color Blur Layer in Background */}
       <div
-        className="hero-nature-green-overlay"
+        className="hero-white-blur-overlay"
         style={{
           position: 'absolute',
           top: 0,
@@ -157,7 +157,9 @@ export default function Hero({ logoStage }) {
           height: '100%',
           minWidth: '100%',
           minHeight: '100%',
-          background: 'linear-gradient(to bottom, rgba(18, 48, 28, 0.55) 0%, rgba(28, 72, 42, 0.32) 35%, rgba(30, 75, 45, 0.12) 65%, transparent 95%)',
+          background: 'rgba(255, 255, 255, 0.16)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
           zIndex: 2,
           pointerEvents: 'none'
         }}
