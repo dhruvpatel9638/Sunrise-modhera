@@ -54,10 +54,14 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
 
       const t1 = setTimeout(() => {
         setSunFadeOut(true);
+      }, remainingTime + 450); // Hold at 100% "Sun rises over Modhera."
+
+      // Trigger website entrance logo animation as SunPreloader dissolves into the dark screen
+      const tComplete = setTimeout(() => {
         if (onComplete) {
           onComplete();
         }
-      }, remainingTime + 450); // Hold at 100% "Sun rises over Modhera."
+      }, remainingTime + 550);
 
       const t2 = setTimeout(() => {
         setVisible(false);
@@ -65,6 +69,7 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
 
       return () => {
         clearTimeout(t1);
+        clearTimeout(tComplete);
         clearTimeout(t2);
       };
     }

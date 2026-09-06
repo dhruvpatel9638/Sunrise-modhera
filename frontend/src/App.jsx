@@ -219,17 +219,15 @@ export default function App() {
         width: `${startWidth}px`,
         height: `${startHeight}px`,
         zIndex: 1500,
-        transition: 'all 2.2s cubic-bezier(0.77, 0, 0.175, 1)',
         pointerEvents: 'none',
         objectFit: 'contain',
-        borderRadius: '4px',
-        filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35))',
-        opacity: 1
+        borderRadius: '4px'
       });
 
+      // 1.5s for blur-to-clean and fade-in animation
       const timer = setTimeout(() => {
         setLogoStage('center');
-      }, 700);
+      }, 1500);
 
       return () => clearTimeout(timer);
     }
@@ -249,13 +247,16 @@ export default function App() {
             top: `${rect.top}px`,
             width: `${rect.width}px`,
             height: `${rect.height}px`,
-            filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35))'
+            opacity: 1,
+            filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35))',
+            transform: 'scale(1)',
+            transition: 'all 2.2s cubic-bezier(0.77, 0, 0.175, 1)'
           }));
         } else {
           setLogoStage('finished');
           setShowFloatingLogo(false);
         }
-      }, 3000); // 3 seconds centered
+      }, 2000); // 2.0s hold centered cleanly
 
       return () => clearTimeout(timer);
     }
@@ -440,7 +441,7 @@ export default function App() {
       <SunCursor />
       <LanguageTranslator logoStage={logoStage} />
 
-      {showFloatingLogo && logoStyle.left && (
+      {showFloatingLogo && (
         <>
           <div
             className={`intro-logo-overlay ${logoStage === 'animating' ? 'fade-out' : ''}`}
@@ -457,11 +458,14 @@ export default function App() {
               opacity: (logoStage === 'animating' || logoStage === 'finished') ? 0 : 1
             }}
           />
-          <img
-            src={logoWhite}
-            alt="Modhera Sunrise Logo"
-            style={logoStyle}
-          />
+          {logoStyle.left && (
+            <img
+              src={logoWhite}
+              alt="Modhera Sunrise Logo"
+              className={logoStage === 'preloader' || logoStage === 'center' ? 'logo-blur-clean-fadein' : ''}
+              style={logoStyle}
+            />
+          )}
         </>
       )}
 

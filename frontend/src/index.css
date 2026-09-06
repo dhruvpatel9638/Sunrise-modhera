@@ -3765,3 +3765,27 @@ body {
     line-height: 2;
   }
 }
+
+/* Intro Floating Logo Blur-to-Clean with Fade-in Effect */
+@keyframes logoBlurCleanFadeIn {
+  0% {
+    opacity: 0;
+    filter: blur(24px) drop-shadow(0 4px 20px rgba(0, 0, 0, 0.6));
+    transform: scale(0.92);
+  }
+  60% {
+    opacity: 0.85;
+    filter: blur(6px) drop-shadow(0 3px 12px rgba(0, 0, 0, 0.45));
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
+    transform: scale(1);
+  }
+}
+
+.logo-blur-clean-fadein {
+  animation: logoBlurCleanFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, filter, transform;
+}
