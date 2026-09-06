@@ -154,16 +154,16 @@ export default function ScrollBackground({ onProgress }) {
           WebkitTransform: 'translate3d(0, 0, 0)'
         }}
       />
-      {/* Nature Green Blur Layer in Background */}
+      {/* White Blur Layer in Background */}
       <div
-        className="scroll-bg-nature-green-blur-overlay"
+        className="scroll-bg-white-blur-overlay"
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           width: '100%',
           height: '100%',
-          background: 'rgba(18, 48, 28, 0.28)',
+          background: 'rgba(255, 255, 255, 0.18)',
           backdropFilter: 'blur(4px)',
           WebkitBackdropFilter: 'blur(4px)',
           zIndex: 3,

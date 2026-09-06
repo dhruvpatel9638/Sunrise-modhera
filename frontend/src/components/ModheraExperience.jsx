@@ -65,7 +65,16 @@ export default function ModheraExperience() {
   };
 
   return (
-    <section id="experience" className="section-padding" style={{ background: 'transparent' }}>
+    <section 
+      id="experience" 
+      className="section-padding" 
+      style={{ 
+        background: 'var(--color-bg-dark-mid)', 
+        borderTop: '1px solid var(--color-border-dark)', 
+        position: 'relative', 
+        zIndex: 2 
+      }}
+    >
       <div className="container">
         
         <div className="section-header">

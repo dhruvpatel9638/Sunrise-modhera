@@ -144,27 +144,6 @@ export default function Hero({ logoStage }) {
         </video>
       </div>
 
-      {/* Nature Green Blur Layer in Background */}
-      <div
-        className="hero-nature-green-blur-overlay"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          width: '100%',
-          height: '100%',
-          minWidth: '100%',
-          minHeight: '100%',
-          background: 'rgba(18, 48, 28, 0.28)',
-          backdropFilter: 'blur(4px)',
-          WebkitBackdropFilter: 'blur(4px)',
-          zIndex: 2,
-          pointerEvents: 'none'
-        }}
-      />
-
       <div className="container hero-left-container" style={{ position: 'relative', zIndex: 3 }}>
         <motion.div
           className="hero-content-left"

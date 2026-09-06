@@ -2340,38 +2340,21 @@ html[lang="hi"] .hero-copy {
   backface-visibility: hidden;
 }
 
-/* Nature Green Blur Layer in Background */
-.scroll-bg-nature-green-blur-overlay,
-.hero-nature-green-blur-overlay,
+/* White Blur Layer for Whole Website Background */
 .scroll-bg-white-blur-overlay,
-.hero-white-blur-overlay,
+.scroll-bg-nature-green-blur-overlay,
 .scroll-bg-nature-green-overlay,
-.hero-nature-green-overlay,
-.scroll-bg-light-overlay,
-.hero-light-gradient-overlay {
+.scroll-bg-light-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(18, 48, 28, 0.28);
+  background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   pointer-events: none;
-}
-
-.scroll-bg-nature-green-blur-overlay,
-.scroll-bg-white-blur-overlay,
-.scroll-bg-nature-green-overlay,
-.scroll-bg-light-overlay {
   z-index: 3;
-}
-
-.hero-nature-green-blur-overlay,
-.hero-white-blur-overlay,
-.hero-nature-green-overlay,
-.hero-light-gradient-overlay {
-  z-index: 2;
 }
 
 .scroll-bg-loader {

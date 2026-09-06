@@ -43,7 +43,16 @@ export default function ReviewSection({ reviews, onNewReviewAdded }) {
   };
 
   return (
-    <section id="reviews" className="section-padding">
+    <section 
+      id="reviews" 
+      className="section-padding" 
+      style={{ 
+        background: 'var(--color-bg-dark-mid)', 
+        borderTop: '1px solid var(--color-border-dark)', 
+        position: 'relative', 
+        zIndex: 2 
+      }}
+    >
       <div className="container">
         <div className="section-header">
           <motion.h2 

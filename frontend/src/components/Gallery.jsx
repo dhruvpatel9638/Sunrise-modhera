@@ -121,7 +121,16 @@ export default function Gallery() {
   }, [selectedImageIndex, filteredPhotos.length]);
 
   return (
-    <section id="gallery" className="section-padding">
+    <section 
+      id="gallery" 
+      className="section-padding" 
+      style={{ 
+        background: 'var(--color-bg-dark-mid)', 
+        borderTop: '1px solid var(--color-border-dark)', 
+        position: 'relative', 
+        zIndex: 2 
+      }}
+    >
       <div className="container">
         <div className="section-header">
           <h2 className="section-title">

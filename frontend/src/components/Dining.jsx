@@ -42,7 +42,16 @@ export default function Dining() {
   };
 
   return (
-    <section id="dining" className="section-padding">
+    <section 
+      id="dining" 
+      className="section-padding" 
+      style={{ 
+        background: 'var(--color-bg-dark-mid)', 
+        borderTop: '1px solid var(--color-border-dark)', 
+        position: 'relative', 
+        zIndex: 2 
+      }}
+    >
       <div className="container">
         <div className="dining-layout">
           {/* Visual Panel */}
