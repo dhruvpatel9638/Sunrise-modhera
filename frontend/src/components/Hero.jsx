@@ -144,9 +144,9 @@ export default function Hero({ logoStage }) {
         </video>
       </div>
 
-      {/* White Color Blur Layer in Background */}
+      {/* Nature Green Blur Layer in Background */}
       <div
-        className="hero-white-blur-overlay"
+        className="hero-nature-green-blur-overlay"
         style={{
           position: 'absolute',
           top: 0,
@@ -157,9 +157,9 @@ export default function Hero({ logoStage }) {
           height: '100%',
           minWidth: '100%',
           minHeight: '100%',
-          background: 'rgba(255, 255, 255, 0.16)',
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
+          background: 'rgba(18, 48, 28, 0.28)',
+          backdropFilter: 'blur(4px)',
+          WebkitBackdropFilter: 'blur(4px)',
           zIndex: 2,
           pointerEvents: 'none'
         }}
