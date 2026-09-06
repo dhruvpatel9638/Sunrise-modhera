@@ -79,15 +79,15 @@ export default function ReviewSection({ reviews, onNewReviewAdded }) {
           {/* Left Pane - Testimonials Carousel & Summary */}
           <div>
             <div className="reviews-rating-header">
-              <div className="rating-huge">4.1</div>
+              <div className="rating-huge" style={{ color: '#FFFFFF' }}>4.1</div>
               <div>
                 <div className="rating-stars">
                   {[...Array(4)].map((_, i) => (
                     <Star key={i} size={20} fill="var(--color-gold)" stroke="var(--color-gold)" />
                   ))}
-                  <Star size={20} fill="#CCC" stroke="#CCC" /> {/* 4.1/5 approx */}
+                  <Star size={20} fill="rgba(255, 255, 255, 0.35)" stroke="rgba(255, 255, 255, 0.35)" /> {/* 4.1/5 approx */}
                 </div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted-light)', marginTop: '4px' }}>
+                <div style={{ fontSize: '0.85rem', color: '#FFFFFF', marginTop: '4px', opacity: 0.9 }}>
                   Based on 350+ certified guest reviews
                 </div>
               </div>
