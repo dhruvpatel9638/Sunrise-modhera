@@ -63,7 +63,15 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} Modhera Sunrise Resort. All Rights Reserved. Designed with nature therapy & heritage protection in mind.</p>
+          <div className="footer-bottom-left">
+            © {new Date().getFullYear()} Modhera Sunrise Resort.
+          </div>
+          <div className="footer-bottom-center">
+            All Rights Reserved.
+          </div>
+          <div className="footer-bottom-right">
+            Designed with nature therapy & heritage protection in mind.
+          </div>
         </div>
       </div>
     </footer>

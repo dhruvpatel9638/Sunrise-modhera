@@ -2064,10 +2064,44 @@ html[lang="hi"] .hero-copy {
 
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 30px;
-  text-align: center;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+}
+
+.footer-bottom-left {
+  text-align: left;
+  flex: 1;
+}
+
+.footer-bottom-center {
+  text-align: center;
+  flex: 1;
+}
+
+.footer-bottom-right {
+  text-align: right;
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+  .footer-bottom-left,
+  .footer-bottom-center,
+  .footer-bottom-right {
+    text-align: center;
+    width: 100%;
+  }
 }
 
 /* Fluid navbar adjustment when viewport is horizontally shortened between 1025px and 1260px */
