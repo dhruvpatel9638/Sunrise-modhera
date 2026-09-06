@@ -224,10 +224,10 @@ export default function App() {
         borderRadius: '4px'
       });
 
-      // 1.5s for blur-to-clean and fade-in animation
+      // 2.0s for blur-to-clean and fade-in animation (effect time: 2s)
       const timer = setTimeout(() => {
         setLogoStage('center');
-      }, 1500);
+      }, 2000);
 
       return () => clearTimeout(timer);
     }
