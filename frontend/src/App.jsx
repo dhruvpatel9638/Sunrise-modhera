@@ -314,6 +314,8 @@ export default function App() {
       infinite: false,
     });
 
+    window.__lenis = lenis;
+
     if (logoStage !== 'finished') {
       lenis.stop();
       document.body.style.overflow = 'hidden';
@@ -332,12 +334,35 @@ export default function App() {
     rafId = requestAnimationFrame(raf);
 
     return () => {
+      window.__lenis = null;
       lenis.destroy();
       cancelAnimationFrame(rafId);
       document.body.style.overflow = '';
     };
   }, [hash, logoStage]);
 
+  // When homepage animation finishes and a hash is present, smoothly scroll with navbar offset
+  useEffect(() => {
+    if (logoStage === 'finished' && window.location.hash) {
+      const targetId = window.location.hash.replace('#', '');
+      if (targetId && targetId !== 'admin' && targetId !== 'booking' && targetId !== 'hero') {
+        const timer = setTimeout(() => {
+          const el = document.getElementById(targetId);
+          if (el) {
+            if (window.__lenis) {
+              window.__lenis.scrollTo(el, { offset: -85, duration: 1.2 });
+            } else {
+              const navHeight = 85;
+              const elementPosition = el.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+              window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            }
+          }
+        }, 150);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [logoStage]);
 
   const handleNewReview = (newReview) => {
     setReviews((prev) => [newReview, ...prev]);

@@ -41,9 +41,26 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
     closeMobileMenu();
+    if (targetId === 'hero') {
+      if (window.__lenis) {
+        window.__lenis.scrollTo(0, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      window.history.pushState(null, null, ' ');
+      return;
+    }
+
     const element = document.getElementById(targetId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      if (window.__lenis) {
+        window.__lenis.scrollTo(element, { offset: -85, duration: 1.2 });
+      } else {
+        const navHeight = 85;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
       // Update URL hash quietly without triggering window hashchange event re-renders
       window.history.pushState(null, null, `#${targetId}`);
     } else {
@@ -51,7 +68,16 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
       window.location.hash = '';
       setTimeout(() => {
         const el = document.getElementById(targetId);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        if (el) {
+          if (window.__lenis) {
+            window.__lenis.scrollTo(el, { offset: -85, duration: 1.2 });
+          } else {
+            const navHeight = 85;
+            const elementPosition = el.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          }
+        }
       }, 100);
     }
   };
