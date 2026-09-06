@@ -72,7 +72,7 @@ export default function Dining() {
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, amount: 0.05 }}
           >
             <motion.h2 className="dining-title" variants={itemVariants}>
               Tents & Bhungas Jungle Restaurant

@@ -42,10 +42,10 @@ export default function InquiryForm() {
           {/* Details Pane */}
           <motion.div 
             className="inquiry-details"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, amount: 0.05 }}
           >
             <h3>Plan Your Outing or Celebration</h3>
             <p>
@@ -89,10 +89,10 @@ export default function InquiryForm() {
           <motion.div 
             className="review-form-card" 
             style={{ background: 'var(--color-bg-dark-mid)', border: '1px solid var(--color-border-dark)' }}
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            viewport={{ once: true, amount: 0.05 }}
           >
             <h4 style={{ fontSize: '1.4rem', color: '#FFFFFF', marginBottom: '8px' }}>
               Outing & Inquiry Form

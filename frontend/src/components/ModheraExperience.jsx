@@ -68,12 +68,12 @@ export default function ModheraExperience() {
     <section id="experience" className="section-padding" style={{ background: 'transparent' }}>
       <div className="container">
         
-        <div className="text-center" style={{ marginBottom: '60px' }}>
+        <div className="section-header">
           <motion.span 
             className="section-subtitle"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
             viewport={{ once: true }}
           >
             Storytelling Experience
@@ -81,9 +81,9 @@ export default function ModheraExperience() {
           <motion.h2 
             className="section-title" 
             style={{ color: '#FFFFFF' }}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
           >
             The Modhera Experience
@@ -109,7 +109,7 @@ export default function ModheraExperience() {
                 variants={textBlockVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true, amount: 0.05 }}
               >
                 <motion.span className="experience-card-tag" variants={childVariants}>{exp.tag}</motion.span>
                 <motion.h3 className="experience-card-title" variants={childVariants}>{exp.title}</motion.h3>

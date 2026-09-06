@@ -350,9 +350,9 @@ export default function App() {
           const el = document.getElementById(targetId);
           if (el) {
             if (window.__lenis) {
-              window.__lenis.scrollTo(el, { offset: -85, duration: 1.2 });
+              window.__lenis.scrollTo(el, { offset: -80, duration: 1.1 });
             } else {
-              const navHeight = 85;
+              const navHeight = 80;
               const elementPosition = el.getBoundingClientRect().top;
               const offsetPosition = elementPosition + window.pageYOffset - navHeight;
               window.scrollTo({ top: offsetPosition, behavior: 'smooth' });

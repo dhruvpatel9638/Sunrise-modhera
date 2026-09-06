@@ -122,21 +122,21 @@ export default function Accommodations({ rooms }) {
   return (
     <section id="accommodations" className="section-padding" style={{ background: 'var(--color-bg-light)' }}>
       <div className="container">
-        <div className="text-center" style={{ marginBottom: '60px' }}>
+        <div className="section-header">
           <motion.h2 
             className="section-title"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
           >
             Immersive Guest Stays
           </motion.h2>
           <motion.p 
             className="section-subtitle"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             viewport={{ once: true }}
           >
             Differentiate your experience by opting for our heritage-infused, non-traditional luxury stays.
@@ -148,7 +148,7 @@ export default function Accommodations({ rooms }) {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, amount: 0.05 }}
         >
           {rooms.map((room) => (
             <motion.div className="room-card" key={room._id} variants={cardVariants}>

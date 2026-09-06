@@ -39,9 +39,24 @@ export default function MobileBottomNav({ logoStage }) {
   const handleNavClick = (e, targetId, tabName) => {
     e.preventDefault();
     setActiveTab(tabName);
+    if (targetId === 'hero') {
+      if (window.__lenis) {
+        window.__lenis.scrollTo(0, { duration: 1.1 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
     const element = document.getElementById(targetId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      if (window.__lenis) {
+        window.__lenis.scrollTo(element, { offset: -75, duration: 1.1 });
+      } else {
+        const navHeight = 75;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
     }
   };
 

@@ -43,7 +43,7 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
     closeMobileMenu();
     if (targetId === 'hero') {
       if (window.__lenis) {
-        window.__lenis.scrollTo(0, { duration: 1.2 });
+        window.__lenis.scrollTo(0, { duration: 1.1 });
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
@@ -54,9 +54,9 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
     const element = document.getElementById(targetId);
     if (element) {
       if (window.__lenis) {
-        window.__lenis.scrollTo(element, { offset: -85, duration: 1.2 });
+        window.__lenis.scrollTo(element, { offset: -80, duration: 1.1 });
       } else {
-        const navHeight = 85;
+        const navHeight = 80;
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - navHeight;
         window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
@@ -70,9 +70,9 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
         const el = document.getElementById(targetId);
         if (el) {
           if (window.__lenis) {
-            window.__lenis.scrollTo(el, { offset: -85, duration: 1.2 });
+            window.__lenis.scrollTo(el, { offset: -80, duration: 1.1 });
           } else {
-            const navHeight = 85;
+            const navHeight = 80;
             const elementPosition = el.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - navHeight;
             window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
