@@ -272,6 +272,10 @@ export default function App() {
   }, [logoStage]);
 
   useEffect(() => {
+    window.__logoStage = logoStage;
+  }, [logoStage]);
+
+  useEffect(() => {
     const handleHash = () => {
       const newHash = window.location.hash;
       // Only update state and scroll to top when entering or leaving the admin dashboard.
@@ -350,7 +354,7 @@ export default function App() {
           const el = document.getElementById(targetId);
           if (el) {
             if (window.__lenis) {
-              window.__lenis.scrollTo(el, { offset: -80, duration: 1.1 });
+              window.__lenis.scrollTo(el, { offset: 0, duration: 1.1 });
             } else {
               const navHeight = 80;
               const elementPosition = el.getBoundingClientRect().top;

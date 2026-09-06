@@ -50,7 +50,7 @@ export default function MobileBottomNav({ logoStage }) {
     const element = document.getElementById(targetId);
     if (element) {
       if (window.__lenis) {
-        window.__lenis.scrollTo(element, { offset: -75, duration: 1.1 });
+        window.__lenis.scrollTo(element, { offset: 0, duration: 1.1 });
       } else {
         const navHeight = 75;
         const elementPosition = element.getBoundingClientRect().top;

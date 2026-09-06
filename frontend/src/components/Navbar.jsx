@@ -54,7 +54,7 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
     const element = document.getElementById(targetId);
     if (element) {
       if (window.__lenis) {
-        window.__lenis.scrollTo(element, { offset: -80, duration: 1.1 });
+        window.__lenis.scrollTo(element, { offset: 0, duration: 1.1 });
       } else {
         const navHeight = 80;
         const elementPosition = element.getBoundingClientRect().top;
@@ -70,7 +70,7 @@ export default function Navbar({ isAdminMode = false, activeTab = 'bookings', se
         const el = document.getElementById(targetId);
         if (el) {
           if (window.__lenis) {
-            window.__lenis.scrollTo(el, { offset: -80, duration: 1.1 });
+            window.__lenis.scrollTo(el, { offset: 0, duration: 1.1 });
           } else {
             const navHeight = 80;
             const elementPosition = el.getBoundingClientRect().top;

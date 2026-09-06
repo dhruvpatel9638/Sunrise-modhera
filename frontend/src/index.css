@@ -74,7 +74,6 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
 }
 
 section[id] {
@@ -289,7 +288,7 @@ textarea {
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
-    padding: clamp(14px, 2.5vh, 32px) 0;
+    padding: clamp(10px, 1.8vh, 24px) 0;
   }
 }
 
@@ -877,7 +876,7 @@ html[lang="hi"] .hero-copy {
 }
 
 .room-img-container {
-  height: clamp(130px, 15.5vh, 165px);
+  height: clamp(100px, 12vh, 130px);
   position: relative;
   overflow: hidden;
   background-color: #122818;
@@ -1389,39 +1388,9 @@ html[lang="hi"] .hero-copy {
 
 @media (min-width: 1025px) {
   .gallery-grid {
-    grid-template-columns: repeat(6, 1fr);
-    grid-auto-rows: clamp(100px, 12.5vh, 140px);
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: clamp(95px, 12vh, 130px);
     gap: clamp(8px, 1vw, 14px);
-  }
-
-  .gallery-item:nth-child(6n+1) {
-    grid-column: span 4;
-    grid-row: span 2;
-  }
-
-  .gallery-item:nth-child(6n+2) {
-    grid-column: span 2;
-    grid-row: span 1;
-  }
-
-  .gallery-item:nth-child(6n+3) {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-
-  .gallery-item:nth-child(6n+4) {
-    grid-column: span 2;
-    grid-row: span 1;
-  }
-
-  .gallery-item:nth-child(6n+5) {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-
-  .gallery-item:nth-child(6n+6) {
-    grid-column: span 2;
-    grid-row: span 1;
   }
 
   .gallery-item {

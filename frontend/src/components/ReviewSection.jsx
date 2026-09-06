@@ -85,22 +85,22 @@ export default function ReviewSection({ reviews, onNewReviewAdded }) {
             </div>
 
             {/* What guests love table / grid */}
-            <div style={{ marginBottom: '32px', background: 'rgba(0, 0, 0, 0.45)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.18)', borderRadius: '16px', padding: '20px' }}>
-              <h4 style={{ color: '#E8CA7A', fontSize: '1rem', fontWeight: 600, marginBottom: '12px' }}>
+            <div className="reviews-highlights-card" style={{ marginBottom: '12px', background: 'rgba(0, 0, 0, 0.45)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.18)', borderRadius: '12px', padding: '10px 14px' }}>
+              <h4 style={{ color: '#E8CA7A', fontSize: '0.85rem', fontWeight: 600, marginBottom: '6px' }}>
                 🟢 What Guests Love Most:
               </h4>
-              <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.9rem', color: 'rgba(255, 255, 255, 0.80)' }}>
-                  <CheckCircle2 size={16} style={{ color: '#7DBFA3', marginTop: '2px', flexShrink: 0 }} />
-                  <span><strong style={{ color: '#FFFFFF' }}>Unbeatable Location:</strong> Immediate walking access behind the Modhera Sun Temple simplifies morning & evening visits.</span>
+              <ul style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '6px', fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.85)', lineHeight: 1.35 }}>
+                  <CheckCircle2 size={14} style={{ color: '#7DBFA3', marginTop: '2px', flexShrink: 0 }} />
+                  <span><strong style={{ color: '#FFFFFF' }}>Unbeatable Location:</strong> Immediate walking access behind the Modhera Sun Temple.</span>
                 </li>
-                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.9rem', color: 'rgba(255, 255, 255, 0.80)' }}>
-                  <CheckCircle2 size={16} style={{ color: '#7DBFA3', marginTop: '2px', flexShrink: 0 }} />
-                  <span><strong style={{ color: '#FFFFFF' }}>Ambiance & Nature:</strong> Peaceful forest atmosphere, dense canopies, and beautiful peacocks roaming free.</span>
+                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '6px', fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.85)', lineHeight: 1.35 }}>
+                  <CheckCircle2 size={14} style={{ color: '#7DBFA3', marginTop: '2px', flexShrink: 0 }} />
+                  <span><strong style={{ color: '#FFFFFF' }}>Ambiance & Nature:</strong> Peaceful forest atmosphere and peacocks roaming free.</span>
                 </li>
-                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.9rem', color: 'rgba(255, 255, 255, 0.80)' }}>
-                  <CheckCircle2 size={16} style={{ color: '#7DBFA3', marginTop: '2px', flexShrink: 0 }} />
-                  <span><strong style={{ color: '#FFFFFF' }}>Authentic Food:</strong> Highly rated for fresh, delicious, hot 100% vegetarian regional meals.</span>
+                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '6px', fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.85)', lineHeight: 1.35 }}>
+                  <CheckCircle2 size={14} style={{ color: '#7DBFA3', marginTop: '2px', flexShrink: 0 }} />
+                  <span><strong style={{ color: '#FFFFFF' }}>Authentic Food:</strong> Fresh, hot 100% vegetarian regional meals.</span>
                 </li>
               </ul>
             </div>
