@@ -70,7 +70,16 @@ export default function Transit() {
   };
 
   return (
-    <section id="transit" className="section-padding" style={{ background: 'transparent' }}>
+    <section 
+      id="transit" 
+      className="section-padding" 
+      style={{ 
+        background: 'var(--color-bg-dark-mid)', 
+        borderTop: '1px solid var(--color-border-dark)',
+        position: 'relative',
+        zIndex: 2
+      }}
+    >
       <div className="container">
         <div className="section-header">
           <motion.h2 
