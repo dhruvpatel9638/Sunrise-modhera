@@ -83,10 +83,9 @@ export default function Hero({ logoStage }) {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20, filter: 'blur(12px)' },
+    hidden: { opacity: 0, filter: 'blur(12px)' },
     visible: {
       opacity: 1,
-      y: 0,
       filter: 'blur(0px)',
       transition: {
         duration: 1.8,
