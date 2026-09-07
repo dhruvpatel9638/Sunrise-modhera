@@ -90,9 +90,8 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
         left: 0,
         right: 0,
         bottom: 0,
-        width: '100vw',
-        height: '100vh',
-        minHeight: '100dvh',
+        width: '100%',
+        height: '100dvh',
         backgroundColor: '#F8F5EE',
         /* Parchment texture overlaid with cream color to show at 20% opacity */
         backgroundImage: `linear-gradient(rgba(248, 245, 238, 0.8), rgba(248, 245, 238, 0.8)), url(${parchmentBg})`,
@@ -104,183 +103,181 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 999999,
-        pointerEvents: sunFadeOut ? 'none' : 'all'
+        pointerEvents: sunFadeOut ? 'none' : 'all',
+        overflow: 'hidden',
+        boxSizing: 'border-box'
       }}
     >
-      <div
-        style={{
+      {/* Centered Sun Loading Content */}
+      <div 
+        className="sun-loader-container" 
+        style={{ 
+          textAlign: 'center', 
           width: '100%',
-          height: '100%',
-          minHeight: '100dvh',
+          maxWidth: '340px', 
+          padding: '0 20px',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
           alignItems: 'center',
-          position: 'relative'
+          justifyContent: 'center',
+          boxSizing: 'border-box',
+          // Subtle negative vertical translation to visually center between top viewport and bottom text
+          transform: 'translateY(-14px)'
         }}
       >
+        {/* Sacred Sun Geometry SVG with Glow and Rotation */}
         <div 
-          className="sun-loader-container" 
+          className="sun-svg-wrapper" 
           style={{ 
-            textAlign: 'center', 
-            width: '100%',
-            maxWidth: '340px', 
-            padding: '0 20px',
-            margin: 'auto 0',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
+            position: 'relative', 
+            width: 'clamp(88px, 22vw, 108px)', 
+            height: 'clamp(88px, 22vw, 108px)', 
+            margin: '0 auto 6px' 
           }}
         >
-          {/* Sacred Sun Geometry SVG with Glow and Rotation */}
-          <div 
-            className="sun-svg-wrapper" 
-            style={{ 
-              position: 'relative', 
-              width: '116px', 
-              height: '116px', 
-              margin: '0 auto 20px' 
-            }}
+          {/* Pulsating golden glow */}
+          <div className="sun-glow" />
+
+          <svg
+            viewBox="0 0 100 100"
+            style={{ width: '100%', height: '100%', display: 'block', overflow: 'visible' }}
           >
-            {/* Pulsating golden glow */}
-            <div className="sun-glow" />
-
-            <svg
-              viewBox="0 0 100 100"
-              style={{ width: '100%', height: '100%', display: 'block', overflow: 'visible' }}
-            >
-              {/* Pulsating Sun Core */}
-              <circle
-                cx="50"
-                cy="50"
-                r="18"
-                fill="var(--color-gold, #c89b3c)"
-                className="sun-core-pulse"
-              />
-
-              {/* Outer Rotating Rays */}
-              <g className="sun-rays-rotate" style={{ transformOrigin: '50px 50px' }}>
-                {/* Primary Rays */}
-                {[...Array(12)].map((_, i) => {
-                  const angle = (i * 360) / 12;
-                  return (
-                    <path
-                      key={`ray-p-${i}`}
-                      d="M 50 16 L 53 28 L 47 28 Z"
-                      fill="var(--color-gold-light, #dfb76c)"
-                      transform={`rotate(${angle} 50 50)`}
-                      style={{ opacity: 0.92 }}
-                    />
-                  );
-                })}
-                {/* Secondary offset minor rays */}
-                {[...Array(12)].map((_, i) => {
-                  const angle = (i * 360) / 12 + 15;
-                  return (
-                    <path
-                      key={`ray-s-${i}`}
-                      d="M 50 22 L 52 30 L 48 30 Z"
-                      fill="var(--color-gold, #c89b3c)"
-                      transform={`rotate(${angle} 50 50)`}
-                      style={{ opacity: 0.75 }}
-                    />
-                  );
-                })}
-              </g>
-            </svg>
-          </div>
-
-          {/* Modhera Sunrise Heading */}
-          <h2
-            style={{
-              fontFamily: 'var(--font-headings, "Playfair Display", serif)',
-              fontSize: 'clamp(1.75rem, 5vw, 1.95rem)',
-              color: 'var(--color-primary-dark, #1B382B)',
-              fontWeight: '400',
-              fontStyle: 'italic',
-              marginBottom: '6px',
-              letterSpacing: '0.02em',
-              lineHeight: 1.2
-            }}
-          >
-            Modhera Sunrise
-          </h2>
-
-          {/* Dynamic loading status message */}
-          <p
-            style={{
-              fontFamily: 'var(--font-body, "Inter", sans-serif)',
-              fontSize: '0.86rem',
-              color: 'var(--color-text-muted-light, #5C6F64)',
-              letterSpacing: '0.04em',
-              minHeight: '22px',
-              marginBottom: '18px',
-              transition: 'color 0.3s ease'
-            }}
-          >
-            {sunMessage}
-          </p>
-
-          {/* Progress Bar Track */}
-          <div
-            style={{
-              width: '220px',
-              maxWidth: '80%',
-              height: '3px',
-              backgroundColor: 'rgba(30, 91, 58, 0.12)',
-              borderRadius: '3px',
-              overflow: 'hidden',
-              position: 'relative',
-              marginBottom: '8px'
-            }}
-          >
-            <div
-              style={{
-                height: '100%',
-                width: `${displayPercent}%`,
-                backgroundColor: 'var(--color-gold, #c89b3c)',
-                boxShadow: '0 0 10px var(--color-gold, #c89b3c)',
-                transition: 'width 0.15s ease-out'
-              }}
+            {/* Pulsating Sun Core */}
+            <circle
+              cx="50"
+              cy="50"
+              r="18"
+              fill="var(--color-gold, #c89b3c)"
+              className="sun-core-pulse"
             />
-          </div>
 
-          {/* Percentage Indicator */}
-          <div
-            style={{
-              fontFamily: 'var(--font-body, "Inter", sans-serif)',
-              fontSize: '0.78rem',
-              fontWeight: '600',
-              color: 'var(--color-gold, #b38a32)',
-              letterSpacing: '0.12em'
-            }}
-          >
-            {displayPercent}%
-          </div>
+            {/* Outer Rotating Rays */}
+            <g className="sun-rays-rotate" style={{ transformOrigin: '50px 50px' }}>
+              {/* Primary Rays */}
+              {[...Array(12)].map((_, i) => {
+                const angle = (i * 360) / 12;
+                return (
+                  <path
+                    key={`ray-p-${i}`}
+                    d="M 50 16 L 53 28 L 47 28 Z"
+                    fill="var(--color-gold-light, #dfb76c)"
+                    transform={`rotate(${angle} 50 50)`}
+                    style={{ opacity: 0.92 }}
+                  />
+                );
+              })}
+              {/* Secondary offset minor rays */}
+              {[...Array(12)].map((_, i) => {
+                const angle = (i * 360) / 12 + 15;
+                return (
+                  <path
+                    key={`ray-s-${i}`}
+                    d="M 50 22 L 52 30 L 48 30 Z"
+                    fill="var(--color-gold, #c89b3c)"
+                    transform={`rotate(${angle} 50 50)`}
+                    style={{ opacity: 0.75 }}
+                  />
+                );
+              })}
+            </g>
+          </svg>
         </div>
 
-        {/* Experience Initializing Text at bottom center (consistent across mobile & desktop) */}
-        <motion.div
-          initial={{ opacity: 0, y: 6, x: '-50%' }}
-          animate={{ opacity: 1, y: 0, x: '-50%' }}
-          transition={{ duration: 0.7, delay: 0.2 }}
+        {/* Modhera Sunrise Heading */}
+        <h2
           style={{
-            position: 'absolute',
-            bottom: '36px',
-            left: '50%',
-            fontFamily: "'Inter', 'Outfit', sans-serif",
-            fontSize: '0.72rem',
-            fontWeight: 600,
-            color: 'rgba(130, 142, 153, 0.75)',
-            letterSpacing: '0.24em',
-            textTransform: 'uppercase',
-            whiteSpace: 'nowrap'
+            fontFamily: 'var(--font-headings, "Playfair Display", serif)',
+            fontSize: 'clamp(1.6rem, 5.2vw, 1.95rem)',
+            color: 'var(--color-primary-dark, #1B382B)',
+            fontWeight: '400',
+            fontStyle: 'italic',
+            margin: '0 0 6px 0',
+            letterSpacing: '0.02em',
+            lineHeight: 1.2,
+            width: '100%',
+            textAlign: 'center'
           }}
         >
-          EXPERIENCE INITIALIZING...
-        </motion.div>
+          Modhera Sunrise
+        </h2>
+
+        {/* Dynamic loading status message */}
+        <p
+          style={{
+            fontFamily: 'var(--font-body, "Inter", sans-serif)',
+            fontSize: 'clamp(0.82rem, 2.6vw, 0.88rem)',
+            color: 'var(--color-text-muted-light, #5C6F64)',
+            letterSpacing: '0.04em',
+            minHeight: '22px',
+            margin: '0 0 16px 0',
+            transition: 'color 0.3s ease',
+            width: '100%',
+            textAlign: 'center'
+          }}
+        >
+          {sunMessage}
+        </p>
+
+        {/* Progress Bar Track */}
+        <div
+          style={{
+            width: 'clamp(180px, 50vw, 220px)',
+            maxWidth: '80%',
+            height: '3px',
+            backgroundColor: 'rgba(30, 91, 58, 0.12)',
+            borderRadius: '3px',
+            overflow: 'hidden',
+            position: 'relative',
+            margin: '0 auto 8px auto'
+          }}
+        >
+          <div
+            style={{
+              height: '100%',
+              width: `${displayPercent}%`,
+              backgroundColor: 'var(--color-gold, #c89b3c)',
+              boxShadow: '0 0 10px var(--color-gold, #c89b3c)',
+              transition: 'width 0.15s ease-out'
+            }}
+          />
+        </div>
+
+        {/* Percentage Indicator */}
+        <div
+          style={{
+            fontFamily: 'var(--font-body, "Inter", sans-serif)',
+            fontSize: '0.78rem',
+            fontWeight: '600',
+            color: 'var(--color-gold, #b38a32)',
+            letterSpacing: '0.12em',
+            width: '100%',
+            textAlign: 'center'
+          }}
+        >
+          {displayPercent}%
+        </div>
       </div>
+
+      {/* Experience Initializing Text at bottom center */}
+      <motion.div
+        initial={{ opacity: 0, y: 6, x: '-50%' }}
+        animate={{ opacity: 1, y: 0, x: '-50%' }}
+        transition={{ duration: 0.7, delay: 0.2 }}
+        style={{
+          position: 'absolute',
+          bottom: 'calc(24px + env(safe-area-inset-bottom, 0px))',
+          left: '50%',
+          fontFamily: "'Inter', 'Outfit', sans-serif",
+          fontSize: '0.72rem',
+          fontWeight: 600,
+          color: 'rgba(130, 142, 153, 0.75)',
+          letterSpacing: '0.24em',
+          textTransform: 'uppercase',
+          whiteSpace: 'nowrap'
+        }}
+      >
+        EXPERIENCE INITIALIZING...
+      </motion.div>
 
       {/* Embedded Styles for Sun Animation */}
       <style>{`
