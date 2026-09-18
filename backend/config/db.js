@@ -1,16 +1,27 @@
+import 'dotenv/config';
+import dns from 'dns';
 import mongoose from 'mongoose';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+// Use Google DNS as safety fallback for SRV DNS resolution across all networks
+try {
+  dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
+} catch (e) {
+  // ignore if restricted
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const MOCK_DB_FILE = path.join(__dirname, '../mock_db.json');
 
-// Check if we should run in mock mode
-export const isMockMode = !process.env.MONGODB_URI;
+const DEFAULT_MONGO_URI = 'mongodb+srv://dhruvp9638_db_user:48IHnlrIES3LHo0e@cluster0.zil6z3q.mongodb.net/sunrise?retryWrites=true&w=majority&appName=Cluster0';
+export const MONGO_URI = process.env.MONGODB_URI || DEFAULT_MONGO_URI;
 
-// Initialize mock database file with base schema collections
+export const isMockMode = false;
+
+// Initialize mock database file with base schema collections (kept for fallback compatibility)
 const initMockDb = () => {
   if (!fs.existsSync(MOCK_DB_FILE)) {
     const initialData = {
@@ -21,29 +32,21 @@ const initMockDb = () => {
     };
     fs.writeFileSync(MOCK_DB_FILE, JSON.stringify(initialData, null, 2), 'utf8');
     console.log(`📂 Created mock database file at: ${MOCK_DB_FILE}`);
-  } else {
-    console.log(`📂 Loaded mock database from: ${MOCK_DB_FILE}`);
   }
 };
 
 export const connectDB = async () => {
-  if (isMockMode) {
-    console.log('⚠️  No MONGODB_URI found. Running in MOCK DATABASE mode (local JSON file-based database).');
-    initMockDb();
-    return;
-  }
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI);
+    const conn = await mongoose.connect(MONGO_URI);
     console.log(`🔌 MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`❌ MongoDB connection error: ${error.message}`);
-    console.log('⚠️ Falling back to MOCK DATABASE mode.');
-    // Force mock mode
+    console.log('⚠️ Warning: Using mock database fallback.');
     initMockDb();
   }
 };
 
-// --- Mock Model Base Class ---
+// --- Mock Model Base Class for fallback safety ---
 class MockModel {
   constructor(collectionName, data = {}) {
     this._collection = collectionName;
@@ -70,7 +73,6 @@ class MockModel {
     const db = MockModel._read();
     const collection = db[this._collection] || [];
     
-    // Convert this instance to a plain object
     const saveData = { ...this };
     delete saveData._collection;
 

@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { isMockMode, MockInquiry } from '../config/db.js';
 
 const InquirySchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -10,4 +9,4 @@ const InquirySchema = new mongoose.Schema({
   date: { type: String, required: true }
 }, { timestamps: true });
 
-export const Inquiry = isMockMode ? MockInquiry : mongoose.model('Inquiry', InquirySchema);
+export const Inquiry = mongoose.models.Inquiry || mongoose.model('Inquiry', InquirySchema);

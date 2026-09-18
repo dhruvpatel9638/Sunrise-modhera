@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { isMockMode, MockReview } from '../config/db.js';
 
 const ReviewSchema = new mongoose.Schema({
   guestName: { type: String, required: true },
@@ -9,4 +8,4 @@ const ReviewSchema = new mongoose.Schema({
   approved: { type: Boolean, default: true }
 }, { timestamps: true });
 
-export const Review = isMockMode ? MockReview : mongoose.model('Review', ReviewSchema);
+export const Review = mongoose.models.Review || mongoose.model('Review', ReviewSchema);

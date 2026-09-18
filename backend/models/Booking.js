@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { isMockMode, MockBooking } from '../config/db.js';
 
 const BookingSchema = new mongoose.Schema({
   roomId: { type: String, required: true },
@@ -14,4 +13,4 @@ const BookingSchema = new mongoose.Schema({
   status: { type: String, default: 'Confirmed' } // Confirmed, Cancelled
 }, { timestamps: true });
 
-export const Booking = isMockMode ? MockBooking : mongoose.model('Booking', BookingSchema);
+export const Booking = mongoose.models.Booking || mongoose.model('Booking', BookingSchema);

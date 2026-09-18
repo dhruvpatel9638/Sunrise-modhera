@@ -1,6 +1,6 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 
 // Route imports
@@ -12,9 +12,6 @@ import reviewRoutes from './routes/reviewRoutes.js';
 // Model imports (for seeding)
 import { Room } from './models/Room.js';
 import { Review } from './models/Review.js';
-
-// Load env vars
-dotenv.config();
 
 const app = express();
 
@@ -41,8 +38,8 @@ app.use('/api/reviews', reviewRoutes);
 // Seeding function to populate default data if empty
 const seedDatabase = async () => {
   try {
-    const roomCount = await Room.find({});
-    if (roomCount.length === 0) {
+    const roomCount = await Room.countDocuments();
+    if (roomCount === 0) {
       console.log('🌱 Database is empty. Seeding initial rooms data...');
       
       const defaultRooms = [
@@ -112,8 +109,8 @@ const seedDatabase = async () => {
       console.log('✅ Default rooms seeded successfully!');
     }
 
-    const reviewCount = await Review.find({});
-    if (reviewCount.length === 0) {
+    const reviewCount = await Review.countDocuments();
+    if (reviewCount === 0) {
       console.log('🌱 Seeding initial reviews...');
       const defaultReviews = [
         {
