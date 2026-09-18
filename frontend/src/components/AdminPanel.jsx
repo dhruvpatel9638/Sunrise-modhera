@@ -249,6 +249,23 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
     }
   };
 
+  const handleRestoreRooms = async () => {
+    try {
+      setLoading(true);
+      await roomAPI.restoreDefaults();
+      await fetchData(true);
+      if (refreshRooms) refreshRooms();
+      showMessage('Default rooms restored successfully!');
+    } catch (err) {
+      console.error(err);
+      await fetchData(true);
+      if (refreshRooms) refreshRooms();
+      showMessage('Room inventory refreshed.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Compute stat totals
   const totalRevenue = bookings.reduce((sum, b) => sum + (b.totalAmount || 0), 0);
 
@@ -1087,7 +1104,16 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
                 </div>
 
                 {rooms.length === 0 ? (
-                  <p style={{ color: 'var(--color-text-muted-light)', fontStyle: 'italic' }}>No rooms configured.</p>
+                  <div style={{ textAlign: 'center', padding: '40px 20px', background: 'var(--color-bg-light)', borderRadius: 'var(--radius-md)', border: '1px dashed var(--color-border-light)' }}>
+                    <p style={{ color: 'var(--color-text-muted-light)', fontStyle: 'italic', marginBottom: '16px' }}>No rooms configured in the resort inventory.</p>
+                    <button 
+                      onClick={handleRestoreRooms}
+                      className="btn btn-secondary"
+                      style={{ padding: '10px 20px', fontSize: '0.9rem', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                    >
+                      🔄 Restore 4 Default Luxury Rooms
+                    </button>
+                  </div>
                 ) : (
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                     <thead>

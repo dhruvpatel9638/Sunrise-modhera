@@ -34,6 +34,7 @@ export const roomAPI = {
   create: (roomData) => api.post('/rooms', roomData),
   update: (id, roomData) => api.put(`/rooms/${id}`, roomData),
   delete: (id) => api.delete(`/rooms/${id}`),
+  restoreDefaults: () => api.post('/rooms/restore-defaults'),
 };
 
 export const bookingAPI = {
