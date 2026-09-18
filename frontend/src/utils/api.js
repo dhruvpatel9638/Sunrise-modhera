@@ -9,6 +9,25 @@ const api = axios.create({
   },
 });
 
+// Attach JWT token to every request if admin is logged in
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('sunrise_admin_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
+export const adminAPI = {
+  login: (credentials) => api.post('/admin/login', credentials),
+  verify: () => api.get('/admin/verify'),
+  logout: () => {
+    localStorage.removeItem('sunrise_admin_token');
+  }
+};
+
 export const roomAPI = {
   getAll: () => api.get('/rooms'),
   getById: (id) => api.get(`/rooms/${id}`),

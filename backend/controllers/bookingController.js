@@ -84,6 +84,18 @@ export const getBookings = async (req, res) => {
   }
 };
 
+export const getBookingById = async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.params.id);
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found.' });
+    }
+    res.status(200).json(booking);
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving booking', error: error.message });
+  }
+};
+
 export const updateBookingStatus = async (req, res) => {
   try {
     const { id } = req.params;
@@ -108,6 +120,8 @@ export const updateBookingStatus = async (req, res) => {
     res.status(500).json({ message: 'Error updating booking status', error: error.message });
   }
 };
+
+export const updateBooking = updateBookingStatus;
 
 export const deleteBooking = async (req, res) => {
   try {

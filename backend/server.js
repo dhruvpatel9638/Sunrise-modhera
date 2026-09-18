@@ -8,6 +8,7 @@ import roomRoutes from './routes/roomRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
 import inquiryRoutes from './routes/inquiryRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 // Model imports (for seeding)
 import { Room } from './models/Room.js';
@@ -30,6 +31,7 @@ app.get('/api/status', (req, res) => {
 });
 
 // Use Routes
+app.use('/api/admin', adminRoutes);
 app.use('/api/rooms', roomRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/inquiries', inquiryRoutes);

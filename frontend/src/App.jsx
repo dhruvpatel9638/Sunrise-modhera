@@ -18,7 +18,7 @@ import MobileBottomNav from './components/MobileBottomNav';
 import SunPreloader from './components/SunPreloader';
 import SunCursor from './components/SunCursor';
 import LanguageTranslator from './components/LanguageTranslator';
-import { roomAPI, reviewAPI } from './utils/api';
+import { roomAPI, reviewAPI, adminAPI } from './utils/api';
 import logoWhite from './assets/logo_white.png';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
@@ -165,11 +165,25 @@ export default function App() {
     window.scrollTo(0, 0);
   }, []);
 
+  // Check and restore admin session if valid token exists
+  useEffect(() => {
+    const token = localStorage.getItem('sunrise_admin_token');
+    if (token) {
+      adminAPI.verify()
+        .then(() => setIsAuthenticated(true))
+        .catch(() => {
+          adminAPI.logout();
+          setIsAuthenticated(false);
+        });
+    }
+  }, []);
+
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
   };
 
   const handleLogout = () => {
+    adminAPI.logout();
     setIsAuthenticated(false);
     window.location.hash = '';
   };
