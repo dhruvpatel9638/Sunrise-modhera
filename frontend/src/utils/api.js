@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://sunrise-modhera.onrender.com/api';
+const API_BASE_URL = 'https://sunrise-modhera-1.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
