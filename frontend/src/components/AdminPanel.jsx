@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Users, Phone, Mail, Trash2, CheckCircle2, MessageSquare, Landmark, Star, Home, Edit2, Save, X } from 'lucide-react';
-import { bookingAPI, inquiryAPI, reviewAPI, roomAPI, adminAPI } from '../utils/api';
+import { bookingAPI, inquiryAPI, reviewAPI, roomAPI } from '../utils/api';
 
 export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, activeTab: propActiveTab, setActiveTab: propSetActiveTab, onBackToHome, refreshRooms }) {
   const [bookings, setBookings] = useState([]);
@@ -17,7 +17,6 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  const [loginLoading, setLoginLoading] = useState(false);
 
   const [bookingSortOrder, setBookingSortOrder] = useState('newest');
   const [bookingFilterDate, setBookingFilterDate] = useState('');
@@ -86,31 +85,15 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
     }
   };
 
-  const handleLoginSubmit = async (e) => {
+  const handleLoginSubmit = (e) => {
     e.preventDefault();
-    setLoginError('');
-    setLoginLoading(true);
-
-    try {
-      const response = await adminAPI.login({
-        username: username.trim(),
-        password
-      });
-
-      if (response.data && response.data.token) {
-        localStorage.setItem('sunrise_admin_token', response.data.token);
-        if (onLoginSuccess) {
-          onLoginSuccess();
-        }
-      } else {
-        setLoginError('Authentication failed. Please try again.');
+    if (username.trim() === 'sunrise@123' && password === 'Sunrise_001') {
+      setLoginError('');
+      if (onLoginSuccess) {
+        onLoginSuccess();
       }
-    } catch (err) {
-      console.error('Login error:', err);
-      const msg = err.response?.data?.message || 'Invalid User ID or Password.';
-      setLoginError(msg);
-    } finally {
-      setLoginLoading(false);
+    } else {
+      setLoginError('Invalid User ID or Password.');
     }
   };
 
@@ -369,9 +352,8 @@ export default function AdminPanel({ isAuthenticated = false, onLoginSuccess, ac
               type="submit" 
               className="btn btn-secondary" 
               style={{ width: '100%', justifyContent: 'center', fontWeight: 'bold', height: '48px' }}
-              disabled={loginLoading}
             >
-              {loginLoading ? 'Signing In...' : 'Sign In'}
+              Sign In
             </button>
 
             <button 

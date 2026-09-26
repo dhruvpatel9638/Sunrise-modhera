@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Rozha+One&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Rozha+One&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap');
 
 :root {
   /* Primary Brand */
@@ -44,9 +44,9 @@
 
   /* Fonts */
   --font-headings: 'Playfair Display', serif;
-  --font-body: 'Inter', sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-headings-hi: 'Rozha One', 'Tiro Devanagari Hindi', 'Playfair Display', serif;
-  --font-body-hi: 'Hind', 'Inter', sans-serif;
+  --font-body-hi: 'Hind', 'Plus Jakarta Sans', sans-serif;
 
   /* Transitions */
   --transition-fast: 0.2s ease;
@@ -230,14 +230,15 @@ textarea {
 }
 
 .section-subtitle {
-  font-family: var(--font-headings);
-  font-style: italic;
-  font-weight: 300;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 500;
   font-size: clamp(0.85rem, 0.95vw, 0.98rem);
+  letter-spacing: 0.05em;
   color: var(--color-gold);
   max-width: 620px;
   margin: 0 auto;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 #dining .section-title,
@@ -419,7 +420,7 @@ textarea {
 
 .nav-logo .logo-img {
   height: 48px;
-  width: auto;
+  width: 48px;
   border-radius: 4px;
   object-fit: contain;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
@@ -428,6 +429,7 @@ textarea {
 
 .navbar.scrolled .nav-logo .logo-img {
   height: 40px;
+  width: 40px;
 }
 
 .nav-links {
@@ -609,11 +611,12 @@ textarea {
 }
 
 .hero-copy {
-  font-family: var(--font-headings);
-  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
   line-height: 1.75;
-  font-style: italic;
-  font-weight: 300;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.01em;
   color: rgba(255, 255, 255, 0.92);
   max-width: 580px;
   margin: 0 0 32px 0;
@@ -765,6 +768,7 @@ html[lang="hi"] .hero-copy {
   }
   .nav-logo .logo-img {
     height: 38px;
+    width: 38px;
   }
   .hero-ref-eyebrow {
     font-size: 0.82rem;
@@ -1039,14 +1043,14 @@ html[lang="hi"] .hero-copy {
 }
 
 .room-desc {
-  font-family: var(--font-headings);
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(0.74rem, 0.8vw, 0.82rem);
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(0.8rem, 0.86vw, 0.9rem);
   color: var(--color-text-muted-light);
   margin-bottom: 6px;
   flex-grow: 1;
-  line-height: 1.4;
+  line-height: 1.55;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -1165,12 +1169,12 @@ html[lang="hi"] .hero-copy {
 }
 
 .amenity-desc {
-  font-family: var(--font-headings);
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(0.78rem, 0.84vw, 0.85rem);
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(0.82rem, 0.88vw, 0.92rem);
   color: var(--color-text-muted-dark);
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
 /* Dining Section */
@@ -1246,11 +1250,11 @@ html[lang="hi"] .hero-copy {
 }
 
 .dining-desc {
-  font-family: var(--font-headings);
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(0.88rem, 0.95vw, 0.96rem);
-  line-height: 1.5;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(0.92rem, 1vw, 1.02rem);
+  line-height: 1.65;
   color: rgba(255, 255, 255, 0.92);
   margin-bottom: 10px;
 }
@@ -1614,13 +1618,13 @@ html[lang="hi"] .hero-copy {
 }
 
 .review-text {
-  font-family: var(--font-headings);
-  font-style: italic;
-  font-weight: 300;
-  font-size: 0.88rem;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.95rem;
   margin-bottom: 10px;
   color: #1A2E1E;
-  line-height: 1.45;
+  line-height: 1.6;
 }
 
 .review-author {
@@ -2832,10 +2836,10 @@ html[lang="hi"] .hero-copy {
 }
 
 .experience-card-desc {
-  font-family: var(--font-headings);
-  font-style: italic;
-  font-weight: 300;
-  font-size: 1.05rem;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.02rem;
   color: var(--color-text-body-light);
   /* Lighter text for dark backgrounds */
   line-height: 1.75;
@@ -3373,12 +3377,13 @@ body {
 }
 
 .split-desc {
-  font-family: var(--font-headings);
-  font-size: 0.9rem;
-  line-height: 1.6;
-  font-style: italic;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  line-height: 1.75;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.90);
   margin-bottom: 28px;
 }
 
@@ -3703,13 +3708,14 @@ body {
 }
 
 .editorial-paragraph {
-  font-family: var(--font-headings);
-  font-style: italic;
-  font-weight: 300;
-  font-size: 1.15rem;
-  line-height: 1.75;
-  color: rgba(255, 255, 255, 0.88);
-  max-width: 520px;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  letter-spacing: 0.015em;
+  color: rgba(255, 255, 255, 0.90);
+  max-width: 540px;
 }
 
 .editorial-paragraph.center-spaced {
@@ -3762,27 +3768,12 @@ body {
   }
 }
 
-/* Intro Floating Logo Blur-to-Clean with Fade-in Effect (2s Effect Duration) */
+/* Intro Floating Logo Blur-to-Clean with Fade-in Effect (Smooth & Slow 2.6s) */
 @keyframes logoBlurCleanFadeIn {
   0% {
     opacity: 0;
-    filter: blur(28px) drop-shadow(0 4px 20px rgba(0, 0, 0, 0.6));
+    filter: blur(14px) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
     transform: scale(0.92);
-  }
-  30% {
-    opacity: 0.35;
-    filter: blur(20px) drop-shadow(0 4px 18px rgba(0, 0, 0, 0.55));
-    transform: scale(0.94);
-  }
-  60% {
-    opacity: 0.75;
-    filter: blur(10px) drop-shadow(0 3px 14px rgba(0, 0, 0, 0.45));
-    transform: scale(0.97);
-  }
-  85% {
-    opacity: 0.95;
-    filter: blur(3px) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
-    transform: scale(0.99);
   }
   100% {
     opacity: 1;
@@ -3792,6 +3783,6 @@ body {
 }
 
 .logo-blur-clean-fadein {
-  animation: logoBlurCleanFadeIn 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: logoBlurCleanFadeIn 2.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: opacity, filter, transform;
 }

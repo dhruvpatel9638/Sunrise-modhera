@@ -109,12 +109,12 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
       }}
     >
       {/* Centered Sun Loading Content */}
-      <div 
-        className="sun-loader-container" 
-        style={{ 
-          textAlign: 'center', 
+      <div
+        className="sun-loader-container"
+        style={{
+          textAlign: 'center',
           width: '100%',
-          maxWidth: '340px', 
+          maxWidth: '340px',
           padding: '0 20px',
           display: 'flex',
           flexDirection: 'column',
@@ -126,13 +126,13 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
         }}
       >
         {/* Sacred Sun Geometry SVG with Glow and Rotation */}
-        <div 
-          className="sun-svg-wrapper" 
-          style={{ 
-            position: 'relative', 
-            width: 'clamp(88px, 22vw, 108px)', 
-            height: 'clamp(88px, 22vw, 108px)', 
-            margin: '0 auto 6px' 
+        <div
+          className="sun-svg-wrapper"
+          style={{
+            position: 'relative',
+            width: 'clamp(88px, 22vw, 108px)',
+            height: 'clamp(88px, 22vw, 108px)',
+            margin: '0 auto 6px'
           }}
         >
           {/* Pulsating golden glow */}
@@ -257,27 +257,6 @@ export default function SunPreloader({ percent = 0, isReady = false, onComplete 
           {displayPercent}%
         </div>
       </div>
-
-      {/* Experience Initializing Text at bottom center */}
-      <motion.div
-        initial={{ opacity: 0, y: 6, x: '-50%' }}
-        animate={{ opacity: 1, y: 0, x: '-50%' }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-        style={{
-          position: 'absolute',
-          bottom: 'calc(24px + env(safe-area-inset-bottom, 0px))',
-          left: '50%',
-          fontFamily: "'Inter', 'Outfit', sans-serif",
-          fontSize: '0.72rem',
-          fontWeight: 600,
-          color: 'rgba(130, 142, 153, 0.75)',
-          letterSpacing: '0.24em',
-          textTransform: 'uppercase',
-          whiteSpace: 'nowrap'
-        }}
-      >
-        EXPERIENCE INITIALIZING...
-      </motion.div>
 
       {/* Embedded Styles for Sun Animation */}
       <style>{`

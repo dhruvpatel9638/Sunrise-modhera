@@ -18,7 +18,7 @@ import MobileBottomNav from './components/MobileBottomNav';
 import SunPreloader from './components/SunPreloader';
 import SunCursor from './components/SunCursor';
 import LanguageTranslator from './components/LanguageTranslator';
-import { roomAPI, reviewAPI, adminAPI } from './utils/api';
+import { roomAPI, reviewAPI } from './utils/api';
 import logoWhite from './assets/logo_white.png';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
@@ -165,25 +165,11 @@ export default function App() {
     window.scrollTo(0, 0);
   }, []);
 
-  // Check and restore admin session if valid token exists
-  useEffect(() => {
-    const token = localStorage.getItem('sunrise_admin_token');
-    if (token) {
-      adminAPI.verify()
-        .then(() => setIsAuthenticated(true))
-        .catch(() => {
-          adminAPI.logout();
-          setIsAuthenticated(false);
-        });
-    }
-  }, []);
-
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
   };
 
   const handleLogout = () => {
-    adminAPI.logout();
     setIsAuthenticated(false);
     window.location.hash = '';
   };
@@ -238,10 +224,10 @@ export default function App() {
         borderRadius: '4px'
       });
 
-      // 2.0s for blur-to-clean and fade-in animation (effect time: 2s)
+      // 2.6s for smooth, slow blur-to-clean and fade-in animation
       const timer = setTimeout(() => {
         setLogoStage('center');
-      }, 2000);
+      }, 2600);
 
       return () => clearTimeout(timer);
     }
@@ -250,27 +236,42 @@ export default function App() {
   useEffect(() => {
     if (logoStage === 'center') {
       const timer = setTimeout(() => {
-        setLogoStage('animating');
-
+        window.scrollTo(0, 0);
         const target = document.getElementById('nav-logo-img');
         if (target) {
           const rect = target.getBoundingClientRect();
-          setLogoStyle(prev => ({
-            ...prev,
-            left: `${rect.left}px`,
-            top: `${rect.top}px`,
-            width: `${rect.width}px`,
-            height: `${rect.height}px`,
+          const isMobile = window.innerWidth <= 768;
+          const fallbackWidth = isMobile ? 38 : 48;
+          const fallbackHeight = isMobile ? 38 : 48;
+          const fallbackLeft = isMobile ? 18 : 44;
+          const fallbackTop = isMobile ? 14 : 24;
+
+          const targetWidth = rect.width > 0 ? rect.width : fallbackWidth;
+          const targetHeight = rect.height > 0 ? rect.height : fallbackHeight;
+          const targetLeft = rect.width > 0 ? rect.left : fallbackLeft;
+          const targetTop = rect.height > 0 ? rect.top : fallbackTop;
+
+          setLogoStyle({
+            position: 'fixed',
+            left: `${targetLeft}px`,
+            top: `${targetTop}px`,
+            width: `${targetWidth}px`,
+            height: `${targetHeight}px`,
+            zIndex: 1500,
+            pointerEvents: 'none',
+            objectFit: 'contain',
+            borderRadius: '4px',
             opacity: 1,
             filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35))',
             transform: 'scale(1)',
             transition: 'all 2.2s cubic-bezier(0.77, 0, 0.175, 1)'
-          }));
+          });
+          setLogoStage('animating');
         } else {
           setLogoStage('finished');
           setShowFloatingLogo(false);
         }
-      }, 2000); // 2.0s hold centered cleanly
+      }, 1400); // 1.4s centered hold cleanly
 
       return () => clearTimeout(timer);
     }
@@ -280,22 +281,10 @@ export default function App() {
     if (logoStage === 'animating') {
       const timer = setTimeout(() => {
         setLogoStage('finished');
-        // Fade out floating logo smoothly now that navbar logo is already visible underneath
-        setLogoStyle(prev => ({
-          ...prev,
-          opacity: 0,
-          transition: 'opacity 0.4s ease-out'
-        }));
+        setShowFloatingLogo(false);
       }, 2200);
 
-      const cleanupTimer = setTimeout(() => {
-        setShowFloatingLogo(false);
-      }, 2650);
-
-      return () => {
-        clearTimeout(timer);
-        clearTimeout(cleanupTimer);
-      };
+      return () => clearTimeout(timer);
     }
   }, [logoStage]);
 
